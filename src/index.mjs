@@ -109,7 +109,7 @@ function choose(items,series) {
   return chosen;
 }
 function draftFor(item,series) {
-  const desc=(item.description||"").replace(/\\s+/g," ").trim();
+  const desc=(item.description||"").replace(/\s+/g," ").trim();
   const title=item.title.replace(/^[^:]+:\s*/,"").trim();
   const cleanDesc=desc.length>520?desc.slice(0,517)+"...":desc;
   const hooks={
@@ -137,7 +137,7 @@ function draftFor(item,series) {
     "",
     `THE DETAIL I NOTICED\\n${title}`,
     "",
-    `WHY IT MATTERS\\n${series==="Africa Crypto Lens"?"There may be a useful local angle here, but it needs to be separated from the broader global story.":"The useful question isn't whether the headline sounds big. It's what changes in practice if the reported development is real."`,
+    `WHY IT MATTERS\n${series === "Africa Crypto Lens" ? "There may be a useful local angle here, but it needs to be separated from the broader global story." : "The useful question is what changes in practice if the reported development is real."}`,
     "",
     "WHAT I'D CHECK NEXT",
     "Primary announcement → exact numbers → timeline → what actually changed.",
