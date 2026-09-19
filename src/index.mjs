@@ -25,6 +25,10 @@ function localDate(date) {
 function clean(s) {
   return (s || "").replace(/<[^>]*>/g," ").replace(/&amp;/g,"&").replace(/&#39;/g,"'").replace(/&quot;/g,'"').replace(/\s+/g," ").trim();
 }
+function extractMedia(block) {
+  const m = block.match(/<(?:media:content|media:thumbnail|enclosure)[^>]*(?:url|href)=["']([^"']+)["']/i);
+  return m ? m[1] : "";
+}
 function parseItems(xml, source) {
   const items=[];
   for (const match of xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)) {
@@ -35,9 +39,19 @@ function parseItems(xml, source) {
     };
     const link=get("link") || ((block.match(/<link>([^<]+)/i)||[])[1]||"");
     const title=get("title");
-    if (title && link) items.push({source,title,description:get("description"),link,pubDate:get("pubDate")||get("published")||get("updated")});
+    if (title && link) items.push({source,title,description:get("description"),link,pubDate:get("pubDate")||get("published")||get("updated"),imageUrl:extractMedia(block)});
   }
   return items;
+}
+async function enrichImage(item) {
+  if (item.imageUrl) return item;
+  try {
+    const res=await fetch(item.link,{headers:{"user-agent":"SquareRadar/1.0"}});
+    if(!res.ok) return item;
+    const html=await res.text();
+    const m=html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i)||html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
+    return m ? {...item,imageUrl:m[1]} : item;
+  } catch { return item; }
 }
 async function fetchFeed(pair) {
   const source=pair[0], url=pair[1];
@@ -81,13 +95,14 @@ function pack(series,emoji,brief,items,date) {
   const primary=items[0];
   const facts=items.slice(0,3).map(x=>"• "+x.title+" — "+x.source+". "+(x.description||"See source for details.")).join("\n");
   const links=items.slice(0,3).map(x=>"• "+x.source+": "+x.link).join("\n");
+  const images=items.filter(x=>x.imageUrl).slice(0,4).map(x=>"• "+x.source+" image: "+x.imageUrl+"\n  Source article: "+x.link).join("\n");
   let angle="Use the reporting as a starting point, then add your own observation. Do not repeat the headline. Focus on: "+brief;
   if(series==="I Tested It") angle="If you have not personally tested this, do not write as if you did. Label it as a proposed experiment or test it yourself first.";
   if(series==="$10 Experiment") angle="Never claim a result you have not obtained. Show starting conditions, steps, fees/risks, and results only after a real test.";
   if(series==="What I'm Watching") angle="Make this a watchlist, not a prediction. State what would confirm or weaken each observation.";
   const hook=series==="Africa Crypto Lens" ? "The crypto story looks different when you look at it from Africa. Here's the part I think is being missed:" : "I found something in crypto worth investigating today — and the obvious headline isn't the interesting part.";
   const visual=series==="What I'm Watching" ? "A clean 5-item watchlist graphic with one short line per item." : "A screenshot, chart, transaction explorer view, or product screen that directly proves the main point.";
-  return "SQUARERADAR | "+date+"\n\n"+emoji+" "+series+"\n\nTOPIC\n"+(primary?.title||"No strong topic found today.")+"\n\nWHY IT'S INTERESTING\n"+(primary?.description||"No strong current source was available. Consider an educational post instead.")+"\n\nVERIFIED RESEARCH STARTING POINTS\n"+(facts||"No source facts available.")+"\n\nSUGGESTED ANGLE\n"+angle+"\n\nHOOK\n"+hook+"\n\nVISUAL IDEA\n"+visual+"\n\nENGAGEMENT QUESTION\nWhat part of this would you investigate next?\n\nSOURCES\n"+(links||"No sources available.")+"\n\nEDITOR NOTE\nOpen the source links, verify the details, and rewrite in your own voice before posting.";
+  return "SQUARERADAR | "+date+"\n\n"+emoji+" "+series+"\n\nTOPIC\n"+(primary?.title||"No strong topic found today.")+"\n\nWHY IT'S INTERESTING\n"+(primary?.description||"No strong current source was available. Consider an educational post instead.")+"\n\nVERIFIED RESEARCH STARTING POINTS\n"+(facts||"No source facts available.")+"\n\nSUGGESTED ANGLE\n"+angle+"\n\nHOOK\n"+hook+"\n\nVISUAL IDEA\n"+visual+"\n\nVERIFIED IMAGE CANDIDATES\n${images||"No image found in the source feed/page. Use an original screenshot or chart instead."}\n\nENGAGEMENT QUESTION\nWhat part of this would you investigate next?\n\nSOURCES\n"+(links||"No sources available.")+"\n\nEDITOR NOTE\nOpen the source links, verify the details, and rewrite in your own voice before posting.";
 }
 async function sendTelegram(message) {
   const token=process.env.TELEGRAM_BOT_TOKEN, chatId=process.env.TELEGRAM_CHAT_ID;
@@ -100,7 +115,7 @@ const day=dayName(now);
 const config=schedule[day];
 const feeds=[...FEEDS,...(day==="wednesday"?NIGERIA_FEEDS:[])];
 const batches=await Promise.all(feeds.map(fetchFeed));
-const selected=choose(batches.flat(),config.series);
+const selected=await Promise.all(choose(batches.flat(),config.series).map(enrichImage));
 const output=pack(config.series,config.emoji,config.brief,selected,localDate(now));
 await fs.mkdir(path.join(root,"output"),{recursive:true});
 await fs.writeFile(path.join(root,"output",localDate(now)+"-"+day+".txt"),output+"\n","utf8");
