@@ -109,58 +109,67 @@ function choose(items,series) {
   return chosen;
 }
 function draftFor(item,series) {
-  const desc=(item.description||"").replace(/\s+/g," ").trim();
-  const cleanDesc=desc.length>420 ? desc.slice(0,417)+"..." : desc;
-  const hookBySeries={
-    "Crypto Investigation":"This headline is interesting. But the detail underneath it is what caught my attention.",
-    "I Tested It":"I wanted to see what actually happens when you try this.",
-    "Africa Crypto Lens":"Crypto stories can look very different from an African perspective. Here's the part worth watching.",
-    "$10 Experiment":"I gave myself a $10 limit and one goal: learn something useful without pretending I knew the outcome.",
-    "Crypto Nobody Explained Properly":"This sounds complicated until you break down what is actually happening.",
-    "What I'm Watching":"A few crypto developments caught my attention today. Here's what I'm watching.",
-    "5 Things I Learned This Week":"I went through this week's crypto stories. Here's one lesson that stood out."
+  const desc=(item.description||"").replace(/\\s+/g," ").trim();
+  const title=item.title.replace(/^[^:]+:\s*/,"").trim();
+  const cleanDesc=desc.length>520?desc.slice(0,517)+"...":desc;
+  const hooks={
+    "Crypto Investigation":`The headline says ${title}. I'm more interested in what it means underneath the headline.`,
+    "I Tested It":"I wanted to see what actually happens when you move from the headline to the real-world test.",
+    "Africa Crypto Lens":`Most crypto coverage starts with the US or Europe. Here's the part of ${title} I'd watch from Africa.`,
+    "$10 Experiment":`Could I turn a $10 crypto experiment into something actually useful? Here's what I'm testing.`,
+    "Crypto Nobody Explained Properly":`Forget the jargon for a minute. Here's what ${title} actually means.`,
+    "What I'm Watching":`This isn't a prediction. It's one of the crypto developments I think is worth keeping an eye on: ${title}.`,
+    "5 Things I Learned This Week":`One crypto headline taught me something I didn't expect this week: ${title}.`
   };
+  const question={
+    "Crypto Investigation":"What would you check before believing the headline?",
+    "I Tested It":"What would you test next?",
+    "$10 Experiment":"If you had $10 and one experiment, what would you test?",
+    "Africa Crypto Lens":"How does this look from your side of the world?",
+    "Crypto Nobody Explained Properly":"What should I break down next?",
+    "What I'm Watching":"What crypto story are you watching right now?",
+    "5 Things I Learned This Week":"Which lesson would you add?"
+  }[series]||"What would you investigate next?";
   return [
-    hookBySeries[series]||"Here's something interesting happening in crypto:",
+    hooks[series]||`Here's the part of ${title} worth paying attention to:`,
     "",
-    "📰 WHAT HAPPENED",
-    cleanDesc || item.title,
+    `THE STORY\\n${cleanDesc||title}`,
     "",
-    "🔎 THE INTERESTING PART",
-    item.title+".",
+    `THE DETAIL I NOTICED\\n${title}`,
     "",
-    "🤔 WHY I'M WATCHING",
-    series==="Africa Crypto Lens" ? "The African relevance is worth investigating before drawing broader conclusions." : "The next useful step is to verify the primary source and see what changes in practice.",
+    `WHY IT MATTERS\\n${series==="Africa Crypto Lens"?"There may be a useful local angle here, but it needs to be separated from the broader global story.":"The useful question isn't whether the headline sounds big. It's what changes in practice if the reported development is real."`,
     "",
-    "⚠️ WHAT WE DON'T KNOW",
-    "The available reporting is only the starting point. I would verify the original announcement, numbers and timeline before treating the claim as settled.",
+    "WHAT I'D CHECK NEXT",
+    "Primary announcement → exact numbers → timeline → what actually changed.",
     "",
-    "💬 WHAT DO YOU THINK?",
-    "What part of this would you investigate next?"
+    `YOUR TAKE\\n${question}`
   ].join("\n");
 }
 
 function pack(series,emoji,brief,items,date) {
-  const candidates=items.slice(0,3);
-  const blocks=candidates.map((item,i)=>{
+  const blocks=items.slice(0,3).map((item,i)=>{
+    const draft=draftFor(item,series);
     return [
       `━━━━━━━━━━━━━━━━━━━━`,
-      `OPTION ${i+1} • SCORE ${score(item,series)}`,
+      `🧩 OPTION ${i+1}`,
       `🔥 ${item.title}`,
-      `\n📌 WHY IT'S INTERESTING\n${item.description||"Current reporting available; open the source for the full context."}`,
-      `\n🎣 HOOK\n${draftFor(item,series).split("\\n")[0]}`,
-      `\n📝 READY-TO-EDIT DRAFT\n${draftFor(item,series)}`,
+      `\n📍 THE ANGLE\n${brief}`,
+      `\n✍️ POST DRAFT\n\n${draft}`,
       `\n🔗 SOURCE\n${item.source}: ${item.link}`
-    ].join("\\n");
-  }).join("\\n");
+    ].join("\n");
+  }).join("\n");
   return [
     `🟣 SQUARERADAR • ${date}`,
-    `\n${emoji} TODAY: ${series}`,
-    `\n🎯 YOUR MISSION\\nPick ONE of the three options below. Each is based on current reporting; verify the linked source before publishing.`,
+    `\n${emoji} ${series.toUpperCase()}`,
+    "\n🎯 PICK YOUR POST",
+    "Three different stories. Three different angles. Pick the one that fits your voice today.",
     blocks,
-    `\n━━━━━━━━━━━━━━━━━━━━\\n💬 TELEGRAM SELECTION\\nReply to yourself with: OPTION 1, OPTION 2, or OPTION 3.`,
-    `\n⚠️ EDITOR CHECK\\nVerify the latest facts, numbers and dates. Check image usage rights. Never present a proposed experiment as a completed test.`
-  ].join("\\n");
+    "\n━━━━━━━━━━━━━━━━━━━━",
+    "🧠 POSTING RULE",
+    "Don't copy the source. Use the facts, add your own observation, and make the question yours.",
+    "\n⚠️ VERIFY",
+    "Open the source and verify names, numbers, dates and claims before posting."
+  ].join("\n");
 }
 async function sendTelegram(message) {
   const token=process.env.TELEGRAM_BOT_TOKEN, chatId=process.env.TELEGRAM_CHAT_ID;
