@@ -88,87 +88,67 @@ function sourceQuality(source) {
 function score(item,series) {
   const text=(item.title+" "+item.description).toLowerCase();
   let s=sourceQuality(item.source);
-  if(/binance|ethereum|bitcoin|stablecoin|defi|wallet|solana|base|arc|rwa|ai|on-chain|token|layer 2|security|hack|exploit/.test(text)) s+=24;
-  if(/launch|released|upgrade|update|funding|raises|integrat|adopt|transaction|volume|users|mainnet|testnet|proposal|governance/.test(text)) s+=22;
+  if(/bitcoin|ethereum|solana|stablecoin|defi|wallet|base|arc|rwa|ai|on-chain|token|layer 2|security|hack|exploit/.test(text)) s+=24;
+  if(/launch|released|upgrade|update|funding|raises|integrat|adopt|transaction|volume|users|mainnet|testnet|proposal|governance|record|surge|collapse|warning/.test(text)) s+=24;
   if(/nigeria|africa|kenya|ghana|south africa|egypt/.test(text)) s+=series==="Africa Crypto Lens"?45:10;
-  if(/hack|exploit|scam|security|phishing/.test(text)) s+=10;
+  if(/hack|exploit|scam|security|phishing/.test(text)) s+=12;
   const age=item.pubDate ? Date.now()-new Date(item.pubDate).getTime() : Infinity;
-  if(age<12*3600e3) s+=22; else if(age<48*3600e3) s+=12; else if(age<7*24*3600e3) s+=4;
-  if(item.imageUrl) s+=5;
-  if(item.description && item.description.length>80) s+=4;
+  if(age<12*3600e3) s+=25; else if(age<48*3600e3) s+=14; else if(age<7*24*3600e3) s+=4;
+  if(item.description && item.description.length>100) s+=5;
+  if(/\b(\d+%|\$\d+|million|billion|first|largest|fastest|slower|faster|new|unexpected|despite|but|why|surge|drop|record)\b/i.test(text)) s+=18;
   return s;
 }
-function choose(items,series) {
+function chooseOne(items,series) {
   const usable=items.filter(x=>x.title!=="FEED_ERROR" && x.title.length>12);
-  const ranked=usable.sort((a,b)=>score(b,series)-score(a,series));
-  const chosen=[];
-  for(const item of ranked) {
-    if(chosen.every(x=>similarity(x.title+" "+x.description,item.title+" "+item.description)<0.5)) chosen.push(item);
-    if(chosen.length>=3) break;
-  }
-  return chosen;
+  return usable.sort((a,b)=>score(b,series)-score(a,series))[0];
+}
+function punchTitle(title) {
+  return title.replace(/^[^:]+:\s*/,"").replace(/\.$/,"").trim();
 }
 function draftFor(item,series) {
-  const desc=(item.description||"").replace(/\s+/g," ").trim();
-  const title=item.title.replace(/^[^:]+:\s*/,"").trim();
-  const cleanDesc=desc.length>520?desc.slice(0,517)+"...":desc;
-  const hooks={
-    "Crypto Investigation":`The headline says ${title}. I'm more interested in what it means underneath the headline.`,
-    "I Tested It":"I wanted to see what actually happens when you move from the headline to the real-world test.",
-    "Africa Crypto Lens":`Most crypto coverage starts with the US or Europe. Here's the part of ${title} I'd watch from Africa.`,
-    "$10 Experiment":`Could I turn a $10 crypto experiment into something actually useful? Here's what I'm testing.`,
-    "Crypto Nobody Explained Properly":`Forget the jargon for a minute. Here's what ${title} actually means.`,
-    "What I'm Watching":`This isn't a prediction. It's one of the crypto developments I think is worth keeping an eye on: ${title}.`,
-    "5 Things I Learned This Week":`One crypto headline taught me something I didn't expect this week: ${title}.`
-  };
-  const question={
-    "Crypto Investigation":"What would you check before believing the headline?",
-    "I Tested It":"What would you test next?",
-    "$10 Experiment":"If you had $10 and one experiment, what would you test?",
-    "Africa Crypto Lens":"How does this look from your side of the world?",
-    "Crypto Nobody Explained Properly":"What should I break down next?",
-    "What I'm Watching":"What crypto story are you watching right now?",
-    "5 Things I Learned This Week":"Which lesson would you add?"
-  }[series]||"What would you investigate next?";
+  const desc=clean(item.description||"");
+  const title=punchTitle(item.title);
+  const short=desc.length>420?desc.slice(0,417)+"...":desc;
+  const hooks=[
+    `Everyone is talking about ${title}. But here's the part that caught my attention.`,
+    `This looked like another crypto headline until I noticed one detail: ${title}.`,
+    `I wouldn't rush to trade this headline. I'd investigate it first. Here's why: ${title}.`
+  ];
+  const hook=hooks[Math.floor(score(item,series))%hooks.length];
   return [
-    hooks[series]||`Here's the part of ${title} worth paying attention to:`,
+    hook,
     "",
-    `THE STORY\\n${cleanDesc||title}`,
+    `📰 ${short||title}`,
     "",
-    `THE DETAIL I NOTICED\\n${title}`,
+    "🔎 THE DETAIL",
+    `The interesting part isn't just the announcement. It's what ${title.toLowerCase()} could change in practice.`,
     "",
-    `WHY IT MATTERS\n${series === "Africa Crypto Lens" ? "There may be a useful local angle here, but it needs to be separated from the broader global story." : "The useful question is what changes in practice if the reported development is real."}`,
+    "🧠 MY TAKE",
+    "I'm watching the follow-through: the original announcement, the actual numbers, and whether the change shows up on-chain or in real user behavior.",
     "",
-    "WHAT I'D CHECK NEXT",
-    "Primary announcement → exact numbers → timeline → what actually changed.",
+    "⚠️ WHAT I'D VERIFY",
+    "Primary source → exact figures → timeline → real-world impact.",
     "",
-    `YOUR TAKE\\n${question}`
+    "💬 QUESTION",
+    "Would you investigate this, trade it, or simply watch what happens next?"
   ].join("\n");
 }
-
-function pack(series,emoji,brief,items,date) {
-  const blocks=items.slice(0,3).map((item,i)=>{
-    const draft=draftFor(item,series);
-    return [
-      `━━━━━━━━━━━━━━━━━━━━`,
-      `🧩 OPTION ${i+1}`,
-      `🔥 ${item.title}`,
-      `\n📍 THE ANGLE\n${brief}`,
-      `\n✍️ POST DRAFT\n\n${draft}`,
-      `\n🔗 SOURCE\n${item.source}: ${item.link}`
-    ].join("\n");
-  }).join("\n");
+function pack(series,emoji,brief,item,date) {
+  if(!item) return `🟣 SQUARERADAR • ${date}\n\nNo strong story passed today's attention filter.\n\nI'll wait for a better one rather than force a post.\n`;
   return [
     `🟣 SQUARERADAR • ${date}`,
     `\n${emoji} ${series.toUpperCase()}`,
-    "\n🎯 PICK YOUR POST",
-    "Three different stories. Three different angles. Pick the one that fits your voice today.",
-    blocks,
+    "\n🔥 TODAY'S STORY",
+    item.title,
     "\n━━━━━━━━━━━━━━━━━━━━",
-    "🧠 POSTING RULE",
-    "Don't copy the source. Use the facts, add your own observation, and make the question yours.",
+    "\n✍️ READY-TO-POST",
+    draftFor(item,series),
+    `\n🔗 SOURCE\n${item.source}: ${item.link}`,
+    "\n━━━━━━━━━━━━━━━━━━━━",
+    "🎯 WHY THIS STORY",
+    "Fresh + attention-grabbing + specific enough to start a conversation.",
     "\n⚠️ VERIFY",
-    "Open the source and verify names, numbers, dates and claims before posting."
+    "Open the source before posting. Verify names, numbers and dates. Don't turn a proposed test into a claimed result."
   ].join("\n");
 }
 async function sendTelegram(message) {
@@ -190,9 +170,10 @@ const day=dayName(now);
 const config=schedule[day];
 const feeds=[...FEEDS,...(day==="wednesday"?NIGERIA_FEEDS:[])];
 const batches=await Promise.all(feeds.map(fetchFeed));
-const selected=await Promise.all(choose(batches.flat(),config.series).map(enrichImage));
+const selected=chooseOne(batches.flat(),config.series);
 const output=pack(config.series,config.emoji,config.brief,selected,localDate(now));
 await fs.mkdir(path.join(root,"output"),{recursive:true});
 await fs.writeFile(path.join(root,"output",localDate(now)+"-"+day+".txt"),output+"\n","utf8");
+await sendTelegram(output);
 await sendTelegram(output);
 console.log("SquareRadar complete:",day,config.series);
