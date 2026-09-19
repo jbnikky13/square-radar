@@ -1,0 +1,8 @@
+{
+  "name": "square-radar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Daily Binance Square research and content-prompt radar.",
+  "type": "module",
+  "scripts": { "start": "node src/index.mjs" }
+}
