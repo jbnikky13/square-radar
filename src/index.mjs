@@ -106,35 +106,28 @@ function punchTitle(title) {
   return title.replace(/^[^:]+:\s*/,"").replace(/\.$/,"").trim();
 }
 function draftFor(item,series) {
-  const desc=clean(item.description||"");
-  const title=punchTitle(item.title);
-  const fact=desc.length>520?desc.slice(0,517)+"...":desc;
-  const nums=[...fact.matchAll(/(?:from|at|to|by|of)\\s+[$€£]?\\d+(?:\\.\\d+)?%?|[$€£]?\\d+(?:\\.\\d+)?%|\\d+(?:x|×)/gi)].map(m=>m[0]);
+  const desc=clean(item.description||"").replace(/\.{2,}/g,".").trim();
+  const sentences=desc.split(/(?<=[.!?])\s+/).filter(Boolean);
+  const fact=sentences[0]||desc;
+  const nums=[...fact.matchAll(/[$€£]?\d+(?:\.\d+)?(?:%|x|×)?/gi)].map(m=>m[0]);
   const lead=nums[0];
-  const opening=lead
-    ? `${title} caught my attention because one number changes the whole story: ${lead}.`
-    : `${title} caught my attention — but the headline isn't the part I'd focus on.`;
-  const investigation=lead
-    ? `If I were investigating this with $10, I wouldn't buy the token first. I'd spend the $10 on answering one question: does this change actually matter to users?`
-    : `If I were investigating this with $10, I wouldn't buy the token first. I'd spend the $10 on finding out whether the reported change actually matters to users.`;
+  const question=lead ? `Does ${lead} actually make the product or network meaningfully better?` : "Does this actually change the product or network for real users?";
   return [
-    opening,
+    lead ? `The number that caught my attention today: ${lead}.` : "This is the kind of crypto update I want to look at before the market turns it into a headline.",
     "",
-    `Right now, the key reported development is simple: ${fact||title}.`,
+    fact,
     "",
-    "That's the headline.",
+    "Here's the part I'd investigate:",
+    question,
     "",
-    "But the part I'd dig into is what happens after the announcement.",
+    "A headline can tell us what changed. It doesn't tell us whether the change matters.",
     "",
-    "This isn't just about a headline moving around crypto Twitter. The useful question is whether the underlying change produces a measurable difference for users, developers or the network.",
+    "I'd check the primary announcement, the implementation timeline and the first real-world data after launch.",
     "",
-    "🧠 MY TAKE",
-    "I wouldn't call this bullish or bearish from the headline alone. I'd verify the primary source, the implementation timeline and the actual effect once it's live.",
+    "💰 $10 EXPERIMENT",
+    `If I had $10 for this investigation, I wouldn't buy the token just because the story is interesting. I'd spend it testing the claim: ${question}`,
     "",
-    "💰 THE $10 TEST",
-    investigation,
-    "",
-    "💬 What would you investigate first?"
+    `💬 ${question}`
   ].join("\n");
 }
 
@@ -175,6 +168,5 @@ const selected=chooseOne(batches.flat(),config.series);
 const output=pack(config.series,config.emoji,config.brief,selected,localDate(now));
 await fs.mkdir(path.join(root,"output"),{recursive:true});
 await fs.writeFile(path.join(root,"output",localDate(now)+"-"+day+".txt"),output+"\n","utf8");
-await sendTelegram(output);
 await sendTelegram(output);
 console.log("SquareRadar complete:",day,config.series);
