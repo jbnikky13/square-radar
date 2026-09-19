@@ -135,8 +135,6 @@ function pack(series,emoji,brief,item,date) {
   if(!item) return `🟣 SQUARERADAR • ${date}\n\nNo story passed today's attention filter.\n\nI'd rather skip a post than force a weak one.\n`;
   return [
     `🟣 SQUARERADAR • ${date}`,
-    "\n🧩 TOPIC",
-    item.title,
     "\n🔥 TODAY'S STORY",
     item.title,
     "\n━━━━━━━━━━━━━━━━━━━━",
