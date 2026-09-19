@@ -107,8 +107,16 @@ function pack(series,emoji,brief,items,date) {
 async function sendTelegram(message) {
   const token=process.env.TELEGRAM_BOT_TOKEN, chatId=process.env.TELEGRAM_CHAT_ID;
   if(!token||!chatId){console.log(message);return;}
-  const res=await fetch("https://api.telegram.org/bot"+token+"/sendMessage",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({chat_id:chatId,text:message})});
-  if(!res.ok) throw new Error("Telegram send failed: "+res.status);
+  const url="https://api.telegram.org/bot"+token+"/sendMessage";
+  const chunks=[];
+  for(let i=0;i<message.length;i+=3800) chunks.push(message.slice(i,i+3800));
+  for(const chunk of chunks){
+    const res=await fetch(url,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({chat_id:chatId,text:chunk,disable_web_page_preview:true})});
+    if(!res.ok){
+      const detail=await res.text().catch(()=> "");
+      throw new Error("Telegram send failed: "+res.status+" "+detail.slice(0,500));
+    }
+  }
 }
 const now=new Date();
 const day=dayName(now);
