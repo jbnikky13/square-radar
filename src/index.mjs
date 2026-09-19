@@ -24,22 +24,15 @@ function localDate(date) {
 }
 function clean(s) {
   return (s || "")
-    .replace(/<script[\\s\\S]*?<\\/script>/gi," ")
-    .replace(/<style[\\s\\S]*?<\\/style>/gi," ")
-    .replace(/<[^>]*>/g," ")
-    .replace(/&nbsp;/gi," ")
-    .replace(/&amp;/gi,"&")
-    .replace(/&lt;/gi,"<")
-    .replace(/&gt;/gi,">")
-    .replace(/&#39;/g,"'")
-    .replace(/&quot;/g,'"')
-    .replace(/https?:\\/\\/[^\\s]+/g,"")
-    .replace(/\\s+/g," ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/\\s+/g, " ")
     .trim();
-}
-function extractMedia(block) {
-  const m = block.match(/<(?:media:content|media:thumbnail|enclosure)[^>]*(?:url|href)=["']([^"']+)["']/i);
-  return m ? m[1] : "";
 }
 function parseItems(xml, source) {
   const items=[];
