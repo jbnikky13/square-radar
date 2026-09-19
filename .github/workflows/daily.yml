@@ -3,6 +3,8 @@ name: SquareRadar Daily
 on:
   schedule:
     - cron: "30 5 * * 1-6"
+    - cron: "30 12 * * 1-6"
+    - cron: "30 18 * * 1-6"
   workflow_dispatch:
 
 permissions:
