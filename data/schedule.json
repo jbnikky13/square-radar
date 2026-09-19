@@ -1,9 +1,32 @@
 {
-  "monday": {"series":"Crypto Investigation","emoji":"🔎","brief":"Investigate one genuinely interesting crypto development, protocol, wallet movement, product launch, security event, or on-chain pattern. Prefer primary evidence and explain what is known versus unknown."},
-  "tuesday": {"series":"I Tested It","emoji":"🧪","brief":"Find a practical crypto product, feature, protocol, wallet flow, or tool that can be tested and documented. If no real test is available, propose a small safe experiment rather than inventing results."},
-  "wednesday": {"series":"Africa Crypto Lens","emoji":"🌍","brief":"Find a crypto, stablecoin, payments, fintech, regulation, adoption, or infrastructure story relevant to Africa, with extra attention to Nigeria. Explain the local angle without assuming every African market is the same."},
-  "thursday": {"series":"Crypto Nobody Explained Properly","emoji":"🧠","brief":"Turn a confusing current crypto concept, product, mechanism, or event into a simple explanation with one concrete example."},
-  "friday": {"series":"What I'm Watching","emoji":"👀","brief":"Select several current developments worth monitoring. Separate facts, signals, and uncertainty. Do not present the watchlist as a prediction."},
-  "saturday": {"series":"$10 Experiment","emoji":"💰","brief":"Find a safe, educational small-budget crypto experiment. Never fabricate a completed test. If execution is required, label it as a proposed experiment."},
-  "sunday": {"series":"5 Things I Learned This Week","emoji":"📊","brief":"Synthesize five useful lessons or developments from the week's research, emphasizing what changed and what remains uncertain."}
+  "monday": {
+    "series": "Crypto Investigation",
+    "emoji": "🔎",
+    "brief": "Find one current crypto development with a surprising fact, concrete number, meaningful change, security event, product launch, or on-chain signal. Build one original post around the strongest fact."
+  },
+  "tuesday": {
+    "series": "I Tested It",
+    "emoji": "🧪",
+    "brief": "Find one practical crypto product, feature, protocol, wallet flow, or tool worth investigating. If no real test exists, propose a safe experiment without inventing results."
+  },
+  "wednesday": {
+    "series": "Africa Crypto Lens",
+    "emoji": "🌍",
+    "brief": "Find one current crypto, stablecoin, payments, fintech, regulation, adoption, or infrastructure story with a meaningful Africa or Nigeria angle. Avoid assuming all African markets are the same."
+  },
+  "thursday": {
+    "series": "Crypto Nobody Explained Properly",
+    "emoji": "🧠",
+    "brief": "Find one current crypto concept, mechanism, product, or event people may misunderstand. Explain it simply using the strongest current fact."
+  },
+  "friday": {
+    "series": "What I'm Watching",
+    "emoji": "👀",
+    "brief": "Find one current crypto development worth watching because of a surprising number, change, launch, risk, adoption signal, or unresolved question. Do not make a prediction."
+  },
+  "saturday": {
+    "series": "$10 Experiment",
+    "emoji": "💰",
+    "brief": "Find one current crypto development that can become a safe, educational small-budget investigation. Never fabricate a completed test; frame the $10 angle as proposed unless a real result exists."
+  }
 }
