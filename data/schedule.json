@@ -1,32 +1,104 @@
 {
   "monday": {
-    "series": "Crypto Investigation",
-    "emoji": "🔎",
-    "brief": "Find one current crypto development with a surprising fact, concrete number, meaningful change, security event, product launch, or on-chain signal. Build one original post around the strongest fact."
+    "morning": {
+      "series": "Crypto Investigation",
+      "emoji": "🔎",
+      "brief": "Find one current crypto development with a surprising fact, concrete number, meaningful change, security event, product launch, or on-chain signal. Build one original post around the strongest fact."
+    },
+    "afternoon": {
+      "series": "What's Changing",
+      "emoji": "🔥",
+      "brief": "Find a fresh crypto launch, upgrade, integration, adoption signal, unusual on-chain development, security event, or product change. Prefer a concrete fact that can make someone stop scrolling. Do not recycle the morning story."
+    },
+    "evening": {
+      "series": "Open Question",
+      "emoji": "👀",
+      "brief": "Find a current unresolved crypto development or debate worth discussing. Use one strong fact, explain the tension, and end with a genuine question. Do not predict an outcome."
+    }
   },
   "tuesday": {
-    "series": "I Tested It",
-    "emoji": "🧪",
-    "brief": "Find one practical crypto product, feature, protocol, wallet flow, or tool worth investigating. If no real test exists, propose a safe experiment without inventing results."
+    "morning": {
+      "series": "I Tested It",
+      "emoji": "🧪",
+      "brief": "Find one practical crypto product, feature, protocol, wallet flow, or tool worth investigating. If no real test exists, propose a safe experiment without inventing results."
+    },
+    "afternoon": {
+      "series": "What's Changing",
+      "emoji": "🔥",
+      "brief": "Find a separate fresh crypto development with a concrete change, launch, integration, metric, or surprising fact. Do not recycle the morning story."
+    },
+    "evening": {
+      "series": "Open Question",
+      "emoji": "👀",
+      "brief": "Find a separate current crypto story with an unresolved question, trade-off, or unusual detail. Turn it into a concise conversation starter without making a prediction."
+    }
   },
   "wednesday": {
-    "series": "Africa Crypto Lens",
-    "emoji": "🌍",
-    "brief": "Find one current crypto, stablecoin, payments, fintech, regulation, adoption, or infrastructure story with a meaningful Africa or Nigeria angle. Avoid assuming all African markets are the same."
+    "morning": {
+      "series": "Africa Crypto Lens",
+      "emoji": "🌍",
+      "brief": "Find one current crypto, stablecoin, payments, fintech, regulation, adoption, or infrastructure story with a meaningful Africa or Nigeria angle. Avoid assuming all African markets are the same."
+    },
+    "afternoon": {
+      "series": "What's Changing",
+      "emoji": "🔥",
+      "brief": "Find a separate fresh crypto development, preferably with an Africa-relevant angle when available. Use a concrete fact and avoid repeating the morning story."
+    },
+    "evening": {
+      "series": "Open Question",
+      "emoji": "👀",
+      "brief": "Find a separate current crypto development that raises a useful question for African or global users. Explain the fact and ask what readers would investigate next."
+    }
   },
   "thursday": {
-    "series": "Crypto Nobody Explained Properly",
-    "emoji": "🧠",
-    "brief": "Find one current crypto concept, mechanism, product, or event people may misunderstand. Explain it simply using the strongest current fact."
+    "morning": {
+      "series": "Crypto Nobody Explained Properly",
+      "emoji": "🧠",
+      "brief": "Find one current crypto concept, mechanism, product, or event people may misunderstand. Explain it simply using the strongest current fact."
+    },
+    "afternoon": {
+      "series": "What's Changing",
+      "emoji": "🔥",
+      "brief": "Find a separate current crypto launch, upgrade, integration, adoption signal, or unusual development with a strong hook. Do not recycle the morning story."
+    },
+    "evening": {
+      "series": "Open Question",
+      "emoji": "👀",
+      "brief": "Find a separate current crypto story with an unresolved question or trade-off. Keep it factual and conversational."
+    }
   },
   "friday": {
-    "series": "What I'm Watching",
-    "emoji": "👀",
-    "brief": "Find one current crypto development worth watching because of a surprising number, change, launch, risk, adoption signal, or unresolved question. Do not make a prediction."
+    "morning": {
+      "series": "What I'm Watching",
+      "emoji": "👀",
+      "brief": "Find one current crypto development worth watching because of a surprising number, change, launch, risk, adoption signal, or unresolved question. Do not make a prediction."
+    },
+    "afternoon": {
+      "series": "What's Changing",
+      "emoji": "🔥",
+      "brief": "Find a separate fresh crypto development with a strong concrete fact or measurable change. Do not recycle the morning story."
+    },
+    "evening": {
+      "series": "Open Question",
+      "emoji": "💬",
+      "brief": "Find a separate current crypto development that can spark a thoughtful conversation. Focus on what is known, what is uncertain, and one question."
+    }
   },
   "saturday": {
-    "series": "$10 Experiment",
-    "emoji": "💰",
-    "brief": "Find one current crypto development that can become a safe, educational small-budget investigation. Never fabricate a completed test; frame the $10 angle as proposed unless a real result exists."
+    "morning": {
+      "series": "$10 Experiment",
+      "emoji": "💰",
+      "brief": "Find one current crypto development that can become a safe, educational small-budget investigation. Never fabricate a completed test; frame the $10 angle as proposed unless a real result exists."
+    },
+    "afternoon": {
+      "series": "What's Changing",
+      "emoji": "🔥",
+      "brief": "Find a separate fresh crypto development with an attention-grabbing fact, launch, integration, metric, or unusual change. Do not recycle the morning story."
+    },
+    "evening": {
+      "series": "Open Question",
+      "emoji": "👀",
+      "brief": "Find a separate current crypto story with an unresolved question, surprising detail, or meaningful trade-off. End with a genuine question and no prediction."
+    }
   }
 }
