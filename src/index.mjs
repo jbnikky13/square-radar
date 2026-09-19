@@ -23,7 +23,19 @@ function localDate(date) {
   return new Intl.DateTimeFormat("en-CA", {timeZone:"Africa/Lagos",year:"numeric",month:"2-digit",day:"2-digit"}).format(date);
 }
 function clean(s) {
-  return (s || "").replace(/<[^>]*>/g," ").replace(/&amp;/g,"&").replace(/&#39;/g,"'").replace(/&quot;/g,'"').replace(/\s+/g," ").trim();
+  return (s || "")
+    .replace(/<script[\\s\\S]*?<\\/script>/gi," ")
+    .replace(/<style[\\s\\S]*?<\\/style>/gi," ")
+    .replace(/<[^>]*>/g," ")
+    .replace(/&nbsp;/gi," ")
+    .replace(/&amp;/gi,"&")
+    .replace(/&lt;/gi,"<")
+    .replace(/&gt;/gi,">")
+    .replace(/&#39;/g,"'")
+    .replace(/&quot;/g,'"')
+    .replace(/https?:\\/\\/[^\\s]+/g,"")
+    .replace(/\\s+/g," ")
+    .trim();
 }
 function extractMedia(block) {
   const m = block.match(/<(?:media:content|media:thumbnail|enclosure)[^>]*(?:url|href)=["']([^"']+)["']/i);
@@ -70,74 +82,90 @@ function similarity(a,b) {
   const A=new Set(tokens(a)), B=new Set(tokens(b));
   return [...A].filter(x=>B.has(x)).length/Math.max(1,Math.min(A.size,B.size));
 }
+function sourceQuality(source) {
+  if(/Binance|official|foundation|blog|docs/i.test(source)) return 18;
+  if(/CoinDesk|Decrypt|Cointelegraph|The Block/i.test(source)) return 14;
+  if(/Google News/i.test(source)) return 4;
+  return 8;
+}
 function score(item,series) {
   const text=(item.title+" "+item.description).toLowerCase();
-  let s=0;
-  if(/binance|ethereum|bitcoin|stablecoin|defi|wallet|solana|base|arc|rwa|ai|on-chain|token|layer 2|security|hack|exploit/.test(text)) s+=28;
-  if(/launch|released|upgrade|update|funding|raises|integrat|adopt|transaction|volume|users|mainnet|testnet/.test(text)) s+=20;
+  let s=sourceQuality(item.source);
+  if(/binance|ethereum|bitcoin|stablecoin|defi|wallet|solana|base|arc|rwa|ai|on-chain|token|layer 2|security|hack|exploit/.test(text)) s+=24;
+  if(/launch|released|upgrade|update|funding|raises|integrat|adopt|transaction|volume|users|mainnet|testnet|proposal|governance/.test(text)) s+=22;
   if(/nigeria|africa|kenya|ghana|south africa|egypt/.test(text)) s+=series==="Africa Crypto Lens"?45:10;
-  if(/hack|exploit|scam|security|phishing/.test(text)) s+=8;
-  if(item.source.includes("Google News")) s+=4;
+  if(/hack|exploit|scam|security|phishing/.test(text)) s+=10;
   const age=item.pubDate ? Date.now()-new Date(item.pubDate).getTime() : Infinity;
-  if(age<48*3600e3) s+=15;
+  if(age<12*3600e3) s+=22; else if(age<48*3600e3) s+=12; else if(age<7*24*3600e3) s+=4;
+  if(item.imageUrl) s+=5;
+  if(item.description && item.description.length>80) s+=4;
   return s;
 }
 function choose(items,series) {
-  const usable=items.filter(x=>x.title!=="FEED_ERROR").sort((a,b)=>score(b,series)-score(a,series));
+  const usable=items.filter(x=>x.title!=="FEED_ERROR" && x.title.length>12);
+  const ranked=usable.sort((a,b)=>score(b,series)-score(a,series));
   const chosen=[];
-  for(const item of usable) {
-    if(chosen.every(x=>similarity(x.title,item.title)<0.65)) chosen.push(item);
-    if(chosen.length >= (series==="What I'm Watching"?5:3)) break;
+  for(const item of ranked) {
+    if(chosen.every(x=>similarity(x.title+" "+x.description,item.title+" "+item.description)<0.5)) chosen.push(item);
+    if(chosen.length>=3) break;
   }
   return chosen;
 }
+function draftFor(item,series) {
+  const desc=(item.description||"").replace(/\s+/g," ").trim();
+  const cleanDesc=desc.length>420 ? desc.slice(0,417)+"..." : desc;
+  const hookBySeries={
+    "Crypto Investigation":"This headline is interesting. But the detail underneath it is what caught my attention.",
+    "I Tested It":"I wanted to see what actually happens when you try this.",
+    "Africa Crypto Lens":"Crypto stories can look very different from an African perspective. Here's the part worth watching.",
+    "$10 Experiment":"I gave myself a $10 limit and one goal: learn something useful without pretending I knew the outcome.",
+    "Crypto Nobody Explained Properly":"This sounds complicated until you break down what is actually happening.",
+    "What I'm Watching":"A few crypto developments caught my attention today. Here's what I'm watching.",
+    "5 Things I Learned This Week":"I went through this week's crypto stories. Here's one lesson that stood out."
+  };
+  return [
+    hookBySeries[series]||"Here's something interesting happening in crypto:",
+    "",
+    "📰 WHAT HAPPENED",
+    cleanDesc || item.title,
+    "",
+    "🔎 THE INTERESTING PART",
+    item.title+".",
+    "",
+    "🤔 WHY I'M WATCHING",
+    series==="Africa Crypto Lens" ? "The African relevance is worth investigating before drawing broader conclusions." : "The next useful step is to verify the primary source and see what changes in practice.",
+    "",
+    "⚠️ WHAT WE DON'T KNOW",
+    "The available reporting is only the starting point. I would verify the original announcement, numbers and timeline before treating the claim as settled.",
+    "",
+    "💬 WHAT DO YOU THINK?",
+    "What part of this would you investigate next?"
+  ].join("\n");
+}
+
 function pack(series,emoji,brief,items,date) {
-  const primary=items[0];
-  const supporting=items.slice(1,3);
-  const facts=items.slice(0,3).map((x,i)=>`${i+1}. ${x.title} — ${x.source}. ${x.description||"See source for details."}`).join("\n");
-  const links=items.slice(0,3).map(x=>`• ${x.source}: ${x.link}`).join("\n");
-  const images=items.filter(x=>x.imageUrl).slice(0,3).map((x,i)=>`${i+1}. ${x.source}\n   Image: ${x.imageUrl}\n   Article: ${x.link}`).join("\n\n");
-  let angle="Turn the source material into an original observation. Do not simply rewrite the headline. Focus on: "+brief;
-  if(series==="I Tested It") angle="Only report a test you actually completed. If you have not tested it, label this as a proposed experiment.";
-  if(series==="$10 Experiment") angle="Make the post a transparent mini-experiment: starting amount, exact steps, fees, risks, result, and lesson. Never invent a result.";
-  if(series==="What I'm Watching") angle="Create a watchlist, not a prediction. For each item, explain what happened and what evidence would make it worth watching next.";
-  if(series==="Crypto Investigation") angle="Lead with the surprising detail, then explain the evidence, why it matters, and what remains unconfirmed.";
-  if(series==="Crypto Nobody Explained Properly") angle="Explain one mechanism in plain language using one concrete example. Remove jargon that does not help the reader.";
-  if(series==="Africa Crypto Lens") angle="Start with the African/Nigerian relevance, then separate local evidence from broader global claims.";
-  const hookMap={
-    "Africa Crypto Lens":"🌍 Everyone talks about crypto from a global perspective. But here's what this story looks like from Africa:",
-    "I Tested It":"🧪 I wanted to know what actually happens when you try this. So here's what I found:",
-    "$10 Experiment":"💰 I gave myself a $10 limit and one rule: learn something useful without pretending I knew the outcome:",
-    "Crypto Investigation":"🔎 This headline caught my attention. But the detail underneath it is much more interesting:",
-    "Crypto Nobody Explained Properly":"🧠 This sounds complicated. It really isn't once you see what is happening underneath:",
-    "What I'm Watching":"👀 Five things caught my attention today. Here's what I'm actually watching:",
-    "5 Things I Learned This Week":"📊 I went through this week's crypto stories. These are the 5 things that actually taught me something:"
-  };
-  const questionMap={
-    "I Tested It":"Would you test this yourself? What would you check first?",
-    "$10 Experiment":"If you had $10 for a crypto experiment, what would you test?",
-    "Africa Crypto Lens":"How is this playing out where you live?",
-    "Crypto Investigation":"What would you investigate next?",
-    "Crypto Nobody Explained Properly":"What crypto concept should I break down next?",
-    "What I'm Watching":"Which of these deserves a deeper investigation?",
-    "5 Things I Learned This Week":"Which one should I investigate more next?"
-  };
-  const visual=series==="What I'm Watching" ? "A clean 5-item watchlist card." : "Use the source image only if it directly represents the story. Otherwise use an original screenshot, chart, explorer view, or product screen.";
+  const candidates=items.slice(0,3);
+  const blocks=candidates.map((item,i)=>{
+    const img=item.imageUrl ? `\\n🖼️ IMAGE\\n${item.imageUrl}\\n🔗 IMAGE SOURCE\\n${item.link}` : "\\n🖼️ IMAGE\\nNo source image found — use an original visual.";
+    return [
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `OPTION ${i+1} • SCORE ${score(item,series)}`,
+      `🔥 ${item.title}`,
+      `\\n📌 WHY IT'S INTERESTING\\n${item.description||"Current reporting available; open the source for the full context."}`,
+      `\\n🎣 HOOK\\n${draftFor(item,series).split("\\n")[0]}`,
+      `\\n📝 READY-TO-EDIT DRAFT\\n${draftFor(item,series)}`,
+      img,
+      `\\n🔗 SOURCE\\n${item.source}: ${item.link}`
+    ].join("\\n");
+  }).join("\\n");
   return [
     `🟣 SQUARERADAR • ${date}`,
-    `\n${emoji} TODAY'S SERIES\n${series}`,
-    `\n🔥 THE CONTENT OPPORTUNITY\n${primary?.title||"No strong topic found today."}`,
-    `\n💡 WHY THIS ONE?\n${primary?.description||"No strong current source was available. Consider an educational post instead."}`,
-    `\n🧠 THE ANGLE\n${angle}`,
-    `\n🎣 HOOK\n${hookMap[series]||"🔎 Here's the part of this story worth looking at:"}`,
-    `\n📝 POST STRUCTURE\n1. Hook\n2. What happened\n3. The interesting detail\n4. Why it matters\n5. What is still unknown\n6. Your observation\n7. Question`,
-    `\n🔍 RESEARCH NOTES\n${facts||"No source facts available."}`,
-    `\n🖼️ VISUAL\n${visual}`,
-    `\n✅ SOURCE-TRACEABLE IMAGES\n${images||"None found. Use an original visual instead."}`,
-    `\n💬 END WITH\n${questionMap[series]||"What would you investigate next?"}`,
-    `\n🔗 SOURCES\n${links||"No sources available."}`,
-    `\n⚠️ BEFORE POSTING\nOpen the source, verify the facts, check the image rights/usage terms, and rewrite in your own voice. Do not present a proposed experiment as a completed test.`
-  ].join("\n");
+    `\\n${emoji} TODAY: ${series}`,
+    `\\n🎯 YOUR MISSION\\nPick ONE of the three options below. Each is based on current reporting; verify the linked source before publishing.`,
+    blocks,
+    `\\n━━━━━━━━━━━━━━━━━━━━\\n💬 TELEGRAM SELECTION\\nReply to yourself with: OPTION 1, OPTION 2, or OPTION 3.`,
+    `\\n⚠️ EDITOR CHECK\\nVerify the latest facts, numbers and dates. Check image usage rights. Never present a proposed experiment as a completed test.`
+  ].join("\\n");
 }
 async function sendTelegram(message) {
   const token=process.env.TELEGRAM_BOT_TOKEN, chatId=process.env.TELEGRAM_CHAT_ID;
