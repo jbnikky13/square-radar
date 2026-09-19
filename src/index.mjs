@@ -144,6 +144,32 @@ function pack(series,emoji,brief,item,date) {
   ].join("\n");
 }
 
+async function publishSquare(text) {
+  if (!process.env.BINANCE_SQUARE_OPENAPI_KEY) {
+    throw new Error("BINANCE_SQUARE_OPENAPI_KEY is not configured");
+  }
+  const { spawn } = await import("node:child_process");
+  return await new Promise((resolve, reject) => {
+    const child = spawn(process.execPath, [
+      path.join(root, "binance-square", "post-text.mjs"),
+      "--text", text
+    ], {
+      env: process.env,
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    let stdout = "", stderr = "";
+    child.stdout.on("data", d => stdout += d);
+    child.stderr.on("data", d => stderr += d);
+    child.on("error", reject);
+    child.on("close", code => {
+      if (code !== 0) return reject(new Error((stderr || stdout).trim() || `Square publisher exited with code ${code}`));
+      const id = (stdout.match(/ID:\s*(\S+)/)||[])[1];
+      const link = (stdout.match(/Link:\s*(\S+)/)||[])[1];
+      resolve({id, link, stdout});
+    });
+  });
+}
+
 async function sendTelegram(message) {
   const token=process.env.TELEGRAM_BOT_TOKEN, chatId=process.env.TELEGRAM_CHAT_ID;
   if(!token||!chatId){console.log(message);return;}
@@ -167,5 +193,7 @@ const selected=chooseOne(batches.flat(),config.series);
 const output=pack(config.series,config.emoji,config.brief,selected,localDate(now));
 await fs.mkdir(path.join(root,"output"),{recursive:true});
 await fs.writeFile(path.join(root,"output",localDate(now)+"-"+day+".txt"),output+"\n","utf8");
-await sendTelegram(output);
-console.log("SquareRadar complete:",day,config.series);
+const postText = draftFor(selected, config.series);
+const squareResult = await publishSquare(postText);
+await sendTelegram(output + (squareResult.link && squareResult.link !== "unavailable" ? `\n\n🟢 POSTED TO BINANCE SQUARE\n${squareResult.link}` : "\n\n🟢 BINANCE SQUARE PUBLISH REQUEST SUCCEEDED"));
+console.log("SquareRadar complete:",day,config.series, squareResult.id || "id-unavailable");
