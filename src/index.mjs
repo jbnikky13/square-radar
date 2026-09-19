@@ -124,8 +124,8 @@ function draftFor(item,series) {
     "",
     "I'd check the primary announcement, the implementation timeline and the first real-world data after launch.",
     "",
-    "💰 $10 EXPERIMENT",
-    `If I had $10 for this investigation, I wouldn't buy the token just because the story is interesting. I'd spend it testing the claim: ${question}`,
+    "💰 THE EXPERIMENT",
+    `If I were testing this with $10, I wouldn't buy the token just because the story is interesting. I'd spend it testing the claim: ${question}`,
     "",
     `💬 ${question}`
   ].join("\n");
