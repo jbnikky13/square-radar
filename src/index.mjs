@@ -108,31 +108,37 @@ function punchTitle(title) {
 function draftFor(item,series) {
   const desc=clean(item.description||"");
   const title=punchTitle(item.title);
-  const short=desc.length>420?desc.slice(0,417)+"...":desc;
+  const fact=desc.length>460?desc.slice(0,457)+"...":desc;
+  const numberMatch=fact.match(/(?:from|at|to|by|of)\\s+[$€£]?\\d+(?:\\.\\d+)?%?|[$€£]?\\d+(?:\\.\\d+)?%|\\d+(?:x|×)/i);
   const hooks=[
-    `Everyone is talking about ${title}. But here's the part that caught my attention.`,
-    `This looked like another crypto headline until I noticed one detail: ${title}.`,
-    `I wouldn't rush to trade this headline. I'd investigate it first. Here's why: ${title}.`
+    `This crypto headline made me stop scrolling — and not for the reason you might think.`,
+    `I had to read this twice. The headline is interesting, but one detail is even more interesting.`,
+    `Here's a crypto development I'd investigate before deciding what it means.`
   ];
   const hook=hooks[Math.floor(score(item,series))%hooks.length];
+  const detail=numberMatch
+    ? `One number immediately stands out: ${numberMatch[0]}.`
+    : "The detail I'd focus on is what actually changes once this moves from an announcement to reality.";
   return [
     hook,
     "",
-    `📰 ${short||title}`,
+    `📰 ${fact||title}`,
     "",
     "🔎 THE DETAIL",
-    `The interesting part isn't just the announcement. It's what ${title.toLowerCase()} could change in practice.`,
+    detail,
+    "The headline is only the starting point. The useful question is what this changes for the network, users or developers.",
     "",
     "🧠 MY TAKE",
-    "I'm watching the follow-through: the original announcement, the actual numbers, and whether the change shows up on-chain or in real user behavior.",
+    "I'm not calling it bullish or bearish yet. I'd first check the original announcement, implementation timeline and what actually changes in practice.",
     "",
-    "⚠️ WHAT I'D VERIFY",
-    "Primary source → exact figures → timeline → real-world impact.",
+    "💰 IF I HAD $10",
+    "I'd spend the $10 on learning/testing the claim — not pretending I already have a result.",
     "",
     "💬 QUESTION",
-    "Would you investigate this, trade it, or simply watch what happens next?"
+    "What would you investigate first?"
   ].join("\n");
 }
+
 function pack(series,emoji,brief,item,date) {
   if(!item) return `🟣 SQUARERADAR • ${date}\n\nNo strong story passed today's attention filter.\n\nI'll wait for a better one rather than force a post.\n`;
   return [
