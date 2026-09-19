@@ -108,55 +108,50 @@ function punchTitle(title) {
 function draftFor(item,series) {
   const desc=clean(item.description||"");
   const title=punchTitle(item.title);
-  const fact=desc.length>460?desc.slice(0,457)+"...":desc;
-  const numberMatch=fact.match(/(?:from|at|to|by|of)\\s+[$€£]?\\d+(?:\\.\\d+)?%?|[$€£]?\\d+(?:\\.\\d+)?%|\\d+(?:x|×)/i);
-  const hooks=[
-    `This crypto headline made me stop scrolling — and not for the reason you might think.`,
-    `I had to read this twice. The headline is interesting, but one detail is even more interesting.`,
-    `Here's a crypto development I'd investigate before deciding what it means.`
-  ];
-  const hook=hooks[Math.floor(score(item,series))%hooks.length];
-  const detail=numberMatch
-    ? `One number immediately stands out: ${numberMatch[0]}.`
-    : "The detail I'd focus on is what actually changes once this moves from an announcement to reality.";
+  const fact=desc.length>520?desc.slice(0,517)+"...":desc;
+  const nums=[...fact.matchAll(/(?:from|at|to|by|of)\\s+[$€£]?\\d+(?:\\.\\d+)?%?|[$€£]?\\d+(?:\\.\\d+)?%|\\d+(?:x|×)/gi)].map(m=>m[0]);
+  const lead=nums[0];
+  const opening=lead
+    ? `${title} caught my attention because one number changes the whole story: ${lead}.`
+    : `${title} caught my attention — but the headline isn't the part I'd focus on.`;
+  const investigation=lead
+    ? `If I were investigating this with $10, I wouldn't buy the token first. I'd spend the $10 on answering one question: does this change actually matter to users?`
+    : `If I were investigating this with $10, I wouldn't buy the token first. I'd spend the $10 on finding out whether the reported change actually matters to users.`;
   return [
-    hook,
+    opening,
     "",
-    `📰 ${fact||title}`,
+    `Right now, the key reported development is simple: ${fact||title}.`,
     "",
-    "🔎 THE DETAIL",
-    detail,
-    "The headline is only the starting point. The useful question is what this changes for the network, users or developers.",
+    "That's the headline.",
+    "",
+    "But the part I'd dig into is what happens after the announcement.",
+    "",
+    "This isn't just about a headline moving around crypto Twitter. The useful question is whether the underlying change produces a measurable difference for users, developers or the network.",
     "",
     "🧠 MY TAKE",
-    "I'm not calling it bullish or bearish yet. I'd first check the original announcement, implementation timeline and what actually changes in practice.",
+    "I wouldn't call this bullish or bearish from the headline alone. I'd verify the primary source, the implementation timeline and the actual effect once it's live.",
     "",
-    "💰 IF I HAD $10",
-    "I'd spend the $10 on learning/testing the claim — not pretending I already have a result.",
+    "💰 THE $10 TEST",
+    investigation,
     "",
-    "💬 QUESTION",
-    "What would you investigate first?"
+    "💬 What would you investigate first?"
   ].join("\n");
 }
 
 function pack(series,emoji,brief,item,date) {
-  if(!item) return `🟣 SQUARERADAR • ${date}\n\nNo strong story passed today's attention filter.\n\nI'll wait for a better one rather than force a post.\n`;
+  if(!item) return `🟣 SQUARERADAR • ${date}\n\nNo story passed today's attention filter.\n\nI'd rather skip a post than force a weak one.\n`;
   return [
     `🟣 SQUARERADAR • ${date}`,
     `\n${emoji} ${series.toUpperCase()}`,
     "\n🔥 TODAY'S STORY",
     item.title,
     "\n━━━━━━━━━━━━━━━━━━━━",
-    "\n✍️ READY-TO-POST",
+    "\n✍️ COPY-READY POST",
     draftFor(item,series),
-    `\n🔗 SOURCE\n${item.source}: ${item.link}`,
-    "\n━━━━━━━━━━━━━━━━━━━━",
-    "🎯 WHY THIS STORY",
-    "Fresh + attention-grabbing + specific enough to start a conversation.",
-    "\n⚠️ VERIFY",
-    "Open the source before posting. Verify names, numbers and dates. Don't turn a proposed test into a claimed result."
+    `\n🔗 SOURCE\n${item.source}: ${item.link}`
   ].join("\n");
 }
+
 async function sendTelegram(message) {
   const token=process.env.TELEGRAM_BOT_TOKEN, chatId=process.env.TELEGRAM_CHAT_ID;
   if(!token||!chatId){console.log(message);return;}
