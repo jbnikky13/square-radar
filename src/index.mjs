@@ -93,16 +93,51 @@ function choose(items,series) {
 }
 function pack(series,emoji,brief,items,date) {
   const primary=items[0];
-  const facts=items.slice(0,3).map(x=>"• "+x.title+" — "+x.source+". "+(x.description||"See source for details.")).join("\n");
-  const links=items.slice(0,3).map(x=>"• "+x.source+": "+x.link).join("\n");
-  const images=items.filter(x=>x.imageUrl).slice(0,4).map(x=>"• "+x.source+" image: "+x.imageUrl+"\n  Source article: "+x.link).join("\n");
-  let angle="Use the reporting as a starting point, then add your own observation. Do not repeat the headline. Focus on: "+brief;
-  if(series==="I Tested It") angle="If you have not personally tested this, do not write as if you did. Label it as a proposed experiment or test it yourself first.";
-  if(series==="$10 Experiment") angle="Never claim a result you have not obtained. Show starting conditions, steps, fees/risks, and results only after a real test.";
-  if(series==="What I'm Watching") angle="Make this a watchlist, not a prediction. State what would confirm or weaken each observation.";
-  const hook=series==="Africa Crypto Lens" ? "The crypto story looks different when you look at it from Africa. Here's the part I think is being missed:" : "I found something in crypto worth investigating today — and the obvious headline isn't the interesting part.";
-  const visual=series==="What I'm Watching" ? "A clean 5-item watchlist graphic with one short line per item." : "A screenshot, chart, transaction explorer view, or product screen that directly proves the main point.";
-  return "SQUARERADAR | "+date+"\n\n"+emoji+" "+series+"\n\nTOPIC\n"+(primary?.title||"No strong topic found today.")+"\n\nWHY IT'S INTERESTING\n"+(primary?.description||"No strong current source was available. Consider an educational post instead.")+"\n\nVERIFIED RESEARCH STARTING POINTS\n"+(facts||"No source facts available.")+"\n\nSUGGESTED ANGLE\n"+angle+"\n\nHOOK\n"+hook+"\n\nVISUAL IDEA\n"+visual+"\n\nVERIFIED IMAGE CANDIDATES\n"+(images||"No image found in the source feed/page. Use an original screenshot or chart instead.")+"\n\nENGAGEMENT QUESTION\nWhat part of this would you investigate next?\n\nSOURCES\n"+(links||"No sources available.")+"\n\nEDITOR NOTE\nOpen the source links, verify the details, and rewrite in your own voice before posting.";
+  const supporting=items.slice(1,3);
+  const facts=items.slice(0,3).map((x,i)=>`${i+1}. ${x.title} — ${x.source}. ${x.description||"See source for details."}`).join("\n");
+  const links=items.slice(0,3).map(x=>`• ${x.source}: ${x.link}`).join("\n");
+  const images=items.filter(x=>x.imageUrl).slice(0,3).map((x,i)=>`${i+1}. ${x.source}\n   Image: ${x.imageUrl}\n   Article: ${x.link}`).join("\n\n");
+  let angle="Turn the source material into an original observation. Do not simply rewrite the headline. Focus on: "+brief;
+  if(series==="I Tested It") angle="Only report a test you actually completed. If you have not tested it, label this as a proposed experiment.";
+  if(series==="$10 Experiment") angle="Make the post a transparent mini-experiment: starting amount, exact steps, fees, risks, result, and lesson. Never invent a result.";
+  if(series==="What I'm Watching") angle="Create a watchlist, not a prediction. For each item, explain what happened and what evidence would make it worth watching next.";
+  if(series==="Crypto Investigation") angle="Lead with the surprising detail, then explain the evidence, why it matters, and what remains unconfirmed.";
+  if(series==="Crypto Nobody Explained Properly") angle="Explain one mechanism in plain language using one concrete example. Remove jargon that does not help the reader.";
+  if(series==="Africa Crypto Lens") angle="Start with the African/Nigerian relevance, then separate local evidence from broader global claims.";
+  const hookMap={
+    "Africa Crypto Lens":"🌍 Everyone talks about crypto from a global perspective. But here's what this story looks like from Africa:",
+    "I Tested It":"🧪 I wanted to know what actually happens when you try this. So here's what I found:",
+    "$10 Experiment":"💰 I gave myself a $10 limit and one rule: learn something useful without pretending I knew the outcome:",
+    "Crypto Investigation":"🔎 This headline caught my attention. But the detail underneath it is much more interesting:",
+    "Crypto Nobody Explained Properly":"🧠 This sounds complicated. It really isn't once you see what is happening underneath:",
+    "What I'm Watching":"👀 Five things caught my attention today. Here's what I'm actually watching:",
+    "5 Things I Learned This Week":"📊 I went through this week's crypto stories. These are the 5 things that actually taught me something:"
+  };
+  const questionMap={
+    "I Tested It":"Would you test this yourself? What would you check first?",
+    "$10 Experiment":"If you had $10 for a crypto experiment, what would you test?",
+    "Africa Crypto Lens":"How is this playing out where you live?",
+    "Crypto Investigation":"What would you investigate next?",
+    "Crypto Nobody Explained Properly":"What crypto concept should I break down next?",
+    "What I'm Watching":"Which of these deserves a deeper investigation?",
+    "5 Things I Learned This Week":"Which one should I investigate more next?"
+  };
+  const visual=series==="What I'm Watching" ? "A clean 5-item watchlist card." : "Use the source image only if it directly represents the story. Otherwise use an original screenshot, chart, explorer view, or product screen.";
+  return [
+    `🟣 SQUARERADAR • ${date}`,
+    `\n${emoji} TODAY'S SERIES\n${series}`,
+    `\n🔥 THE CONTENT OPPORTUNITY\n${primary?.title||"No strong topic found today."}`,
+    `\n💡 WHY THIS ONE?\n${primary?.description||"No strong current source was available. Consider an educational post instead."}`,
+    `\n🧠 THE ANGLE\n${angle}`,
+    `\n🎣 HOOK\n${hookMap[series]||"🔎 Here's the part of this story worth looking at:"}`,
+    `\n📝 POST STRUCTURE\n1. Hook\n2. What happened\n3. The interesting detail\n4. Why it matters\n5. What is still unknown\n6. Your observation\n7. Question`,
+    `\n🔍 RESEARCH NOTES\n${facts||"No source facts available."}`,
+    `\n🖼️ VISUAL\n${visual}`,
+    `\n✅ SOURCE-TRACEABLE IMAGES\n${images||"None found. Use an original visual instead."}`,
+    `\n💬 END WITH\n${questionMap[series]||"What would you investigate next?"}`,
+    `\n🔗 SOURCES\n${links||"No sources available."}`,
+    `\n⚠️ BEFORE POSTING\nOpen the source, verify the facts, check the image rights/usage terms, and rewrite in your own voice. Do not present a proposed experiment as a completed test.`
+  ].join("\n");
 }
 async function sendTelegram(message) {
   const token=process.env.TELEGRAM_BOT_TOKEN, chatId=process.env.TELEGRAM_CHAT_ID;
