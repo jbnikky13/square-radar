@@ -31,8 +31,12 @@ function clean(s) {
     .replace(/&gt;/gi, ">")
     .replace(/&#39;/g, "'")
     .replace(/&quot;/g, '"')
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
+}
+function extractMedia(block) {
+  const m = block.match(/<(?:media:content|media:thumbnail|enclosure)[^>]*(?:url|href)=["']([^"']+)["']/i);
+  return m ? m[1] : "";
 }
 function parseItems(xml, source) {
   const items=[];
@@ -139,25 +143,25 @@ function draftFor(item,series) {
 function pack(series,emoji,brief,items,date) {
   const candidates=items.slice(0,3);
   const blocks=candidates.map((item,i)=>{
-    const img=item.imageUrl ? `\\n🖼️ IMAGE\\n${item.imageUrl}\\n🔗 IMAGE SOURCE\\n${item.link}` : "\\n🖼️ IMAGE\\nNo source image found — use an original visual.";
+    const img=item.imageUrl ? `\n🖼️ IMAGE\n${item.imageUrl}\\n🔗 IMAGE SOURCE\n${item.link}` : "\\n🖼️ IMAGE\\nNo source image found — use an original visual.";
     return [
       `━━━━━━━━━━━━━━━━━━━━`,
       `OPTION ${i+1} • SCORE ${score(item,series)}`,
       `🔥 ${item.title}`,
-      `\\n📌 WHY IT'S INTERESTING\\n${item.description||"Current reporting available; open the source for the full context."}`,
-      `\\n🎣 HOOK\\n${draftFor(item,series).split("\\n")[0]}`,
-      `\\n📝 READY-TO-EDIT DRAFT\\n${draftFor(item,series)}`,
+      `\n📌 WHY IT'S INTERESTING\n${item.description||"Current reporting available; open the source for the full context."}`,
+      `\n🎣 HOOK\n${draftFor(item,series).split("\\n")[0]}`,
+      `\n📝 READY-TO-EDIT DRAFT\n${draftFor(item,series)}`,
       img,
-      `\\n🔗 SOURCE\\n${item.source}: ${item.link}`
+      `\n🔗 SOURCE\n${item.source}: ${item.link}`
     ].join("\\n");
   }).join("\\n");
   return [
     `🟣 SQUARERADAR • ${date}`,
-    `\\n${emoji} TODAY: ${series}`,
-    `\\n🎯 YOUR MISSION\\nPick ONE of the three options below. Each is based on current reporting; verify the linked source before publishing.`,
+    `\n${emoji} TODAY: ${series}`,
+    `\n🎯 YOUR MISSION\\nPick ONE of the three options below. Each is based on current reporting; verify the linked source before publishing.`,
     blocks,
-    `\\n━━━━━━━━━━━━━━━━━━━━\\n💬 TELEGRAM SELECTION\\nReply to yourself with: OPTION 1, OPTION 2, or OPTION 3.`,
-    `\\n⚠️ EDITOR CHECK\\nVerify the latest facts, numbers and dates. Check image usage rights. Never present a proposed experiment as a completed test.`
+    `\n━━━━━━━━━━━━━━━━━━━━\\n💬 TELEGRAM SELECTION\\nReply to yourself with: OPTION 1, OPTION 2, or OPTION 3.`,
+    `\n⚠️ EDITOR CHECK\\nVerify the latest facts, numbers and dates. Check image usage rights. Never present a proposed experiment as a completed test.`
   ].join("\\n");
 }
 async function sendTelegram(message) {
