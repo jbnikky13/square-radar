@@ -186,14 +186,19 @@ async function sendTelegram(message) {
 }
 const now=new Date();
 const day=dayName(now);
-const config=schedule[day];
+const hour=Number(new Intl.DateTimeFormat("en-US",{timeZone:"Africa/Lagos",hour:"2-digit",hour12:false}).format(now));
+const slot=hour<10?"morning":hour<17?"afternoon":"evening";
+const config=schedule[day]?.[slot] || null;
+if(!config) { console.log("SquareRadar: no scheduled slot for",day,slot); process.exit(0); }
 const feeds=[...FEEDS,...(day==="wednesday"?NIGERIA_FEEDS:[])];
 const batches=await Promise.all(feeds.map(fetchFeed));
-const selected=chooseOne(batches.flat(),config.series);
+const allItems=batches.flat();
+const recentTitles=allItems.map(x=>x.title).filter(Boolean);
+const selected=chooseOne(allItems.filter(x=>!recentTitles.some(t=>t!==x.title && similarity(t,x.title)>0.8)),config.series);
 const output=pack(config.series,config.emoji,config.brief,selected,localDate(now));
 await fs.mkdir(path.join(root,"output"),{recursive:true});
 await fs.writeFile(path.join(root,"output",localDate(now)+"-"+day+".txt"),output+"\n","utf8");
 const postText = draftFor(selected, config.series);
 const squareResult = await publishSquare(postText);
 await sendTelegram(output + (squareResult.link && squareResult.link !== "unavailable" ? `\n\n🟢 POSTED TO BINANCE SQUARE\n${squareResult.link}` : "\n\n🟢 BINANCE SQUARE PUBLISH REQUEST SUCCEEDED"));
-console.log("SquareRadar complete:",day,config.series, squareResult.id || "id-unavailable");
+console.log("SquareRadar complete:",day,slot,config.series, squareResult.id || "id-unavailable");
