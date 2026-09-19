@@ -143,7 +143,6 @@ function draftFor(item,series) {
 function pack(series,emoji,brief,items,date) {
   const candidates=items.slice(0,3);
   const blocks=candidates.map((item,i)=>{
-    const img=item.imageUrl ? `\n🖼️ IMAGE\n${item.imageUrl}\\n🔗 IMAGE SOURCE\n${item.link}` : "\\n🖼️ IMAGE\\nNo source image found — use an original visual.";
     return [
       `━━━━━━━━━━━━━━━━━━━━`,
       `OPTION ${i+1} • SCORE ${score(item,series)}`,
@@ -151,7 +150,6 @@ function pack(series,emoji,brief,items,date) {
       `\n📌 WHY IT'S INTERESTING\n${item.description||"Current reporting available; open the source for the full context."}`,
       `\n🎣 HOOK\n${draftFor(item,series).split("\\n")[0]}`,
       `\n📝 READY-TO-EDIT DRAFT\n${draftFor(item,series)}`,
-      img,
       `\n🔗 SOURCE\n${item.source}: ${item.link}`
     ].join("\\n");
   }).join("\\n");
