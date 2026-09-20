@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "title": "Zcash block time from 75 seconds to 25 seconds",
+    "description": "A new upgrade would cut Zcash block time from 75 seconds to 25 seconds while changing how the network pays for its own security.",
+    "link": "",
+    "source": "Observed prior SquareRadar post",
+    "series": "What's Changing",
+    "slot": "afternoon",
+    "date": "2026-09-19",
+    "timestamp": "2026-09-19T16:00:00+01:00"
+  }
+]
