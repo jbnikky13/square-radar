@@ -98,9 +98,57 @@ function score(item,series) {
   if(/\b(\d+%|\$\d+|million|billion|first|largest|fastest|slower|faster|new|unexpected|despite|but|why|surge|drop|record)\b/i.test(text)) s+=18;
   return s;
 }
-function chooseOne(items,series) {
-  const usable=items.filter(x=>x.title!=="FEED_ERROR" && x.title.length>12);
-  return usable.sort((a,b)=>score(b,series)-score(a,series))[0];
+function storySimilarity(item, historyItem) {
+  const titleScore = similarity(item.title || "", historyItem.title || "");
+  const descScore = similarity(
+    (item.title || "") + " " + (item.description || ""),
+    (historyItem.title || "") + " " + (historyItem.description || "")
+  );
+  return Math.max(titleScore, descScore);
+}
+
+function chooseOne(items,series,history) {
+  const usable=items
+    .filter(x=>x.title!=="FEED_ERROR" && x.title.length>12)
+    .filter(x=>!history.some(h=>h.link && x.link && h.link===x.link));
+
+  if (!usable.length) return null;
+
+  const ranked=usable
+    .map(item => ({
+      item,
+      novelty: history.length
+        ? 1 - Math.max(...history.map(h=>storySimilarity(item,h)))
+        : 1
+    }))
+    .sort((a,b)=>{
+      const aBlocked=a.novelty<0.32;
+      const bBlocked=b.novelty<0.32;
+      if (aBlocked!==bBlocked) return aBlocked ? 1 : -1;
+      return (score(b.item,series) + b.novelty*18) - (score(a.item,series) + a.novelty*18);
+    });
+
+  return ranked[0]?.item || null;
+}
+
+function loadHistory(raw) {
+  if (!Array.isArray(raw)) return [];
+  const cutoff=Date.now()-4*24*3600e3;
+  return raw.filter(x=>x && x.title && (!x.timestamp || new Date(x.timestamp).getTime()>=cutoff)).slice(-60);
+}
+
+function rememberStory(history,item,config,date) {
+  const next=[...history,{
+    title:item.title,
+    description:item.description||"",
+    link:item.link||"",
+    source:item.source||"",
+    series:config.series,
+    slot:config.slot,
+    date,
+    timestamp:new Date().toISOString()
+  }];
+  return next.slice(-60);
 }
 function punchTitle(title) {
   return title.replace(/^[^:]+:\s*/,"").replace(/\.$/,"").trim();
@@ -188,17 +236,41 @@ const now=new Date();
 const day=dayName(now);
 const hour=Number(new Intl.DateTimeFormat("en-US",{timeZone:"Africa/Lagos",hour:"2-digit",hour12:false}).format(now));
 const slot=hour<10?"morning":hour<17?"afternoon":"evening";
-const config=schedule[day]?.[slot] || null;
+const config=schedule[day]?.[slot] ? {...schedule[day][slot], slot} : null;
 if(!config) { console.log("SquareRadar: no scheduled slot for",day,slot); process.exit(0); }
 const feeds=[...FEEDS,...(day==="wednesday"?NIGERIA_FEEDS:[])];
 const batches=await Promise.all(feeds.map(fetchFeed));
 const allItems=batches.flat();
-const recentTitles=allItems.map(x=>x.title).filter(Boolean);
-const selected=chooseOne(allItems.filter(x=>!recentTitles.some(t=>t!==x.title && similarity(t,x.title)>0.8)),config.series);
+const historyPath=path.join(root,"data","story-history.json");
+let history=[];
+try {
+  history=loadHistory(JSON.parse(await fs.readFile(historyPath,"utf8")));
+} catch {
+  history=[];
+}
+
+const uniqueItems=allItems.filter((item,index,array)=>
+  item.title!=="FEED_ERROR" &&
+  item.title.length>12 &&
+  !array.slice(0,index).some(prev=>similarity(prev.title,item.title)>=0.82)
+);
+
+const selected=chooseOne(uniqueItems,config.series,history);
 const output=pack(config.series,config.emoji,config.brief,selected,localDate(now));
 await fs.mkdir(path.join(root,"output"),{recursive:true});
 await fs.writeFile(path.join(root,"output",localDate(now)+"-"+day+".txt"),output+"\n","utf8");
+
+if (!selected) {
+  await sendTelegram(output);
+  console.log("SquareRadar skipped:",day,slot,"no sufficiently novel story");
+  process.exit(0);
+}
+
 const postText = draftFor(selected, config.series);
 const squareResult = await publishSquare(postText);
+
+const updatedHistory=rememberStory(history,selected,config,localDate(now));
+await fs.writeFile(historyPath,JSON.stringify(updatedHistory,null,2)+"\n","utf8");
+
 await sendTelegram(output + (squareResult.link && squareResult.link !== "unavailable" ? `\n\n🟢 POSTED TO BINANCE SQUARE\n${squareResult.link}` : "\n\n🟢 BINANCE SQUARE PUBLISH REQUEST SUCCEEDED"));
 console.log("SquareRadar complete:",day,slot,config.series, squareResult.id || "id-unavailable");
