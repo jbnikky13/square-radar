@@ -121,12 +121,8 @@ function chooseOne(items,series,history) {
         ? 1 - Math.max(...history.map(h=>storySimilarity(item,h)))
         : 1
     }))
-    .sort((a,b)=>{
-      const aBlocked=a.novelty<0.32;
-      const bBlocked=b.novelty<0.32;
-      if (aBlocked!==bBlocked) return aBlocked ? 1 : -1;
-      return (score(b.item,series) + b.novelty*18) - (score(a.item,series) + a.novelty*18);
-    });
+    .filter(x=>x.novelty>=0.32)
+    .sort((a,b)=>(score(b.item,series) + b.novelty*18) - (score(a.item,series) + a.novelty*18));
 
   return ranked[0]?.item || null;
 }
