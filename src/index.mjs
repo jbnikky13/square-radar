@@ -110,7 +110,7 @@ function storySimilarity(item, historyItem) {
 function chooseOne(items,series,history) {
   const usable=items
     .filter(x=>x.title!=="FEED_ERROR" && x.title.length>12)
-    .filter(x=>tokenTag(x)!=="$CRYPTO")
+    .filter(x=>Boolean(tokenTag(x)))
     .filter(x=>!history.some(h=>h.link && x.link && h.link===x.link));
 
   if (!usable.length) return null;
@@ -151,22 +151,29 @@ function punchTitle(title) {
   return title.replace(/^[^:]+:\s*/,"").replace(/\.$/,"").trim();
 }
 const TOKEN_ALIASES = [
-  ["bitcoin","BTC"],["ethereum","ETH"],["solana","SOL"],["xrp","XRP"],["bnb","BNB"],
-  ["dogecoin","DOGE"],["doge","DOGE"],["cardano","ADA"],["avalanche","AVAX"],
-  ["chainlink","LINK"],["polkadot","DOT"],["tron","TRX"],["polygon","POL"],
-  ["zcash","ZEC"],["near protocol","NEAR"],["near","NEAR"],["sui","SUI"],
-  ["aptos","APT"],["arbitrum","ARB"],["optimism","OP"],["cosmos","ATOM"],
+  ["bitcoin","BTC"],["btc","BTC"],["ethereum","ETH"],["ether","ETH"],["eth","ETH"],
+  ["solana","SOL"],["sol","SOL"],["xrp","XRP"],["ripple","XRP"],["bnb","BNB"],
+  ["binance coin","BNB"],["dogecoin","DOGE"],["doge","DOGE"],["cardano","ADA"],["ada","ADA"],
+  ["avalanche","AVAX"],["avax","AVAX"],["chainlink","LINK"],["link","LINK"],
+  ["polkadot","DOT"],["dot","DOT"],["tron","TRX"],["trx","TRX"],["polygon","POL"],
+  ["matic","POL"],["zcash","ZEC"],["zec","ZEC"],["near protocol","NEAR"],["near","NEAR"],
+  ["sui","SUI"],["aptos","APT"],["arbitrum","ARB"],["optimism","OP"],["cosmos","ATOM"],
   ["uniswap","UNI"],["aave","AAVE"],["maker","MKR"],["litecoin","LTC"],
   ["shiba inu","SHIB"],["shib","SHIB"],["base","BASE"]
 ];
 
 function tokenTag(item) {
   const text=(item.title+" "+item.description).toLowerCase();
+
+  // Prefer explicit token symbols/names. This prevents unrelated company names
+  // from being mistaken for crypto assets.
   for (const [name,symbol] of TOKEN_ALIASES) {
-    if (new RegExp("\\b"+name.replace(/[.*+?^$()|[\\]\\\\]/g,"\\\\$&")+"\\b","i").test(text)) return "$"+symbol;
+    const escaped=name.replace(/[.*+?^$()|[\]\\]/g,"\\$&");
+    if (new RegExp("\\b"+escaped+"\\b","i").test(text)) return "$"+symbol;
   }
-  const symbol=(item.title.match(/\$[A-Z]{2,10}\b/)||[])[0];
-  return symbol || null;
+
+  const explicit=(item.title+" "+item.description).match(/\$[A-Z]{2,10}\b/g);
+  return explicit ? explicit[0].toUpperCase() : null;
 }
 
 function draftFor(item,series) {
