@@ -149,32 +149,53 @@ function rememberStory(history,item,config,date) {
 function punchTitle(title) {
   return title.replace(/^[^:]+:\s*/,"").replace(/\.$/,"").trim();
 }
+const TOKEN_ALIASES = [
+  ["bitcoin","BTC"],["ethereum","ETH"],["solana","SOL"],["xrp","XRP"],["bnb","BNB"],
+  ["dogecoin","DOGE"],["doge","DOGE"],["cardano","ADA"],["avalanche","AVAX"],
+  ["chainlink","LINK"],["polkadot","DOT"],["tron","TRX"],["polygon","POL"],
+  ["zcash","ZEC"],["near protocol","NEAR"],["near","NEAR"],["sui","SUI"],
+  ["aptos","APT"],["arbitrum","ARB"],["optimism","OP"],["cosmos","ATOM"],
+  ["uniswap","UNI"],["aave","AAVE"],["maker","MKR"],["litecoin","LTC"],
+  ["shiba inu","SHIB"],["shib","SHIB"],["base","BASE"]
+];
+
+function tokenTag(item) {
+  const text=(item.title+" "+item.description).toLowerCase();
+  for (const [name,symbol] of TOKEN_ALIASES) {
+    if (new RegExp("\\b"+name.replace(/[.*+?^$()|[\\]\\\\]/g,"\\\\$&")+"\\b","i").test(text)) return "$"+symbol;
+  }
+  const symbol=(item.title.match(/\$[A-Z]{2,10}\b/)||[])[0];
+  return symbol || "$CRYPTO";
+}
+
 function draftFor(item,series) {
   const desc=clean(item.description||"").replace(/\.{2,}/g,".").trim();
   const sentences=desc.split(/(?<=[.!?])\s+/).filter(Boolean);
   const fact=sentences[0]||desc;
-  const nums=[...fact.matchAll(/[$€£]?\d+(?:\.\d+)?(?:%|x|×)?/gi)].map(m=>m[0]);
-  const lead=nums[0];
-  const question=lead ? `Does ${lead} actually make the product or network meaningfully better?` : "Does this actually change the product or network for real users?";
+  const token=tokenTag(item);
+  const title=punchTitle(item.title);
+  const openings=[
+    `Okay, ${token} just gave me something to look at.`,
+    `This ${token} story is more interesting than the headline makes it sound.`,
+    `I saw this about ${token} today and had to dig a little deeper.`,
+    `One ${token} detail caught my attention today.`
+  ];
+  const opener=openings[Math.abs([...title].reduce((n,ch)=>n+ch.charCodeAt(0),0))%openings.length];
+  const angle=`The interesting part isn't just that this happened. It's what it could mean for ${token} and the people actually using the network.`;
   return [
-    lead ? `The number that caught my attention today: ${lead}.` : "This is the kind of crypto update I want to look at before the market turns it into a headline.",
+    opener,
     "",
     fact,
     "",
-    "Here's the part I'd investigate:",
-    question,
+    angle,
     "",
-    "A headline can tell us what changed. It doesn't tell us whether the change matters.",
+    "What I'd watch next: the actual numbers, the rollout and whether users notice a real difference.",
     "",
-    "I'd check the primary announcement, the implementation timeline and the first real-world data after launch.",
+    "For me, that's the useful part of crypto news: separating a loud headline from a change that might actually matter.",
     "",
-    "💰 THE EXPERIMENT",
-    `If I were testing this with $10, I wouldn't buy the token just because the story is interesting. I'd spend it testing the claim: ${question}`,
-    "",
-    `💬 ${question}`
+    `💬 What do you make of this ${token} story?`
   ].join("\n");
 }
-
 function pack(series,emoji,brief,item,date) {
   if(!item) return `🟣 SQUARERADAR • ${date}\n\nNo story passed today's attention filter.\n\nI'd rather skip a post than force a weak one.\n`;
   return [
@@ -184,6 +205,7 @@ function pack(series,emoji,brief,item,date) {
     "\n━━━━━━━━━━━━━━━━━━━━",
     "\n✍️ COPY-READY POST",
     draftFor(item,series),
+    `\n🏷️ TOKEN\n${tokenTag(item)}`,
     `\n🔗 SOURCE\n${item.source}: ${item.link}`
   ].join("\n");
 }
