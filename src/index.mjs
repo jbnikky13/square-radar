@@ -110,6 +110,7 @@ function storySimilarity(item, historyItem) {
 function chooseOne(items,series,history) {
   const usable=items
     .filter(x=>x.title!=="FEED_ERROR" && x.title.length>12)
+    .filter(x=>tokenTag(x)!=="$CRYPTO")
     .filter(x=>!history.some(h=>h.link && x.link && h.link===x.link));
 
   if (!usable.length) return null;
@@ -165,7 +166,7 @@ function tokenTag(item) {
     if (new RegExp("\\b"+name.replace(/[.*+?^$()|[\\]\\\\]/g,"\\\\$&")+"\\b","i").test(text)) return "$"+symbol;
   }
   const symbol=(item.title.match(/\$[A-Z]{2,10}\b/)||[])[0];
-  return symbol || "$CRYPTO";
+  return symbol || null;
 }
 
 function draftFor(item,series) {
