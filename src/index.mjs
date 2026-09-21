@@ -110,7 +110,6 @@ function storySimilarity(item, historyItem) {
 function chooseOne(items,series,history) {
   const usable=items
     .filter(x=>x.title!=="FEED_ERROR" && x.title.length>12)
-    .filter(x=>Boolean(tokenTag(x)))
     .filter(x=>!history.some(h=>h.link && x.link && h.link===x.link));
 
   if (!usable.length) return null;
@@ -182,14 +181,24 @@ function draftFor(item,series) {
   const fact=sentences[0]||desc;
   const token=tokenTag(item);
   const title=punchTitle(item.title);
-  const openings=[
+
+  const openings=token ? [
     `Okay, ${token} just gave me something to look at.`,
     `This ${token} story is more interesting than the headline makes it sound.`,
     `I saw this about ${token} today and had to dig a little deeper.`,
     `One ${token} detail caught my attention today.`
+  ] : [
+    "This one caught my attention today.",
+    "I saw this today and had to dig a little deeper.",
+    "This is the kind of story that gets buried under the headline.",
+    "Here's something I think is worth looking at."
   ];
+
   const opener=openings[Math.abs([...title].reduce((n,ch)=>n+ch.charCodeAt(0),0))%openings.length];
-  const angle=`The interesting part isn't just that this happened. It's what it could mean for ${token} and the people actually using the network.`;
+  const angle=token
+    ? `The interesting part isn't just that this happened. It's what it could mean for ${token} and the people actually using the network.`
+    : "The interesting part isn't just that this happened. It's what it could mean for the technology, the companies involved and the people actually using it.";
+
   return [
     opener,
     "",
@@ -201,7 +210,7 @@ function draftFor(item,series) {
     "",
     "For me, that's the useful part of crypto news: separating a loud headline from a change that might actually matter.",
     "",
-    `💬 What do you make of this ${token} story?`
+    `💬 What do you make of this story?${token ? ` (${token})` : ""}`
   ].join("\n");
 }
 function pack(series,emoji,brief,item,date) {
@@ -213,7 +222,7 @@ function pack(series,emoji,brief,item,date) {
     "\n━━━━━━━━━━━━━━━━━━━━",
     "\n✍️ COPY-READY POST",
     draftFor(item,series),
-    `\n🏷️ TOKEN\n${tokenTag(item)}`,
+    ...(tokenTag(item) ? [`\n🏷️ TOKEN\n${tokenTag(item)}`] : []),
     `\n🔗 SOURCE\n${item.source}: ${item.link}`
   ].join("\n");
 }
