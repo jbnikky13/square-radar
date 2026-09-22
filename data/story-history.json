@@ -58,5 +58,15 @@
     "slot": "evening",
     "date": "2026-09-22",
     "timestamp": "2026-09-22T17:07:10.255Z"
+  },
+  {
+    "title": "Inside Coinbase’s $250 Billion Playbook for Post-Quantum Bitcoin Custody",
+    "description": "Head of cryptography Yehuda Lindell says the exchange is designing custody that can adapt to whatever post-quantum signing scheme Bitcoin adopts.",
+    "link": "https://decrypt.co/379000/coinbase-playbook-post-quantum-bitcoin-custody",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-22",
+    "timestamp": "2026-09-22T21:30:04.780Z"
   }
 ]
