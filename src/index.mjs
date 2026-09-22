@@ -175,6 +175,54 @@ function tokenTag(item) {
   return explicit ? explicit[0].toUpperCase() : null;
 }
 
+function storyEnding(item, fact, token, title) {
+  const text=(title+" "+fact).toLowerCase();
+  const seed=[...title].reduce((n,ch)=>n+ch.charCodeAt(0),0);
+  const endings=[];
+
+  if (/purchase|buy|bought|holdings|treasury|reserve|accumulat/.test(text)) {
+    endings.push(
+      token ? `The number that matters now is how this changes ${token}'s concentration and exposure over time.` : "The number that matters now is how this changes the balance sheet over time.",
+      "A purchase is easy to headline. The more useful signal is what the position looks like after the next few moves.",
+      "This makes the next update worth checking—not for the headline, but for the numbers behind it."
+    );
+  } else if (/upgrade|launch|release|mainnet|testnet|integrat|deploy|update/.test(text)) {
+    endings.push(
+      "The real test starts after the announcement: whether the change actually gets used.",
+      "A launch creates the headline. Adoption will determine whether it becomes a meaningful story.",
+      "The interesting data point from here is what changes once people can actually use it."
+    );
+  } else if (/hack|exploit|scam|phishing|attack|security/.test(text)) {
+    endings.push(
+      "The headline is the incident; the longer-term signal is how quickly the damage is contained and what changes afterward.",
+      "The important follow-through here is the response, not just the size of the incident.",
+      "This is one of those stories where the next update could tell us more than the first headline."
+    );
+  } else if (/price|surge|rally|drop|fall|record|high|low|volume|market/.test(text)) {
+    endings.push(
+      "Price gets the attention, but the follow-through will show whether the move has substance.",
+      "A big move makes the headline. The data after it will show whether the market is actually changing.",
+      "The move is interesting on its own; what happens after the reaction is the part worth tracking."
+    );
+  } else if (/funding|raise|investment|valuation|million|billion/.test(text)) {
+    endings.push(
+      "The funding number is only the starting point; execution will decide what it becomes.",
+      "Capital makes the headline, but the next product or adoption milestone is what gives the number context.",
+      "The amount is notable. What gets built with it will be the more useful signal."
+    );
+  } else {
+    endings.push(
+      "The headline tells us what happened. The next few updates should tell us how much it actually matters.",
+      "There's a lot packed into the headline, but the follow-through will give this story its real context.",
+      "For now, the useful signal is in what happens next—not in making the headline bigger than it is.",
+      "This is worth keeping on the radar because the next data point could change the story.",
+      "The detail I'd keep in mind is the one that still needs to be proven by what happens next."
+    );
+  }
+
+  return endings[seed % endings.length];
+}
+
 function draftFor(item,series) {
   const desc=clean(item.description||"").replace(/\.{2,}/g,".").trim();
   const sentences=desc.split(/(?<=[.!?])\s+/).filter(Boolean);
@@ -195,20 +243,27 @@ function draftFor(item,series) {
   ];
 
   const opener=openings[Math.abs([...title].reduce((n,ch)=>n+ch.charCodeAt(0),0))%openings.length];
-  const angle=token
-    ? `The interesting part isn't just that this happened. It's what it could mean for ${token} and the people actually using the network.`
-    : "The interesting part isn't just that this happened. It's what it could mean for the technology, the companies involved and the people actually using it.";
+  const contextLines=token ? [
+    `The story matters beyond the headline because it could affect how ${token} is held, used or understood.`,
+    `There's more to this than the headline: the next signal is how ${token} holders, users or builders respond.`,
+    `The bigger context is what this changes around ${token}, rather than simply the fact that it happened.`
+  ] : [
+    "The story matters beyond the headline because the follow-through could affect how the market or users respond.",
+    "There's more to this than the headline: the next signal is what people and companies actually do with it.",
+    "The bigger context is what this changes in practice, rather than simply the fact that it happened."
+  ];
+  const seed=Math.abs([...title].reduce((n,ch)=>n+ch.charCodeAt(0),0));
+  const context=contextLines[seed%contextLines.length];
+  const ending=storyEnding(item,fact,token,title);
 
   return [
     opener,
     "",
     fact,
     "",
-    angle,
+    context,
     "",
-    "What I'd watch next: the actual numbers, the rollout and whether users notice a real difference.",
-    "",
-    "For me, that's the useful part of crypto news: separating a loud headline from a change that might actually matter.",
+    ending,
     "",
   ].join("\n");
 }
