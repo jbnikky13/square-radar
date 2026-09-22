@@ -210,7 +210,6 @@ function draftFor(item,series) {
     "",
     "For me, that's the useful part of crypto news: separating a loud headline from a change that might actually matter.",
     "",
-    `💬 What do you make of this story?${token ? ` (${token})` : ""}`
   ].join("\n");
 }
 function pack(series,emoji,brief,item,date) {
