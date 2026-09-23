@@ -1,15 +1,5 @@
 [
   {
-    "title": "Zcash block time from 75 seconds to 25 seconds",
-    "description": "A new upgrade would cut Zcash block time from 75 seconds to 25 seconds while changing how the network pays for its own security.",
-    "link": "",
-    "source": "Observed prior SquareRadar post",
-    "series": "What's Changing",
-    "slot": "afternoon",
-    "date": "2026-09-19",
-    "timestamp": "2026-09-19T16:00:00+01:00"
-  },
-  {
     "title": "AI helps hackers hide malware on blockchains as attacks surge 440% - thestreet.com",
     "description": "<a href=\"https://news.google.com/rss/articles/CBMipwFBVV95cUxORTJxcUQxREd6dXg4RFNVZjVzSDZTcW1idkFsbF83Z1EwRnZ2MVhtUmlBaW5OZmZQX0poTXlBczY1aEY2bVZpMHYtM19tVUk5NXJmUlh5b01sRXJobEk0WW9zUHVqUVEwdUQ5d2w4UlBKWHlQQnE2b0tXT3NlZl9sMVpRTUFLTE1naW5LOEVlMmtEclB4WUluQlkxcEFHNFdyNVNzMzNrTQ?oc=5\" target=\"_blank\">AI helps hackers hide malware on blockchains as attacks surge 440%</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">thestreet.com</font>",
     "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxORTJxcUQxREd6dXg4RFNVZjVzSDZTcW1idkFsbF83Z1EwRnZ2MVhtUmlBaW5OZmZQX0poTXlBczY1aEY2bVZpMHYtM19tVUk5NXJmUlh5b01sRXJobEk0WW9zUHVqUVEwdUQ5d2w4UlBKWHlQQnE2b0tXT3NlZl9sMVpRTUFLTE1naW5LOEVlMmtEclB4WUluQlkxcEFHNFdyNVNzMzNrTQ?oc=5",
@@ -78,5 +68,15 @@
     "slot": "afternoon",
     "date": "2026-09-23",
     "timestamp": "2026-09-23T10:12:34.981Z"
+  },
+  {
+    "title": "Bitcoin Breaks Out as Nasdaq Hits Records and Oil Slides on Iran Hopes",
+    "description": "A stretched but firmly bullish Bitcoin chart is riding the same tailwind lifting stocks: falling oil, a record Nasdaq, and a Fed that hiked rates while quietly pumping liquidity into the system.",
+    "link": "https://decrypt.co/378972/bitcoin-breaks-out-nasdaq-hits-records-oil-slides",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-23",
+    "timestamp": "2026-09-23T17:20:46.277Z"
   }
 ]
