@@ -78,5 +78,15 @@
     "slot": "evening",
     "date": "2026-09-23",
     "timestamp": "2026-09-23T17:20:46.277Z"
+  },
+  {
+    "title": "Borrow Against Your Bitcoin at a Fixed Rate: Coinbase Expands Morpho Loans",
+    "description": "The product lets users lock in their rate and repayment date when borrowing USDC against Bitcoin, marking the first enterprise-scale deployment of Morpho Midnight and a shift away from on-chain lending's variable-rate norm.",
+    "link": "https://decrypt.co/379091/borrow-against-bitcoin-fixed-rate-coinbase-morpho",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-23",
+    "timestamp": "2026-09-23T21:36:24.920Z"
   }
 ]
