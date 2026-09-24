@@ -98,5 +98,15 @@
     "slot": "afternoon",
     "date": "2026-09-24",
     "timestamp": "2026-09-24T10:19:56.030Z"
+  },
+  {
+    "title": "Elliptic Wants Every Cop to Read a Crypto Wallet in Seconds—With AI",
+    "description": "Elliptic’s new AI-assisted tool, called Pulse, lets any officer input a wallet address or transaction hash and get a plain-language summary in seconds, aiming to bring crypto tracing beyond specialized units.",
+    "link": "https://decrypt.co/379113/elliptic-crypto-wallet-ai-pulse",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-24",
+    "timestamp": "2026-09-24T17:25:44.400Z"
   }
 ]
