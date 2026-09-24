@@ -212,11 +212,11 @@ function storyEnding(item, fact, token, title) {
     );
   } else {
     endings.push(
-      "The headline tells us what happened. The next few updates should tell us how much it actually matters.",
-      "There's a lot packed into the headline, but the follow-through will give this story its real context.",
-      "For now, the useful signal is in what happens next—not in making the headline bigger than it is.",
-      "This is worth keeping on the radar because the next data point could change the story.",
-      "The detail I'd keep in mind is the one that still needs to be proven by what happens next."
+      "The useful signal now is what happens next, especially if the story starts showing up in real-world behavior or numbers.",
+      "What happens after the initial report will give this story much more context than the first reaction.",
+      "For now, the thing worth tracking is whether this develops into a meaningful change or stays a one-day story.",
+      "This is worth keeping on the radar because the next data point could materially change the picture.",
+      "The detail I'd keep in mind is the part that still needs to be confirmed by what happens next."
     );
   }
 
