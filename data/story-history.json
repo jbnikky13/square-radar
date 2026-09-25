@@ -1,15 +1,5 @@
 [
   {
-    "title": "AI helps hackers hide malware on blockchains as attacks surge 440% - thestreet.com",
-    "description": "<a href=\"https://news.google.com/rss/articles/CBMipwFBVV95cUxORTJxcUQxREd6dXg4RFNVZjVzSDZTcW1idkFsbF83Z1EwRnZ2MVhtUmlBaW5OZmZQX0poTXlBczY1aEY2bVZpMHYtM19tVUk5NXJmUlh5b01sRXJobEk0WW9zUHVqUVEwdUQ5d2w4UlBKWHlQQnE2b0tXT3NlZl9sMVpRTUFLTE1naW5LOEVlMmtEclB4WUluQlkxcEFHNFdyNVNzMzNrTQ?oc=5\" target=\"_blank\">AI helps hackers hide malware on blockchains as attacks surge 440%</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">thestreet.com</font>",
-    "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxORTJxcUQxREd6dXg4RFNVZjVzSDZTcW1idkFsbF83Z1EwRnZ2MVhtUmlBaW5OZmZQX0poTXlBczY1aEY2bVZpMHYtM19tVUk5NXJmUlh5b01sRXJobEk0WW9zUHVqUVEwdUQ5d2w4UlBKWHlQQnE2b0tXT3NlZl9sMVpRTUFLTE1naW5LOEVlMmtEclB4WUluQlkxcEFHNFdyNVNzMzNrTQ?oc=5",
-    "source": "Google News Crypto",
-    "series": "What's Changing",
-    "slot": "afternoon",
-    "date": "2026-09-21",
-    "timestamp": "2026-09-21T10:56:48.828Z"
-  },
-  {
     "title": "xAI Launches Grok 4.7. It's Bigger, But Late to the AI Frontier Party",
     "description": "xAI says the new model is a &#34;notable improvement&#34; over Grok 4.6 at the same price. The benchmarks say it's still in second place.",
     "link": "https://decrypt.co/378824/xai-launches-grok-4-7",
@@ -128,5 +118,15 @@
     "slot": "afternoon",
     "date": "2026-09-25",
     "timestamp": "2026-09-25T10:23:13.623Z"
+  },
+  {
+    "title": "Bitget Hack Losses Climb to $387M: Here’s What Happened, and Why North Korea Is a Suspect",
+    "description": "An attacker faked internal transfer requests to drain $387.5 million from Bitget's hot and warm wallets, and the exchange's CEO says the fingerprints look like Pyongyang's.",
+    "link": "https://decrypt.co/379350/bitget-hack-387m-what-happened-why-north-korea-suspect",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-25",
+    "timestamp": "2026-09-25T17:24:29.798Z"
   }
 ]
