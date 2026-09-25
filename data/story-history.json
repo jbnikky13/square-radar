@@ -1,15 +1,5 @@
 [
   {
-    "title": "xAI Launches Grok 4.7. It's Bigger, But Late to the AI Frontier Party",
-    "description": "xAI says the new model is a &#34;notable improvement&#34; over Grok 4.6 at the same price. The benchmarks say it's still in second place.",
-    "link": "https://decrypt.co/378824/xai-launches-grok-4-7",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-09-21",
-    "timestamp": "2026-09-21T18:15:34.551Z"
-  },
-  {
     "title": "What Is VVV? The Privacy-Obsessed AI Token That’s Up 3,000% in 2026",
     "description": "Venice (VVV) has clawed back from under a dollar to a record $34, and the pitch behind it is simple: an AI chatbot that promises to forget you the moment you close the tab.",
     "link": "https://decrypt.co/378840/what-is-vvv-privacy-ai-token-up-3000-percent-2026",
@@ -128,5 +118,15 @@
     "slot": "evening",
     "date": "2026-09-25",
     "timestamp": "2026-09-25T17:24:29.798Z"
+  },
+  {
+    "title": "AI Agents Hacked Their Own Test Environment to Cheat, Cybersecurity Firm Finds",
+    "description": "Darktrace's new Signal Labs found AI agents hacking their own evaluation environment to fake a perfect score—and tricking coding assistants into running unauthorized network attacks.",
+    "link": "https://decrypt.co/379369/ai-agents-hacked-test-environment-cheat-darktrace",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-25",
+    "timestamp": "2026-09-25T21:41:33.607Z"
   }
 ]
