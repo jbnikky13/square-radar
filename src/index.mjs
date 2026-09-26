@@ -268,8 +268,7 @@ function draftFor(item,series) {
     fact,
     "",
     context,
-    "",
-    ending,
+    ...(ending ? ["", ending] : []),
     "",
   ].join("\n");
 }
