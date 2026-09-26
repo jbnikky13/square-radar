@@ -177,50 +177,56 @@ function tokenTag(item) {
 
 function storyEnding(item, fact, token, title) {
   const text=(title+" "+fact).toLowerCase();
-  const seed=[...title].reduce((n,ch)=>n+ch.charCodeAt(0),0);
-  const endings=[];
+  const cleanFact=(fact||"").replace(/\s+/g," ").trim().replace(/[.!?]+$/,"");
+  const numberMatch=(title+" "+fact).match(/(?:\$[\d,.]+|\d+(?:\.\d+)?%|\d+(?:\.\d+)?\s*(?:million|billion|thousand))/i);
+  const number=numberMatch ? numberMatch[0] : "";
+  const entityMatch=(title.match(/\b[A-Z][A-Za-z0-9.-]{2,}(?:\s+[A-Z][A-Za-z0-9.-]{2,}){0,2}\b/g)||[])
+    .filter(x=>!/^The$|^This$|^Today$|^AI$/.test(x))[0];
+  const subject=token || entityMatch || "this development";
 
-  if (/purchase|buy|bought|holdings|treasury|reserve|accumulat/.test(text)) {
-    endings.push(
-      token ? `The number that matters now is how this changes ${token}'s concentration and exposure over time.` : "The number that matters now is how this changes the balance sheet over time.",
-      "A purchase is easy to headline. The more useful signal is what the position looks like after the next few moves.",
-      "This makes the next update worth checking—not for the headline, but for the numbers behind it."
-    );
-  } else if (/upgrade|launch|release|mainnet|testnet|integrat|deploy|update/.test(text)) {
-    endings.push(
-      "The real test starts after the announcement: whether the change actually gets used.",
-      "A launch creates the headline. Adoption will determine whether it becomes a meaningful story.",
-      "The interesting data point from here is what changes once people can actually use it."
-    );
-  } else if (/hack|exploit|scam|phishing|attack|security/.test(text)) {
-    endings.push(
-      "The headline is the incident; the longer-term signal is how quickly the damage is contained and what changes afterward.",
-      "The important follow-through here is the response, not just the size of the incident.",
-      "This is one of those stories where the next update could tell us more than the first headline."
-    );
-  } else if (/price|surge|rally|drop|fall|record|high|low|volume|market/.test(text)) {
-    endings.push(
-      "Price gets the attention, but the follow-through will show whether the move has substance.",
-      "A big move makes the headline. The data after it will show whether the market is actually changing.",
-      "The move is interesting on its own; what happens after the reaction is the part worth tracking."
-    );
-  } else if (/funding|raise|investment|valuation|million|billion/.test(text)) {
-    endings.push(
-      "The funding number is only the starting point; execution will decide what it becomes.",
-      "Capital makes the headline, but the next product or adoption milestone is what gives the number context.",
-      "The amount is notable. What gets built with it will be the more useful signal."
-    );
-  } else {
-    endings.push(
-      "The useful signal now is what happens next, especially if the story starts showing up in real-world behavior or numbers.",
-      "What happens after the initial report will give this story much more context than the first reaction.",
-      "For now, the thing worth tracking is whether this develops into a meaningful change or stays a one-day story.",
-      "This is worth keeping on the radar because the next data point could materially change the picture.",
-      "The detail I'd keep in mind is the part that still needs to be confirmed by what happens next."
-    );
+  // Endings are deliberately optional. A post can stop after its useful context
+  // instead of forcing a conclusion, question, CTA, or recurring sign-off.
+  const mode=Math.floor(Math.random()*7);
+
+  if (mode===0) return "";
+  if (mode===1) {
+    if (number) return `The number that stands out is ${number}; what it means will become clearer with the next update.`;
+    return `The detail that stands out is the one most likely to matter after the initial reaction fades.`;
+  }
+  if (mode===2) {
+    if (/hack|exploit|scam|phishing|attack|security/.test(text)) {
+      return "The incident matters, but the response that follows is likely to be the more useful signal.";
+    }
+    if (/launch|upgrade|release|mainnet|testnet|integrat|deploy|update/.test(text)) {
+      return "The announcement is only the first checkpoint; actual usage will add the missing context.";
+    }
+    return `For ${subject}, the next measurable change should tell us more than today's headline does.`;
+  }
+  if (mode===3) {
+    if (/price|surge|rally|drop|fall|record|high|low|volume|market/.test(text)) {
+      return "The move is the headline. The follow-through is what will separate a reaction from a trend.";
+    }
+    if (/funding|raise|investment|valuation|million|billion/.test(text)) {
+      return "The capital is the easy part to report; what gets built or changed with it is harder to fake.";
+    }
+    return "The headline is clear. The practical effect still needs to show up in the data.";
+  }
+  if (mode===4) {
+    return `One thing worth watching from here: whether ${subject} changes what people actually do.`;
+  }
+  if (mode===5) {
+    return `There is still a gap between the announcement and the outcome, and ${cleanFact ? "that gap is what I would watch next." : "the next update should narrow it."}`;
   }
 
-  return endings[seed % endings.length];
+  if (/purchase|buy|bought|holdings|treasury|reserve|accumulat/.test(text)) {
+    return token
+      ? `The interesting follow-up is whether this changes ${token}'s exposure in a meaningful way.`
+      : "The interesting follow-up is whether the position changes the underlying exposure in a meaningful way.";
+  }
+
+  return cleanFact
+    ? `That leaves one useful question: what changes because of this, beyond the headline itself?`
+    : "Worth watching how this develops before drawing a bigger conclusion.";
 }
 
 function draftFor(item,series) {
