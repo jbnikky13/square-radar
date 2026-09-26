@@ -1,15 +1,5 @@
 [
   {
-    "title": "What Is VVV? The Privacy-Obsessed AI Token That’s Up 3,000% in 2026",
-    "description": "Venice (VVV) has clawed back from under a dollar to a record $34, and the pitch behind it is simple: an AI chatbot that promises to forget you the moment you close the tab.",
-    "link": "https://decrypt.co/378840/what-is-vvv-privacy-ai-token-up-3000-percent-2026",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-09-21",
-    "timestamp": "2026-09-21T22:04:18.141Z"
-  },
-  {
     "title": "Strategy's Bitcoin Pile Nears June Record After $76M Purchase",
     "description": "The Bitcoin treasury firm’s holdings bottomed at 840,447 BTC in August. They have since climbed 5,553 BTC, to within 0.2% of the high.",
     "link": "https://decrypt.co/378737/strategys-bitcoin-pile-nears-june-record-after-76m-purchase",
@@ -128,5 +118,15 @@
     "slot": "evening",
     "date": "2026-09-25",
     "timestamp": "2026-09-25T21:41:33.607Z"
+  },
+  {
+    "title": "‘Highly experimental!’ — Analysts split on new proposal for private Bitcoin transfers - AMBCrypto",
+    "description": "<a href=\"https://news.google.com/rss/articles/CBMipgFBVV95cUxQd3dTa3UtYU41RTN6R2t4TWJpLVdVUU9yX2gxTElfQXppTWxqV1RSbVlxaEtLMkdfYWcxS1NyZG1BZWxsVzc1WWxuZWxjMnYxbzNMaUZfTkdPU3RkWE5WV0N6UHVmS1J6S2o3ZVhhcjE3UnQ0MFQ5Tlo4Y21ZaV9MVURtTm9MbkRtS29tbExmVS1DR3pmN3cyVWtnaWhqS2NQRnZrNTVR?oc=5\" target=\"_blank\">‘Highly experimental!’ — Analysts split on new proposal for private Bitcoin transfers</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">AMBCrypto</font>",
+    "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQd3dTa3UtYU41RTN6R2t4TWJpLVdVUU9yX2gxTElfQXppTWxqV1RSbVlxaEtLMkdfYWcxS1NyZG1BZWxsVzc1WWxuZWxjMnYxbzNMaUZfTkdPU3RkWE5WV0N6UHVmS1J6S2o3ZVhhcjE3UnQ0MFQ5Tlo4Y21ZaV9MVURtTm9MbkRtS29tbExmVS1DR3pmN3cyVWtnaWhqS2NQRnZrNTVR?oc=5",
+    "source": "Google News Crypto",
+    "series": "What's Changing",
+    "slot": "afternoon",
+    "date": "2026-09-26",
+    "timestamp": "2026-09-26T10:03:34.539Z"
   }
 ]
