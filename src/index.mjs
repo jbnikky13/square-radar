@@ -272,7 +272,7 @@ function draftFor(item,series) {
     "",
   ].join("\n");
 }
-function pack(series,emoji,brief,item,date) {
+function pack(series,emoji,brief,item,date,draft) {
   if(!item) return `🟣 SQUARERADAR • ${date}\n\nNo story passed today's attention filter.\n\nI'd rather skip a post than force a weak one.\n`;
   return [
     `🟣 SQUARERADAR • ${date}`,
@@ -280,7 +280,7 @@ function pack(series,emoji,brief,item,date) {
     item.title,
     "\n━━━━━━━━━━━━━━━━━━━━",
     "\n✍️ COPY-READY POST",
-    draftFor(item,series),
+    draft,
     ...(tokenTag(item) ? [`\n🏷️ TOKEN\n${tokenTag(item)}`] : []),
     `\n🔗 SOURCE\n${item.source}: ${item.link}`
   ].join("\n");
@@ -350,7 +350,8 @@ const uniqueItems=allItems.filter((item,index,array)=>
 );
 
 const selected=chooseOne(uniqueItems,config.series,history);
-const output=pack(config.series,config.emoji,config.brief,selected,localDate(now));
+const draft=selected ? draftFor(selected,config.series) : "";
+const output=pack(config.series,config.emoji,config.brief,selected,localDate(now),draft);
 await fs.mkdir(path.join(root,"output"),{recursive:true});
 await fs.writeFile(path.join(root,"output",localDate(now)+"-"+day+".txt"),output+"\n","utf8");
 
@@ -360,7 +361,7 @@ if (!selected) {
   process.exit(0);
 }
 
-const postText = draftFor(selected, config.series);
+const postText = draft;
 const squareResult = await publishSquare(postText);
 
 const updatedHistory=rememberStory(history,selected,config,localDate(now));
