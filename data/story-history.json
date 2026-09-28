@@ -1,15 +1,5 @@
 [
   {
-    "title": "Elliptic Wants Every Cop to Read a Crypto Wallet in Seconds—With AI",
-    "description": "Elliptic’s new AI-assisted tool, called Pulse, lets any officer input a wallet address or transaction hash and get a plain-language summary in seconds, aiming to bring crypto tracing beyond specialized units.",
-    "link": "https://decrypt.co/379113/elliptic-crypto-wallet-ai-pulse",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-09-24",
-    "timestamp": "2026-09-24T17:25:44.400Z"
-  },
-  {
     "title": "Humans Are Reading Your ChatGPT Chats, New Lawsuit Claims",
     "description": "A proposed class action accuses OpenAI of quietly routing real conversations to outside contractors through a program called Project Lily—without telling users first.",
     "link": "https://decrypt.co/379272/humans-reading-chatgpt-chats-lawsuit",
@@ -88,5 +78,15 @@
     "slot": "afternoon",
     "date": "2026-09-28",
     "timestamp": "2026-09-28T11:52:28.722Z"
+  },
+  {
+    "title": "Strategy Sets New BTC Holdings Record After $143M Bitcoin Purchase",
+    "description": "Michael Saylor's Bitcoin treasury firm bought 1,665 BTC last week, taking its holdings above its previous record to 847,666 BTC.",
+    "link": "https://decrypt.co/379415/strategy-sets-new-btc-holdings-record-after-143m-bitcoin-purchase",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-28",
+    "timestamp": "2026-09-28T19:46:23.062Z"
   }
 ]
