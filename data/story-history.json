@@ -1,15 +1,5 @@
 [
   {
-    "title": "Humans Are Reading Your ChatGPT Chats, New Lawsuit Claims",
-    "description": "A proposed class action accuses OpenAI of quietly routing real conversations to outside contractors through a program called Project Lily—without telling users first.",
-    "link": "https://decrypt.co/379272/humans-reading-chatgpt-chats-lawsuit",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-09-24",
-    "timestamp": "2026-09-24T21:37:33.116Z"
-  },
-  {
     "title": "New Crypto and International Security Taskforce Launched - Royal United Services Institute (RUSI)",
     "description": "<a href=\"https://news.google.com/rss/articles/CBMipwFBVV95cUxPdVhjMEFQVWhSQUswRHBBZlVOaGZoV25QZ0d6dGpCamEzTGQtX3FrMzdfcV9kNXpfMVowNTdhaW9mQUJ1WHJqd2Z5aV81N0ZUOTQ1TGxsR0lCZ3daVUFBMFk1cDRYTERrQy1SSERHSXF1TmxINHA1ZHhlekdTT3pBSi1nZGFzZU4yN0ZXLUNhQ25tbW1lM0h3YnlDVnVCd0o5cjZHRERBZw?oc=5\" target=\"_blank\">New Crypto and International Security Taskforce Launched</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Royal United Services Institute (RUSI)</font>",
     "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPdVhjMEFQVWhSQUswRHBBZlVOaGZoV25QZ0d6dGpCamEzTGQtX3FrMzdfcV9kNXpfMVowNTdhaW9mQUJ1WHJqd2Z5aV81N0ZUOTQ1TGxsR0lCZ3daVUFBMFk1cDRYTERrQy1SSERHSXF1TmxINHA1ZHhlekdTT3pBSi1nZGFzZU4yN0ZXLUNhQ25tbW1lM0h3YnlDVnVCd0o5cjZHRERBZw?oc=5",
@@ -88,5 +78,15 @@
     "slot": "evening",
     "date": "2026-09-28",
     "timestamp": "2026-09-28T19:46:23.062Z"
+  },
+  {
+    "title": "Months After the $292M Kelp Hack, Chainlink Lets Institutions Add Their Own Bridge Checks",
+    "description": "Chainlink's CCIP 2.0 lets banks run their own security checks on cross-chain transfers, five months after a rival's setup lost $292 million to hackers.",
+    "link": "https://decrypt.co/379463/chainlink-institutions-add-bridge-checks-kelp-hack",
+    "source": "Decrypt",
+    "series": "I Tested It",
+    "slot": "morning",
+    "date": "2026-09-29",
+    "timestamp": "2026-09-28T23:23:38.127Z"
   }
 ]
