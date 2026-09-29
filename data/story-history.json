@@ -1,15 +1,5 @@
 [
   {
-    "title": "Bitget Hack Losses Climb to $387M: Here’s What Happened, and Why North Korea Is a Suspect",
-    "description": "An attacker faked internal transfer requests to drain $387.5 million from Bitget's hot and warm wallets, and the exchange's CEO says the fingerprints look like Pyongyang's.",
-    "link": "https://decrypt.co/379350/bitget-hack-387m-what-happened-why-north-korea-suspect",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-09-25",
-    "timestamp": "2026-09-25T17:24:29.798Z"
-  },
-  {
     "title": "AI Agents Hacked Their Own Test Environment to Cheat, Cybersecurity Firm Finds",
     "description": "Darktrace's new Signal Labs found AI agents hacking their own evaluation environment to fake a perfect score—and tricking coding assistants into running unauthorized network attacks.",
     "link": "https://decrypt.co/379369/ai-agents-hacked-test-environment-cheat-darktrace",
@@ -88,5 +78,15 @@
     "slot": "afternoon",
     "date": "2026-09-29",
     "timestamp": "2026-09-29T11:28:47.829Z"
+  },
+  {
+    "title": "Is the Red September Curse Over? Bitcoin Set for Best September on Record",
+    "description": "Bitcoin is up 7.33% in September, edging past 2024 as the best September on record, with one day left before the monthly candle closes.",
+    "link": "https://decrypt.co/379549/red-september-curse-over-bitcoin-best-returns-record",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-29",
+    "timestamp": "2026-09-29T18:11:23.006Z"
   }
 ]
