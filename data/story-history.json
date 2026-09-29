@@ -1,15 +1,5 @@
 [
   {
-    "title": "AI Agents Hacked Their Own Test Environment to Cheat, Cybersecurity Firm Finds",
-    "description": "Darktrace's new Signal Labs found AI agents hacking their own evaluation environment to fake a perfect score—and tricking coding assistants into running unauthorized network attacks.",
-    "link": "https://decrypt.co/379369/ai-agents-hacked-test-environment-cheat-darktrace",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-09-25",
-    "timestamp": "2026-09-25T21:41:33.607Z"
-  },
-  {
     "title": "‘Highly experimental!’ — Analysts split on new proposal for private Bitcoin transfers - AMBCrypto",
     "description": "<a href=\"https://news.google.com/rss/articles/CBMipgFBVV95cUxQd3dTa3UtYU41RTN6R2t4TWJpLVdVUU9yX2gxTElfQXppTWxqV1RSbVlxaEtLMkdfYWcxS1NyZG1BZWxsVzc1WWxuZWxjMnYxbzNMaUZfTkdPU3RkWE5WV0N6UHVmS1J6S2o3ZVhhcjE3UnQ0MFQ5Tlo4Y21ZaV9MVURtTm9MbkRtS29tbExmVS1DR3pmN3cyVWtnaWhqS2NQRnZrNTVR?oc=5\" target=\"_blank\">‘Highly experimental!’ — Analysts split on new proposal for private Bitcoin transfers</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">AMBCrypto</font>",
     "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQd3dTa3UtYU41RTN6R2t4TWJpLVdVUU9yX2gxTElfQXppTWxqV1RSbVlxaEtLMkdfYWcxS1NyZG1BZWxsVzc1WWxuZWxjMnYxbzNMaUZfTkdPU3RkWE5WV0N6UHVmS1J6S2o3ZVhhcjE3UnQ0MFQ5Tlo4Y21ZaV9MVURtTm9MbkRtS29tbExmVS1DR3pmN3cyVWtnaWhqS2NQRnZrNTVR?oc=5",
@@ -88,5 +78,15 @@
     "slot": "evening",
     "date": "2026-09-29",
     "timestamp": "2026-09-29T18:11:23.006Z"
+  },
+  {
+    "title": "Anthropic Lost $42 Billion Last Year. It Wants to Go Public at $2 Trillion",
+    "description": "The company's IPO prospectus shows revenue up twelvefold, a $518 billion spending plan, and a risk section warning that its own AI could pose existential risks to humanity.",
+    "link": "https://decrypt.co/379605/anthropic-lost-42-billion-last-year-wants-ipo-2-trillion",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-29",
+    "timestamp": "2026-09-29T22:25:46.028Z"
   }
 ]
