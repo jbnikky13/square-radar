@@ -1,15 +1,5 @@
 [
   {
-    "title": "New Crypto and International Security Taskforce Launched - Royal United Services Institute (RUSI)",
-    "description": "<a href=\"https://news.google.com/rss/articles/CBMipwFBVV95cUxPdVhjMEFQVWhSQUswRHBBZlVOaGZoV25QZ0d6dGpCamEzTGQtX3FrMzdfcV9kNXpfMVowNTdhaW9mQUJ1WHJqd2Z5aV81N0ZUOTQ1TGxsR0lCZ3daVUFBMFk1cDRYTERrQy1SSERHSXF1TmxINHA1ZHhlekdTT3pBSi1nZGFzZU4yN0ZXLUNhQ25tbW1lM0h3YnlDVnVCd0o5cjZHRERBZw?oc=5\" target=\"_blank\">New Crypto and International Security Taskforce Launched</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Royal United Services Institute (RUSI)</font>",
-    "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPdVhjMEFQVWhSQUswRHBBZlVOaGZoV25QZ0d6dGpCamEzTGQtX3FrMzdfcV9kNXpfMVowNTdhaW9mQUJ1WHJqd2Z5aV81N0ZUOTQ1TGxsR0lCZ3daVUFBMFk1cDRYTERrQy1SSERHSXF1TmxINHA1ZHhlekdTT3pBSi1nZGFzZU4yN0ZXLUNhQ25tbW1lM0h3YnlDVnVCd0o5cjZHRERBZw?oc=5",
-    "source": "Google News Crypto",
-    "series": "What's Changing",
-    "slot": "afternoon",
-    "date": "2026-09-25",
-    "timestamp": "2026-09-25T10:23:13.623Z"
-  },
-  {
     "title": "Bitget Hack Losses Climb to $387M: Here’s What Happened, and Why North Korea Is a Suspect",
     "description": "An attacker faked internal transfer requests to drain $387.5 million from Bitget's hot and warm wallets, and the exchange's CEO says the fingerprints look like Pyongyang's.",
     "link": "https://decrypt.co/379350/bitget-hack-387m-what-happened-why-north-korea-suspect",
@@ -88,5 +78,15 @@
     "slot": "morning",
     "date": "2026-09-29",
     "timestamp": "2026-09-28T23:23:38.127Z"
+  },
+  {
+    "title": "SEC Staff Says Token Buybacks Don't Make Crypto a Security—If the Network Works",
+    "description": "New SEC staff guidance says announcing a token buyback on a functional network isn't a promise that turns the token into a security, a shift one attorney says makes securities laws look &#34;opt-in.&#34;",
+    "link": "https://decrypt.co/379398/sec-staff-token-buybacks-dont-make-crypto-security",
+    "source": "Decrypt",
+    "series": "What's Changing",
+    "slot": "afternoon",
+    "date": "2026-09-29",
+    "timestamp": "2026-09-29T11:28:47.829Z"
   }
 ]
