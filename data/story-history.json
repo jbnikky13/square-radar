@@ -1,15 +1,5 @@
 [
   {
-    "title": "2026 Crypto Predictions! Tom Lee still buying ETH! Rekt tease WorldStar collab!",
-    "description": "Btc: 87k (0%) | btc.D: 59.0% (0%). Eth: 2975 (1%) | bnb: 855 (+1%) | sol: 124 (0%). Tom Lee bought another $130M in ETH for Christmas, and still holds $1B in cash heading into the new year. REKT drinks and WorldStarHipHop tease collab. BlackRock’s BUIDL hits $100M million in dividends and passes $2 billion in assets. Metaplanet buys 4,279 bitcoin, lifts total holdings to 35,102 BTC. Unleash Protocol hit by $3.9 million exploit with funds routed through Tornado Cash. Onchain Perpetuals Top $1T Monthly Volume as Crypto Traders Chase Leverage. South Korea’s Crypto Regulation Delayed as Stablecoin Rules Face Deadlock. Abundant Mining CEO says Bitcoin price volatility hasn’t slowed mining demand.",
-    "link": "https://decrypt.co/videos/interviews/dBDZqp65/2026-crypto-predictions-tom-lee-still-buying-eth-rekt-tease-worldstar-collab",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-09-26",
-    "timestamp": "2026-09-26T16:34:04.379Z"
-  },
-  {
     "title": "AI Agents Are Racing to Make Quantum-Safe Bitcoin Cheap—And Winning",
     "description": "An open competition run by StarkWare, Yukon Research, and Eigen Labs drove the estimated cost of building a quantum-safe Bitcoin transaction from about $320 to roughly $67, with AI models topping the leaderboards.",
     "link": "https://decrypt.co/379378/ai-agents-racing-make-quantum-safe-bitcoin-cheap",
@@ -88,5 +78,15 @@
     "slot": "afternoon",
     "date": "2026-09-30",
     "timestamp": "2026-09-30T11:16:37.770Z"
+  },
+  {
+    "title": "Trump Unveils 'Morally Binding' AI Accord Signed by OpenAI, Google and Nvidia",
+    "description": "The one-page pact, which Trump called &#34;morally binding,&#34; asks companies to adopt internal controls, independent audits and board oversight—but carries no penalties and drew criticism for its thin detail.",
+    "link": "https://decrypt.co/379728/trump-unveils-morally-binding-ai-accord-signed-by-openai-google-and-nvidia",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-30",
+    "timestamp": "2026-09-30T18:03:26.943Z"
   }
 ]
