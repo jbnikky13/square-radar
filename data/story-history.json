@@ -1,15 +1,5 @@
 [
   {
-    "title": "AI Agents Are Racing to Make Quantum-Safe Bitcoin Cheap—And Winning",
-    "description": "An open competition run by StarkWare, Yukon Research, and Eigen Labs drove the estimated cost of building a quantum-safe Bitcoin transaction from about $320 to roughly $67, with AI models topping the leaderboards.",
-    "link": "https://decrypt.co/379378/ai-agents-racing-make-quantum-safe-bitcoin-cheap",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-09-26",
-    "timestamp": "2026-09-26T21:18:49.975Z"
-  },
-  {
     "title": "Forward Industries Raises $25 Million to Expand Solana Treasury - CryptoRank",
     "description": "<a href=\"https://news.google.com/rss/articles/CBMilAFBVV95cUxQSEo0TlFTOUJuN29kTVQtTUhuVFZSajlkOWR3ODVBN3BpVUY4U1k4RlYtX2R6RUsycGhmaEZqRDNWUWhHMF8wWC1kMTQzZFloMmhCOWgxR1VSdXVsblFtZUJ5cmlwSHJfSms4aWd2X3NUMWhiN2JBQTlPa1EtRWVTdkhlWFhnZjFadFRPWDlVQUIzcERC?oc=5\" target=\"_blank\">Forward Industries Raises $25 Million to Expand Solana Treasury</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">CryptoRank</font>",
     "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQSEo0TlFTOUJuN29kTVQtTUhuVFZSajlkOWR3ODVBN3BpVUY4U1k4RlYtX2R6RUsycGhmaEZqRDNWUWhHMF8wWC1kMTQzZFloMmhCOWgxR1VSdXVsblFtZUJ5cmlwSHJfSms4aWd2X3NUMWhiN2JBQTlPa1EtRWVTdkhlWFhnZjFadFRPWDlVQUIzcERC?oc=5",
@@ -88,5 +78,15 @@
     "slot": "evening",
     "date": "2026-09-30",
     "timestamp": "2026-09-30T18:03:26.943Z"
+  },
+  {
+    "title": "CFTC Sends White House New Rules to Cement Its Grip on Prediction Markets",
+    "description": "The two proposals would define event contracts as &#34;swaps&#34; while excluding &#34;casino-style gambling products&#34;—a bid to cement the agency's exclusive jurisdiction as states sue prediction-market operators over gambling claims.",
+    "link": "https://decrypt.co/379750/cftc-sends-white-house-new-rules-to-cement-its-grip-on-prediction-markets",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-09-30",
+    "timestamp": "2026-09-30T22:24:18.690Z"
   }
 ]
