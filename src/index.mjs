@@ -313,7 +313,7 @@ async function chooseMedia(date, slot="story") {
     video: path.join(root, "media", "videos")
   };
   const list = async dir => {
-    try { return (await fs.readdir(dir)).filter(x => /\\.(png|jpe?g|webp|gif|mp4|mov|webm)$/i.test(x)); }
+    try { return (await fs.readdir(dir)).filter(x => /\.(png|jpe?g|webp|gif|mp4|mov|webm)$/i.test(x)); }
     catch { return []; }
   };
   const images = await list(dirs.image);
