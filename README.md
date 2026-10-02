@@ -135,3 +135,8 @@ square-radar/
 ## Core principle
 
 **Find something interesting. Understand it. Tell the story like a human. Tag the relevant token. Start a conversation. Don't repeat yesterday's story just because the algorithm liked it.**
+
+
+## CreatorPad automation
+
+SquareRadar checks Binance's public Latest Activities announcements for active CreatorPad campaigns. When an active campaign is discovered, it validates the required hashtag/token/account tags, generates a campaign-specific post, publishes it automatically through the existing Square OpenAPI key, and sends the exact copy plus the Square link to Telegram. No approval step is used. Set `CREATORPAD_ENABLED=false` to disable this path.
