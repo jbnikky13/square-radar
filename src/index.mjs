@@ -306,7 +306,26 @@ function pack(series,emoji,brief,item,date,draft) {
   ].join("\n");
 }
 
-async function publishSquare(text) {
+
+async function chooseMedia(date, slot="story") {
+  const dirs = {
+    image: path.join(root, "media", "images"),
+    video: path.join(root, "media", "videos")
+  };
+  const list = async dir => {
+    try { return (await fs.readdir(dir)).filter(x => /\\.(png|jpe?g|webp|gif|mp4|mov|webm)$/i.test(x)); }
+    catch { return []; }
+  };
+  const images = await list(dirs.image);
+  const videos = await list(dirs.video);
+  const seed = [...(date+"|"+slot)].reduce((n,c)=>n+c.charCodeAt(0),0);
+  const mode = seed % 10;
+  if (videos.length && mode === 0) return {type:"video", path:path.join(dirs.video,videos[seed%videos.length]), name:videos[seed%videos.length]};
+  if (images.length && mode <= 2) return {type:"image", path:path.join(dirs.image,images[seed%images.length]), name:images[seed%images.length]};
+  return null;
+}
+
+async function publishSquare(text, media=null) {
   if (!process.env.BINANCE_SQUARE_OPENAPI_KEY) {
     throw new Error("BINANCE_SQUARE_OPENAPI_KEY is not configured");
   }
@@ -359,7 +378,8 @@ if (creatorPadEnabled) {
       const report=campaignOutput(campaign,localDate(now));
       await fs.mkdir(path.join(root,"output"),{recursive:true});
       await fs.writeFile(path.join(root,"output",localDate(now)+"-creatorpad.txt"),report+"\n","utf8");
-      const result=await publishSquare(campaign.post);
+      const media=await chooseMedia(localDate(now),"creatorpad");
+      const result=await publishSquare(campaign.post,media);
       history.push({id:campaign.id,title:campaign.title,end:campaign.end,date:runDate,postedAt:new Date().toISOString(),squareId:result.id||null,squareLink:result.link||null});
       await saveCampaignHistory(hp,history);
       await sendTelegram(report+(result.link&&result.link!=="unavailable"?"\n\n🟢 POSTED TO BINANCE SQUARE\n"+result.link:"\n\n🟢 BINANCE SQUARE PUBLISH REQUEST SUCCEEDED"));
