@@ -198,76 +198,9 @@ function tokenTag(item) {
 }
 
 function storyEnding(item, fact, token, title) {
-  const text=(title+" "+fact).toLowerCase();
-  const seed=Math.abs([...title].reduce((n,ch)=>n+ch.charCodeAt(0),0));
-  const topic=token || "this story";
-
-  // Real social posts do not need a formal conclusion. A useful ending usually
-  // does one of four things: adds the writer's take, points to the next signal,
-  // asks a specific question, or simply stops. Choose from story-specific
-  // patterns rather than generic "AI conclusion" sentences.
-  const candidates=[];
-
-  if (/hack|exploit|scam|phishing|attack|security|breach/.test(text)) {
-    candidates.push(
-      "The interesting part now is what changes after the incident.",
-      "The next signal will be how the affected team responds.",
-      "It also raises a practical question: where was the weakest point in the setup?",
-      "For now, the bigger story is what this exposes about the system around the attack."
-    );
-  }
-
-  if (/launch|released|release|upgrade|mainnet|testnet|integrat|deploy|update/.test(text)) {
-    candidates.push(
-      `The real test for ${topic} starts with what people actually use.`,
-      "The announcement is one thing; adoption will tell the bigger story.",
-      "Now the interesting part is seeing this move from announcement to actual usage.",
-      "The next few updates should show whether this changes anything beyond the headline."
-    );
-  }
-
-  if (/price|surge|rally|drop|fall|record|high|low|volume|market|trading/.test(text)) {
-    candidates.push(
-      "The move is interesting. The follow-through matters more.",
-      "One session tells us less than what happens next.",
-      "The next few sessions should give this move more context.",
-      "That makes the reaction worth watching, without treating one move as the whole story."
-    );
-  }
-
-  if (/funding|raise|investment|valuation|million|billion|acqui|deal|partnership/.test(text)) {
-    candidates.push(
-      "The bigger question is what gets built with that capital.",
-      "The funding is the headline; execution is what comes next.",
-      "What happens with the money will probably matter more than the announcement itself.",
-      "The interesting follow-up is whether the deal changes the product, market or users."
-    );
-  }
-
-  if (/regulat|law|sec|government|policy|ban|legal|court/.test(text)) {
-    candidates.push(
-      "The next move from regulators will probably add the missing context.",
-      "This is one of those stories where the follow-up matters as much as the announcement.",
-      "The practical impact will become clearer once the next regulatory step happens.",
-      "For the market, the details of implementation may matter more than the headline."
-    );
-  }
-
-  // A few conversational endings are useful, but they must be specific to the story.
-  if (candidates.length === 0) {
-    candidates.push(
-      `The part I'm watching now is what this changes for ${topic}.`,
-      "The useful thing to watch from here is what actually changes in practice.",
-      "The headline is clear; the next data point should add the missing context.",
-      "This is interesting less for the headline itself than for what happens next.",
-      "There may be more to this once the first real-world effects show up."
-    );
-  }
-
-  // Roughly 1 in 5 posts should end naturally rather than forcing a takeaway.
-  if (seed % 5 === 0) return "";
-
-  return candidates[seed % candidates.length];
+  // No generic CTA, question, "watch next", or AI-style conclusion.
+  // The post should end with the final useful fact from the source.
+  return "";
 }
 
 function marketDraftFor(item) {
@@ -312,7 +245,6 @@ function draftFor(item,series) {
   ];
   const seed=Math.abs([...title].reduce((n,ch)=>n+ch.charCodeAt(0),0));
   const context=contextLines[seed%contextLines.length];
-  const ending=storyEnding(item,fact,token,title);
 
   return [
     opener,
@@ -320,7 +252,6 @@ function draftFor(item,series) {
     fact,
     "",
     context,
-    ...(ending ? ["", ending] : []),
     "",
   ].join("\n");
 }
