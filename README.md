@@ -140,3 +140,8 @@ square-radar/
 ## CreatorPad automation
 
 SquareRadar checks Binance's public Latest Activities announcements for active CreatorPad campaigns. When an active campaign is discovered, it validates the required hashtag/token/account tags, generates a campaign-specific post, publishes it automatically through the existing Square OpenAPI key, and sends the exact copy plus the Square link to Telegram. No approval step is used. Set `CREATORPAD_ENABLED=false` to disable this path.
+
+
+## Optional media rotation
+
+SquareRadar can publish occasional media posts when creator-supplied/licensed assets exist in `media/images/` or `media/videos/`. The scheduler normally remains text-only, with deterministic occasional image/video selection to avoid repeated media. Images support up to 4 files; the current automatic rotation uses one image. Videos use ffmpeg/ffprobe and Binance's video upload flow. If the media folders are empty, SquareRadar automatically falls back to text-only posts.
