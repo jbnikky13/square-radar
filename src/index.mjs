@@ -330,10 +330,14 @@ async function publishSquare(text, media=null) {
     throw new Error("BINANCE_SQUARE_OPENAPI_KEY is not configured");
   }
   const { spawn } = await import("node:child_process");
+  const script = media?.type === "image" ? "post-image.mjs" : media?.type === "video" ? "post-video.mjs" : "post-text.mjs";
+  const args = ["--text", text];
+  if (media?.type === "image") args.push("--images", media.path);
+  if (media?.type === "video") args.push("--video", media.path);
   return await new Promise((resolve, reject) => {
     const child = spawn(process.execPath, [
-      path.join(root, "binance-square", "post-text.mjs"),
-      "--text", text
+      path.join(root, "binance-square", script),
+      ...args
     ], {
       env: process.env,
       stdio: ["ignore", "pipe", "pipe"]
