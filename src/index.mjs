@@ -15,6 +15,15 @@ const NIGERIA_FEEDS = [
   ["Google News Nigeria Crypto", "https://news.google.com/rss/search?q=Nigeria%20crypto%20OR%20stablecoin%20OR%20blockchain%20when:7d&hl=en-NG&gl=NG&ceid=NG:en"],
   ["Google News Africa Crypto", "https://news.google.com/rss/search?q=Africa%20crypto%20OR%20stablecoin%20OR%20fintech%20when:7d&hl=en-US&gl=US&ceid=US:en"]
 ];
+const MARKET_FEEDS = [
+  ["Reuters Business", "https://news.google.com/rss/search?q=when:24h+site:reuters.com/business&ceid=US:en&hl=en-US&gl=US"],
+  ["Reuters Markets", "https://news.google.com/rss/search?q=when:24h+site:reuters.com/markets&ceid=US:en&hl=en-US&gl=US"],
+  ["Reuters Technology", "https://news.google.com/rss/search?q=when:24h+site:reuters.com/technology&ceid=US:en&hl=en-US&gl=US"],
+  ["Yahoo Finance Stocks", "https://feeds.finance.yahoo.com/rss/2.0/headline?s=AAPL,MSFT,NVDA,TSLA,AMZN,GOOGL,META&region=US&lang=en-US"],
+  ["Google News Stocks", "https://news.google.com/rss/search?q=stocks%20OR%20ETFs%20OR%20earnings%20OR%20IPO%20when:24h&hl=en-US&gl=US&ceid=US:en"],
+  ["Google News Nigeria Business", "https://news.google.com/rss/search?q=Nigeria%20business%20OR%20banks%20OR%20fintech%20OR%20markets%20when:24h&hl=en-NG&gl=NG&ceid=NG:en"],
+  ["Google News Africa Business", "https://news.google.com/rss/search?q=Africa%20business%20OR%20markets%20OR%20fintech%20when:24h&hl=en-US&gl=US&ceid=US:en"]
+];
 const STOPWORDS = new Set("the a an and or of to in for on with from by as is are was were this that it its be has have had new latest after before about into over more less how what why when where".split(" "));
 
 function dayName(date) {
@@ -86,7 +95,19 @@ function sourceQuality(source) {
   if(/Google News/i.test(source)) return 4;
   return 8;
 }
+function marketScore(item) {
+  const text=(item.title+" "+item.description).toLowerCase();
+  let s=sourceQuality(item.source);
+  if(/stock|stocks|share|shares|equity|etf|earnings|ipo|revenue|profit|loss|valuation|dividend|merger|acquisition|ceo|company|business|bank|fintech|manufactur|oil|gas|commodity|bond|treasury|inflation|interest rate|fed|central bank/.test(text)) s+=34;
+  if(/record|surge|fall|drop|raises|cuts|beats|misses|guidance|deal|launch|investment|funding/.test(text)) s+=24;
+  if(/nigeria|africa|lagos|naira|ngx|cbn|zenith|gtco|uba|access holdings|dangote|seplat/.test(text)) s+=24;
+  const age=item.pubDate ? Date.now()-new Date(item.pubDate).getTime() : Infinity;
+  if(age<12*3600e3) s+=25; else if(age<48*3600e3) s+=14; else if(age<7*24*3600e3) s+=4;
+  return s;
+}
+
 function score(item,series) {
+  if(/Business & Markets|Stocks & Companies/.test(series)) return marketScore(item);
   const text=(item.title+" "+item.description).toLowerCase();
   let s=sourceQuality(item.source);
   if(/bitcoin|ethereum|solana|stablecoin|defi|wallet|base|arc|rwa|ai|on-chain|token|layer 2|security|hack|exploit/.test(text)) s+=24;
@@ -249,7 +270,18 @@ function storyEnding(item, fact, token, title) {
   return candidates[seed % candidates.length];
 }
 
+function marketDraftFor(item) {
+  const desc=clean(item.description||"").replace(/\.{2,}/g,".").trim();
+  const fact=(desc.split(/(?<=[.!?])\s+/).filter(Boolean)[0]||desc);
+  const title=punchTitle(item.title);
+  const text=(title+" "+fact).toLowerCase();
+  const stock=(title.match(/\$[A-Z]{1,6}\b/)||[])[0]||"";
+  const opener=/earnings|revenue|profit|guidance/.test(text) ? "This company result is worth looking at beyond the headline." : /ipo|merger|acquisition|deal/.test(text) ? "This business move caught my attention." : "This market/business story caught my attention.";
+  const context=/stock|shares|equity|earnings|revenue|profit|valuation|ipo|dividend/.test(text) ? "The useful part is what the reported change says about the company, its sector, or the wider market — not simply whether the share price moves." : "The bigger question is what this changes for the company, its customers, competitors, or the wider economy.";
+  return [opener,"",fact,"",context,stock ? "The related ticker is "+stock+".":"", ""].join("\n");
+}
 function draftFor(item,series) {
+  if(/Business & Markets|Stocks & Companies/.test(series)) return marketDraftFor(item);
   const desc=clean(item.description||"").replace(/\.{2,}/g,".").trim();
   const sentences=desc.split(/(?<=[.!?])\s+/).filter(Boolean);
   const fact=sentences[0]||desc;
@@ -402,7 +434,8 @@ const hour=Number(new Intl.DateTimeFormat("en-US",{timeZone:"Africa/Lagos",hour:
 const slot=hour<10?"morning":hour<17?"afternoon":"evening";
 const config=schedule[day]?.[slot] ? {...schedule[day][slot], slot} : null;
 if(!config) { console.log("SquareRadar: no scheduled slot for",day,slot); process.exit(0); }
-const feeds=[...FEEDS,...(day==="wednesday"?NIGERIA_FEEDS:[])];
+const marketSeries = /Business & Markets|Stocks & Companies/.test(config.series);
+const feeds = marketSeries ? [...MARKET_FEEDS,...(day==="wednesday"?NIGERIA_FEEDS:[])] : [...FEEDS,...(day==="wednesday"?NIGERIA_FEEDS:[])];
 const batches=await Promise.all(feeds.map(fetchFeed));
 const allItems=batches.flat();
 const historyPath=path.join(root,"data","story-history.json");
