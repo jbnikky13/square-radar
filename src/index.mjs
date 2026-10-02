@@ -353,13 +353,13 @@ if (creatorPadEnabled) {
     const campaign=await discoverCreatorPadCampaign();
     const hp=path.join(root,"data","creatorpad-history.json");
     const history=await loadCampaignHistory(hp);
-    const duplicate=campaign && history.some(x=>x.id===campaign.id && x.end===campaign.end);
+    const runDate=localDate(now);\n    const duplicate=campaign && history.some(x=>x.id===campaign.id && x.end===campaign.end && x.date===runDate);
     if(campaign&&!duplicate){
       const report=campaignOutput(campaign,localDate(now));
       await fs.mkdir(path.join(root,"output"),{recursive:true});
       await fs.writeFile(path.join(root,"output",localDate(now)+"-creatorpad.txt"),report+"\n","utf8");
       const result=await publishSquare(campaign.post);
-      history.push({id:campaign.id,title:campaign.title,end:campaign.end,postedAt:new Date().toISOString(),squareId:result.id||null,squareLink:result.link||null});
+      history.push({id:campaign.id,title:campaign.title,end:campaign.end,date:runDate,postedAt:new Date().toISOString(),squareId:result.id||null,squareLink:result.link||null});
       await saveCampaignHistory(hp,history);
       await sendTelegram(report+(result.link&&result.link!=="unavailable"?"\n\n🟢 POSTED TO BINANCE SQUARE\n"+result.link:"\n\n🟢 BINANCE SQUARE PUBLISH REQUEST SUCCEEDED"));
       console.log("SquareRadar CreatorPad complete:",campaign.title,result.id||"id-unavailable");
