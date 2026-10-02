@@ -353,7 +353,8 @@ if (creatorPadEnabled) {
     const campaign=await discoverCreatorPadCampaign();
     const hp=path.join(root,"data","creatorpad-history.json");
     const history=await loadCampaignHistory(hp);
-    const runDate=localDate(now);\n    const duplicate=campaign && history.some(x=>x.id===campaign.id && x.end===campaign.end && x.date===runDate);
+    const runDate=localDate(now);
+    const duplicate=campaign && history.some(x=>x.id===campaign.id && x.end===campaign.end && x.date===runDate);
     if(campaign&&!duplicate){
       const report=campaignOutput(campaign,localDate(now));
       await fs.mkdir(path.join(root,"output"),{recursive:true});
