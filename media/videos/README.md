@@ -1,0 +1,1 @@
+Add short videos here that you own or are licensed to publish on Binance Square. SquareRadar may occasionally select one automatically. Videos require ffmpeg/ffprobe in CI and must be 600 seconds or less.
