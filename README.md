@@ -14,7 +14,7 @@ Posts should feel like one crypto-aware person telling friends about something i
 - based on a current, verifiable story
 - built around one interesting fact or development
 - explains why the detail is worth noticing
-- ends with a genuine conversation prompt
+- ends naturally with the useful information being reported; no generic CTA, question, or forced conclusion
 - uses a relevant token tag such as `$BTC`, `$ETH`, `$SOL`, `$ZEC`, etc.
 - never invents a token tag when the story cannot be linked to an identifiable token
 - avoids unnecessary predictions or forced investment advice
@@ -27,12 +27,12 @@ SquareRadar publishes **three posts per day, Monday–Saturday**:
 
 | Day | Morning | Afternoon | Evening |
 |---|---|---|---|
-| Monday | 🔎 Crypto Investigation | 🔥 What's Changing | 👀 Open Question |
-| Tuesday | 🧪 I Tested It | 🔥 What's Changing | 👀 Open Question |
-| Wednesday | 🌍 Africa Crypto Lens | 🔥 What's Changing | 👀 Open Question |
-| Thursday | 🧠 Crypto Nobody Explained Properly | 🔥 What's Changing | 👀 Open Question |
-| Friday | 👀 What I'm Watching | 🔥 What's Changing | 💬 Open Question |
-| Saturday | 💰 $10 Experiment | 🔥 What's Changing | 👀 Open Question |
+| Monday | 🔎 Crypto Investigation | 🔥 What's Changing | 👀 Crypto Discussion |
+| Tuesday | 🧪 I Tested It | 🔥 What's Changing | 👀 Crypto Discussion |
+| Wednesday | 🌍 Africa Crypto Lens | 🔥 What's Changing | 👀 Crypto Discussion |
+| Thursday | 🧠 Crypto Nobody Explained Properly | 🔥 What's Changing | 👀 Crypto Discussion |
+| Friday | 👀 What I'm Watching | 🔥 What's Changing | 💬 Crypto Discussion |
+| Saturday | 💰 $10 Experiment | 🔥 What's Changing | 👀 Crypto Discussion |
 | Sunday | — | — | — |
 
 The editorial theme changes the angle, not the requirement for natural, original storytelling.
@@ -54,6 +54,10 @@ This prevents the same story from being selected again simply because it remains
 
 If no sufficiently novel story passes the filter, SquareRadar skips the post rather than recycling an old story.
 
+## Business, stocks and markets
+
+The afternoon slot is dedicated to current business and market information. SquareRadar can cover company developments, stocks, ETFs, earnings, IPOs, M&A, banking, fintech, commodities, bonds, rates, macroeconomic developments, and Nigeria/Africa business stories. Market stories are informational reporting, not personalized investment advice or price predictions.
+
 ## Sources
 
 Current feeds include:
@@ -72,7 +76,15 @@ SquareRadar can publish directly to Binance Square using:
 
 `BINANCE_SQUARE_OPENAPI_KEY`
 
-The publisher is intentionally separated into `binance-square/post-text.mjs`.
+The publisher is separated by media type: `post-text.mjs` for text, `post-image.mjs` for images, and `post-video.mjs` for videos. SquareRadar can occasionally attach approved media and falls back to text-only when no suitable media is available.
+
+## CreatorPad automation
+
+SquareRadar checks Binance public Latest Activities announcements for active CreatorPad campaigns. When an active campaign is discovered, it validates requirements, generates campaign-specific copy, publishes automatically, records the campaign in `data/creatorpad-history.json`, and sends the published copy/result to Telegram. No approval step is required. Set `CREATORPAD_ENABLED=false` to disable it.
+
+## Media rotation
+
+Place owned or licensed assets in `media/images/` and `media/videos/`. SquareRadar occasionally selects an image or video for publication. Media selection is deterministic to reduce accidental repetition, with text-only fallback.
 
 ## Telegram
 
@@ -96,7 +108,7 @@ Monday through Saturday.
 
 It also supports manual runs through GitHub Actions.
 
-The workflow requires write permission because it persists `data/story-history.json` after successful posts.
+The workflow requires write permission because it persists story and CreatorPad history after successful posts. It also installs ffmpeg for optional video publishing.
 
 ## Local development
 
@@ -122,10 +134,16 @@ square-radar/
 ├── src/
 │   └── index.mjs
 ├── binance-square/
-│   └── post-text.mjs
+│   ├── post-text.mjs
+│   ├── post-image.mjs
+│   └── post-video.mjs
 ├── data/
 │   ├── schedule.json
-│   └── story-history.json
+│   ├── story-history.json
+│   └── creatorpad-history.json
+├── media/
+│   ├── images/
+│   └── videos/
 ├── output/
 └── .github/
     └── workflows/
@@ -134,7 +152,7 @@ square-radar/
 
 ## Core principle
 
-**Find something interesting. Understand it. Tell the story like a human. Tag the relevant token. Start a conversation. Don't repeat yesterday's story just because the algorithm liked it.**
+**Find something interesting. Verify the information. Tell the story like a human. Add the relevant token when appropriate. End when the information ends. Don't repeat yesterday's story just because the algorithm liked it.**
 
 
 ## CreatorPad automation
