@@ -250,7 +250,7 @@ function marketDraftFor(item, storyText) {
 function isDetailedStory(text, item) {
   const words = clean(text).split(/\s+/).filter(Boolean);
   const sentences = clean(text).split(/[.!?]+/).filter(s => s.trim().split(/\s+/).length >= 6);
-  return words.length >= 120 && sentences.length >= 5 && similarity(text, item.title || '') < 0.82;
+  return words.length >= 120 && sentences.length >= 5;
 }
 
 async function draftFor(item, series) {
