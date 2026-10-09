@@ -48,21 +48,21 @@ function clean(s) {
 // when a site blocks automated access or only exposes a short excerpt.
 function htmlToStory(html) {
   const source = html
-    .replace(/<(script|style|noscript|svg|nav|header|footer|aside|form|button|iframe|figure)[^>]*>[\\s\\S]*?<\\/\\1>/gi, " ")
-    .replace(/<!--([\\s\\S]*?)-->/g, " ");
-  const containers = [...source.matchAll(/<(?:article|main)[^>]*>([\\s\\S]*?)<\\/(?:article|main)>/gi)].map(m => m[1]);
+    .replace(/<(script|style|noscript|svg|nav|header|footer|aside|form|button|iframe|figure)[^>]*>[\s\S]*?<\/\1>/gi, " ")
+    .replace(/<!--([\s\S]*?)-->/g, " ");
+  const containers = [...source.matchAll(/<(?:article|main)[^>]*>([\s\S]*?)<\/(?:article|main)>/gi)].map(m => m[1]);
   const blocks = containers.length ? containers : [source];
   return blocks.map(block => {
-    const parts = [...block.matchAll(/<(?:p|h[1-6]|li|blockquote)[^>]*>([\\s\\S]*?)<\\/(?:p|h[1-6]|li|blockquote)>/gi)]
+    const parts = [...block.matchAll(/<(?:p|h[1-6]|li|blockquote)[^>]*>([\s\S]*?)<\/(?:p|h[1-6]|li|blockquote)>/gi)]
       .map(m => clean(m[1]))
       .filter(t => t.length >= 35 && !/cookie policy|subscribe to our newsletter|sign up for|advertisement|all rights reserved|read more stories/i.test(t));
-    return [...new Set(parts)].join("\\n\\n");
+    return [...new Set(parts)].join("\n\n");
   }).sort((a,b) => b.length-a.length)[0]?.trim() || "";
 }
 
 async function getFullStory(item) {
-  const fallback = clean(item.description || "").replace(/\\.{2,}/g, ".").trim();
-  if (!item.link || !/^https?:\\/\\//i.test(item.link)) return fallback;
+  const fallback = clean(item.description || "").replace(/\.{2,}/g, ".").trim();
+  if (!item.link || !/^https?:\/\//i.test(item.link)) return fallback;
   try {
     const res = await fetch(item.link, {
       headers: {
@@ -74,8 +74,6 @@ async function getFullStory(item) {
     });
     if (!res.ok) return fallback;
     const article = htmlToStory(await res.text());
-    // Reject thin/noisy extraction; prefer the original feed text unless the
-    // publisher page provides a substantially fuller story.
     if (article.length >= Math.max(450, fallback.length * 1.35)) return article.slice(0, 12000);
   } catch (error) {
     console.log("SquareRadar full-text extraction fallback:", item.source, error.message);
@@ -242,35 +240,32 @@ function storyEnding(item, fact, token, title) {
   return "";
 }
 
-function marketDraftFor(item) {
-  const desc=clean(item.description||"").replace(/\.{2,}/g,".").trim();
-  const title=punchTitle(item.title);
-  const stock=(title.match(/\$[A-Z]{1,6}\b/)||[])[0]||"";
-  const opener=/earnings|revenue|profit|guidance/i.test(title) ? "This company result caught my attention." : /ipo|merger|acquisition|deal/i.test(title) ? "This business move caught my attention." : "This market/business story caught my attention.";
-  // Publish the full available source description. Never reduce it to the first sentence
-  // or append a generic context paragraph.
-  return [opener,"",desc,stock ? "\n"+stock : ""].filter(Boolean).join("\n");
+function marketDraftFor(item, storyText) {
+  const desc = storyText;
+  const title = punchTitle(item.title);
+  const stock = (title.match(/\$[A-Z]{1,6}\b/) || [])[0] || "";
+  const opener = /earnings|revenue|profit|guidance/i.test(title) ? "This company result caught my attention." : /ipo|merger|acquisition|deal/i.test(title) ? "This business move caught my attention." : "This market/business story caught my attention.";
+  return [opener, "", desc, stock ? "\n" + stock : ""].filter(Boolean).join("\n");
 }
-function draftFor(item,series) {
-  if(/Business & Markets|Stocks & Companies/.test(series)) return marketDraftFor(item);
-  const desc=clean(item.description||"").replace(/\.{2,}/g,".").trim();
-  const token=tokenTag(item);
-  const title=punchTitle(item.title);
-  const openings=token ? [
-    `Okay, ${token} just gave me something to look at.`,
-    `This ${token} story is more interesting than the headline makes it sound.`,
-    `I saw this about ${token} today and had to dig a little deeper.`,
-    `One ${token} detail caught my attention today.`
+async function draftFor(item, series) {
+  const storyText = await getFullStory(item);
+  if (/Business & Markets|Stocks & Companies/.test(series)) return marketDraftFor(item, storyText);
+  const token = tokenTag(item);
+  const title = punchTitle(item.title);
+  const openings = token ? [
+    \`Okay, \${token} just gave me something to look at.\`,
+    \`This \${token} story is more interesting than the headline makes it sound.\`,
+    \`I saw this about \${token} today and had to dig a little deeper.\`,
+    \`One \${token} detail caught my attention today.\`
   ] : [
     "This one caught my attention today.",
     "I saw this today and had to dig a little deeper.",
     "This is the kind of story that gets buried under the headline.",
     "Here's something I think is worth looking at."
   ];
-  const opener=openings[Math.abs([...title].reduce((n,ch)=>n+ch.charCodeAt(0),0))%openings.length];
-  // Use the full available source description as the story. No summary, analysis,
-  // recurring context line, takeaway, or generated conclusion is appended.
-  return [opener,"",desc].filter(Boolean).join("\n");
+  const opener = openings[Math.abs([...title].reduce((n, ch) => n + ch.charCodeAt(0), 0)) % openings.length];
+  // Publish the complete article text when available. Do not summarize it or append commentary.
+  return [opener, "", storyText].filter(Boolean).join("\n");
 }
 function pack(series,emoji,brief,item,date,draft) {
   if(!item) return `🟣 SQUARERADAR • ${date}\n\nNo story passed today's attention filter.\n\nI'd rather skip a post than force a weak one.\n`;
