@@ -205,22 +205,18 @@ function storyEnding(item, fact, token, title) {
 
 function marketDraftFor(item) {
   const desc=clean(item.description||"").replace(/\.{2,}/g,".").trim();
-  const fact=(desc.split(/(?<=[.!?])\s+/).filter(Boolean)[0]||desc);
   const title=punchTitle(item.title);
-  const text=(title+" "+fact).toLowerCase();
   const stock=(title.match(/\$[A-Z]{1,6}\b/)||[])[0]||"";
-  const opener=/earnings|revenue|profit|guidance/.test(text) ? "This company result is worth looking at beyond the headline." : /ipo|merger|acquisition|deal/.test(text) ? "This business move caught my attention." : "This market/business story caught my attention.";
-  const context=/stock|shares|equity|earnings|revenue|profit|valuation|ipo|dividend/.test(text) ? "The useful part is what the reported change says about the company, its sector, or the wider market — not simply whether the share price moves." : "The bigger question is what this changes for the company, its customers, competitors, or the wider economy.";
-  return [opener,"",fact,"",context,stock ? "The related ticker is "+stock+".":"", ""].join("\n");
+  const opener=/earnings|revenue|profit|guidance/i.test(title) ? "This company result caught my attention." : /ipo|merger|acquisition|deal/i.test(title) ? "This business move caught my attention." : "This market/business story caught my attention.";
+  // Publish the full available source description. Never reduce it to the first sentence
+  // or append a generic context paragraph.
+  return [opener,"",desc,stock ? "\n"+stock : ""].filter(Boolean).join("\n");
 }
 function draftFor(item,series) {
   if(/Business & Markets|Stocks & Companies/.test(series)) return marketDraftFor(item);
   const desc=clean(item.description||"").replace(/\.{2,}/g,".").trim();
-  const sentences=desc.split(/(?<=[.!?])\s+/).filter(Boolean);
-  const fact=sentences[0]||desc;
   const token=tokenTag(item);
   const title=punchTitle(item.title);
-
   const openings=token ? [
     `Okay, ${token} just gave me something to look at.`,
     `This ${token} story is more interesting than the headline makes it sound.`,
@@ -232,28 +228,10 @@ function draftFor(item,series) {
     "This is the kind of story that gets buried under the headline.",
     "Here's something I think is worth looking at."
   ];
-
   const opener=openings[Math.abs([...title].reduce((n,ch)=>n+ch.charCodeAt(0),0))%openings.length];
-  const contextLines=token ? [
-    `The story matters beyond the headline because it could affect how ${token} is held, used or understood.`,
-    `There's more to this than the headline: the next signal is how ${token} holders, users or builders respond.`,
-    `The bigger context is what this changes around ${token}, rather than simply the fact that it happened.`
-  ] : [
-    "The story matters beyond the headline because the follow-through could affect how the market or users respond.",
-    "There's more to this than the headline: the next signal is what people and companies actually do with it.",
-    "The bigger context is what this changes in practice, rather than simply the fact that it happened."
-  ];
-  const seed=Math.abs([...title].reduce((n,ch)=>n+ch.charCodeAt(0),0));
-  const context=contextLines[seed%contextLines.length];
-
-  return [
-    opener,
-    "",
-    fact,
-    "",
-    context,
-    "",
-  ].join("\n");
+  // Use the full available source description as the story. No summary, analysis,
+  // recurring context line, takeaway, or generated conclusion is appended.
+  return [opener,"",desc].filter(Boolean).join("\n");
 }
 function pack(series,emoji,brief,item,date,draft) {
   if(!item) return `🟣 SQUARERADAR • ${date}\n\nNo story passed today's attention filter.\n\nI'd rather skip a post than force a weak one.\n`;
