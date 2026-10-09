@@ -44,6 +44,45 @@ function clean(s) {
     .replace(/\s+/g, " ")
     .trim();
 }
+// Retrieve full publisher text where accessible; fall back to the RSS description
+// when a site blocks automated access or only exposes a short excerpt.
+function htmlToStory(html) {
+  const source = html
+    .replace(/<(script|style|noscript|svg|nav|header|footer|aside|form|button|iframe|figure)[^>]*>[\\s\\S]*?<\\/\\1>/gi, " ")
+    .replace(/<!--([\\s\\S]*?)-->/g, " ");
+  const containers = [...source.matchAll(/<(?:article|main)[^>]*>([\\s\\S]*?)<\\/(?:article|main)>/gi)].map(m => m[1]);
+  const blocks = containers.length ? containers : [source];
+  return blocks.map(block => {
+    const parts = [...block.matchAll(/<(?:p|h[1-6]|li|blockquote)[^>]*>([\\s\\S]*?)<\\/(?:p|h[1-6]|li|blockquote)>/gi)]
+      .map(m => clean(m[1]))
+      .filter(t => t.length >= 35 && !/cookie policy|subscribe to our newsletter|sign up for|advertisement|all rights reserved|read more stories/i.test(t));
+    return [...new Set(parts)].join("\\n\\n");
+  }).sort((a,b) => b.length-a.length)[0]?.trim() || "";
+}
+
+async function getFullStory(item) {
+  const fallback = clean(item.description || "").replace(/\\.{2,}/g, ".").trim();
+  if (!item.link || !/^https?:\\/\\//i.test(item.link)) return fallback;
+  try {
+    const res = await fetch(item.link, {
+      headers: {
+        "user-agent": "Mozilla/5.0 (compatible; SquareRadar/1.0)",
+        "accept": "text/html,application/xhtml+xml"
+      },
+      signal: AbortSignal.timeout(9000),
+      redirect: "follow"
+    });
+    if (!res.ok) return fallback;
+    const article = htmlToStory(await res.text());
+    // Reject thin/noisy extraction; prefer the original feed text unless the
+    // publisher page provides a substantially fuller story.
+    if (article.length >= Math.max(450, fallback.length * 1.35)) return article.slice(0, 12000);
+  } catch (error) {
+    console.log("SquareRadar full-text extraction fallback:", item.source, error.message);
+  }
+  return fallback;
+}
+
 function extractMedia(block) {
   const m = block.match(/<(?:media:content|media:thumbnail|enclosure)[^>]*(?:url|href)=["']([^"']+)["']/i);
   return m ? m[1] : "";
@@ -362,7 +401,7 @@ const uniqueItems=allItems.filter((item,index,array)=>
 );
 
 const selected=chooseOne(uniqueItems,config.series,history);
-const draft=selected ? draftFor(selected,config.series) : "";
+const draft=selected ? await draftFor(selected,config.series) : "";
 const output=pack(config.series,config.emoji,config.brief,selected,localDate(now),draft);
 await fs.mkdir(path.join(root,"output"),{recursive:true});
 await fs.writeFile(path.join(root,"output",localDate(now)+"-"+day+".txt"),output+"\n","utf8");
