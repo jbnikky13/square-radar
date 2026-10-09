@@ -253,10 +253,10 @@ async function draftFor(item, series) {
   const token = tokenTag(item);
   const title = punchTitle(item.title);
   const openings = token ? [
-    \`Okay, \${token} just gave me something to look at.\`,
-    \`This \${token} story is more interesting than the headline makes it sound.\`,
-    \`I saw this about \${token} today and had to dig a little deeper.\`,
-    \`One \${token} detail caught my attention today.\`
+    `Okay, ${token} just gave me something to look at.`,
+    `This ${token} story is more interesting than the headline makes it sound.`,
+    `I saw this about ${token} today and had to dig a little deeper.`,
+    `One ${token} detail caught my attention today.`
   ] : [
     "This one caught my attention today.",
     "I saw this today and had to dig a little deeper.",
