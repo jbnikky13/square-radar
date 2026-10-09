@@ -247,8 +247,18 @@ function marketDraftFor(item, storyText) {
   const opener = /earnings|revenue|profit|guidance/i.test(title) ? "This company result caught my attention." : /ipo|merger|acquisition|deal/i.test(title) ? "This business move caught my attention." : "This market/business story caught my attention.";
   return [opener, "", desc, stock ? "\n" + stock : ""].filter(Boolean).join("\n");
 }
+function isDetailedStory(text, item) {
+  const words = clean(text).split(/\s+/).filter(Boolean);
+  const sentences = clean(text).split(/[.!?]+/).filter(s => s.trim().split(/\s+/).length >= 6);
+  return words.length >= 120 && sentences.length >= 5 && similarity(text, item.title || '') < 0.82;
+}
+
 async function draftFor(item, series) {
   const storyText = await getFullStory(item);
+  if (!isDetailedStory(storyText, item)) {
+    console.log('SquareRadar skipped insufficiently detailed story:', item.title);
+    return null;
+  }
   if (/Business & Markets|Stocks & Companies/.test(series)) return marketDraftFor(item, storyText);
   const token = tokenTag(item);
   const title = punchTitle(item.title);
@@ -395,8 +405,9 @@ const uniqueItems=allItems.filter((item,index,array)=>
   !array.slice(0,index).some(prev=>similarity(prev.title,item.title)>=0.82)
 );
 
-const selected=chooseOne(uniqueItems,config.series,history);
-const draft=selected ? await draftFor(selected,config.series) : "";
+let selected=chooseOne(uniqueItems,config.series,history);
+let draft=selected ? await draftFor(selected,config.series) : "";
+if (selected && !draft) { selected=null; draft=""; }
 const output=pack(config.series,config.emoji,config.brief,selected,localDate(now),draft);
 await fs.mkdir(path.join(root,"output"),{recursive:true});
 await fs.writeFile(path.join(root,"output",localDate(now)+"-"+day+".txt"),output+"\n","utf8");
