@@ -78,9 +78,6 @@ SquareRadar can publish directly to Binance Square using:
 
 The publisher is separated by media type: `post-text.mjs` for text, `post-image.mjs` for images, and `post-video.mjs` for videos. SquareRadar can occasionally attach approved media and falls back to text-only when no suitable media is available.
 
-## CreatorPad automation
-
-SquareRadar checks Binance public Latest Activities announcements for active CreatorPad campaigns. When an active campaign is discovered, it validates requirements, generates campaign-specific copy, publishes automatically, records the campaign in `data/creatorpad-history.json`, and sends the published copy/result to Telegram. No approval step is required. Set `CREATORPAD_ENABLED=false` to disable it.
 
 ## Media rotation
 
@@ -108,7 +105,7 @@ Monday through Saturday.
 
 It also supports manual runs through GitHub Actions.
 
-The workflow requires write permission because it persists story and CreatorPad history after successful posts. It also installs ffmpeg for optional video publishing.
+The workflow persists story history after successful posts. It also installs ffmpeg for optional video publishing.
 
 ## Local development
 
@@ -140,7 +137,6 @@ square-radar/
 ├── data/
 │   ├── schedule.json
 │   ├── story-history.json
-│   └── creatorpad-history.json
 ├── media/
 │   ├── images/
 │   └── videos/
@@ -154,10 +150,6 @@ square-radar/
 
 **Find something interesting. Verify the information. Tell the story like a human. Add the relevant token when appropriate. End when the information ends. Don't repeat yesterday's story just because the algorithm liked it.**
 
-
-## CreatorPad automation
-
-SquareRadar checks Binance's public Latest Activities announcements for active CreatorPad campaigns. When an active campaign is discovered, it validates the required hashtag/token/account tags, generates a campaign-specific post, publishes it automatically through the existing Square OpenAPI key, and sends the exact copy plus the Square link to Telegram. No approval step is used. Set `CREATORPAD_ENABLED=false` to disable this path.
 
 
 ## Optional media rotation
