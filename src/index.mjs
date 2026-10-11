@@ -239,42 +239,65 @@ function storyEnding(item, fact, token, title) {
   return "";
 }
 
-function marketDraftFor(item, storyText) {
-  const desc = storyText;
-  const title = punchTitle(item.title);
-  const stock = (title.match(/\$[A-Z]{1,6}\b/) || [])[0] || "";
-  const opener = /earnings|revenue|profit|guidance/i.test(title) ? "This company result caught my attention." : /ipo|merger|acquisition|deal/i.test(title) ? "This business move caught my attention." : "This market/business story caught my attention.";
-  return [opener, "", desc, stock ? "\n" + stock : ""].filter(Boolean).join("\n");
+const MAX_POST_CHARS = 1800;
+
+// Build a concise, fact-led post instead of copying the full article.
+function summarizeStory(text, title, maxChars = 1450) {
+  const source = clean(text).replace(/(?:read more|subscribe|sign up|follow us|advertisement|related stories|all rights reserved)[^.!?]*/gi, " ").replace(/\s+/g, " ").trim();
+  const titleTokens = new Set(tokens(title || ""));
+  const candidates = source.split(/(?<=[.!?])\s+|\n+/).map(s => s.trim())
+    .filter(s => s.length >= 45 && s.length <= 420)
+    .filter(s => !/^(cookie|disclaimer|privacy policy|terms of use|share this|click here|read more|subscribe)/i.test(s))
+    .filter(s => s.split(/\s+/).length >= 8);
+  const unique = [];
+  for (const sentence of candidates) if (!unique.some(s => similarity(s, sentence) > 0.82)) unique.push(sentence);
+  const ranked = unique.map((sentence, index) => {
+    const lower = sentence.toLowerCase();
+    const overlap = tokens(sentence).filter(t => titleTokens.has(t)).length;
+    const numbers = (sentence.match(/\d+(?:[.,]\d+)?%?|\$\s?\d+/g) || []).length;
+    const action = /announced|launched|approved|raised|fell|rose|surged|dropped|reported|acquired|invested|revenue|profit|loss|volume|users|valuation|forecast|expects|plans|will\s/i.test(lower) ? 3 : 0;
+    const boilerplate = /according to the report|in a statement|the post said|read more|click here/i.test(lower) ? 4 : 0;
+    return { sentence, index, score: overlap * 2 + Math.min(numbers, 3) * 2 + action + Math.min(sentence.length / 180, 1) - boilerplate };
+  }).sort((a,b) => b.score - a.score || a.index - b.index);
+  const chosen = []; let length = 0;
+  for (const item of ranked) { if (chosen.length >= 5) break; const extra = item.sentence.length + (chosen.length ? 1 : 0); if (length + extra > maxChars) continue; chosen.push(item); length += extra; }
+  chosen.sort((a,b) => a.index - b.index);
+  return chosen.map(x => x.sentence).join(" ").slice(0, maxChars).trim();
 }
+
+function marketDraftFor(item, storyText) {
+  const title = punchTitle(item.title);
+  const facts = summarizeStory(storyText, title, 1320);
+  if (!facts) return null;
+  const opener = /earnings|revenue|profit|guidance/i.test(title) ? "The numbers are the part worth paying attention to."
+    : /ipo|merger|acquisition|deal/i.test(title) ? "The business move matters beyond the headline."
+    : /nigeria|naira|lagos|africa|cbn|ngx/i.test(title + " " + facts) ? "This has a real business angle for African markets."
+    : "The detail that stands out is what this could change.";
+  const post = [opener, "", facts].join("\n");
+  return post.length <= MAX_POST_CHARS ? post : post.slice(0, MAX_POST_CHARS).trim();
+}
+
 function isDetailedStory(text, item) {
   const words = clean(text).split(/\s+/).filter(Boolean);
   const sentences = clean(text).split(/[.!?]+/).filter(s => s.trim().split(/\s+/).length >= 6);
-  return words.length >= 120 && sentences.length >= 5;
+  return words.length >= 70 && sentences.length >= 3;
 }
 
 async function draftFor(item, series) {
   const storyText = await getFullStory(item);
-  if (!isDetailedStory(storyText, item)) {
-    console.log('SquareRadar skipped insufficiently detailed story:', item.title);
-    return null;
-  }
+  if (!isDetailedStory(storyText, item)) { console.log("SquareRadar skipped insufficiently detailed story:", item.title); return null; }
+  const title = punchTitle(item.title);
+  const facts = summarizeStory(storyText, title, 1320);
+  if (!facts || facts.split(/\s+/).length < 35) { console.log("SquareRadar skipped story without enough reliable detail:", item.title); return null; }
   if (/Business & Markets|Stocks & Companies/.test(series)) return marketDraftFor(item, storyText);
   const token = tokenTag(item);
-  const title = punchTitle(item.title);
-  const openings = token ? [
-    `Okay, ${token} just gave me something to look at.`,
-    `This ${token} story is more interesting than the headline makes it sound.`,
-    `I saw this about ${token} today and had to dig a little deeper.`,
-    `One ${token} detail caught my attention today.`
-  ] : [
-    "This one caught my attention today.",
-    "I saw this today and had to dig a little deeper.",
-    "This is the kind of story that gets buried under the headline.",
-    "Here's something I think is worth looking at."
-  ];
-  const opener = openings[Math.abs([...title].reduce((n, ch) => n + ch.charCodeAt(0), 0)) % openings.length];
-  // Publish the complete article text when available. Do not summarize it or append commentary.
-  return [opener, "", storyText].filter(Boolean).join("\n");
+  const opener = token ? `${token} has a detail here worth noticing.`
+    : /hack|exploit|security|phishing/i.test(title) ? "The security detail matters more than the headline."
+    : /nigeria|africa|lagos|naira/i.test(title + " " + facts) ? "There is a practical angle to this for African markets."
+    : /launch|upgrade|release|mainnet|integration/i.test(title) ? "The important part is what this changes in practice."
+    : "One detail in this update deserves a closer look.";
+  const post = [opener, "", facts].join("\n");
+  return post.length <= MAX_POST_CHARS ? post : post.slice(0, MAX_POST_CHARS).trim();
 }
 function pack(series,emoji,brief,item,date,draft) {
   if(!item) return `🟣 SQUARERADAR • ${date}\n\nNo story passed today's attention filter.\n\nI'd rather skip a post than force a weak one.\n`;
