@@ -22,6 +22,12 @@ jobs:
       - name: Install ffmpeg for optional video posts
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
+      - name: Validate JavaScript syntax
+        run: |
+          for file in src/*.mjs binance-square/*.mjs; do
+            node --check "$file"
+          done
+
       - name: Run SquareRadar
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
