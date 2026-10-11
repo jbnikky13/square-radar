@@ -354,10 +354,7 @@ async function sendTelegram(message) {
   }
 }
 const now=new Date();
-const creatorPadEnabled = process.env.CREATORPAD_ENABLED !== "false";
-if (creatorPadEnabled) {
-  try {
-    const campaignconst day=dayName(now);
+const day=dayName(now);
 const hour=Number(new Intl.DateTimeFormat("en-US",{timeZone:"Africa/Lagos",hour:"2-digit",hour12:false}).format(now));
 const slot=hour<10?"morning":hour<17?"afternoon":"evening";
 const config=schedule[day]?.[slot] ? {...schedule[day][slot], slot} : null;
