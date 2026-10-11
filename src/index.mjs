@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-import { campaignOutput, discoverCreatorPadCampaign, loadCampaignHistory, saveCampaignHistory } from "./creatorpad.mjs";
 import path from "node:path";
 
 const root = process.cwd();
@@ -358,31 +357,7 @@ const now=new Date();
 const creatorPadEnabled = process.env.CREATORPAD_ENABLED !== "false";
 if (creatorPadEnabled) {
   try {
-    const campaign=await discoverCreatorPadCampaign();
-    const hp=path.join(root,"data","creatorpad-history.json");
-    const history=await loadCampaignHistory(hp);
-    const runDate=localDate(now);
-    const duplicate=campaign && history.some(x=>x.id===campaign.id && x.end===campaign.end && x.date===runDate);
-    if(campaign&&!duplicate){
-      const report=campaignOutput(campaign,localDate(now));
-      await fs.mkdir(path.join(root,"output"),{recursive:true});
-      await fs.writeFile(path.join(root,"output",localDate(now)+"-creatorpad.txt"),report+"\n","utf8");
-      const media=await chooseMedia(localDate(now),"creatorpad");
-      const result=await publishSquare(campaign.post,media);
-      history.push({id:campaign.id,title:campaign.title,end:campaign.end,date:runDate,postedAt:new Date().toISOString(),squareId:result.id||null,squareLink:result.link||null});
-      await saveCampaignHistory(hp,history);
-      await sendTelegram(report+(result.link&&result.link!=="unavailable"?"\n\n🟢 POSTED TO BINANCE SQUARE\n"+result.link:"\n\n🟢 BINANCE SQUARE PUBLISH REQUEST SUCCEEDED"));
-      console.log("SquareRadar CreatorPad complete:",campaign.title,result.id||"id-unavailable");
-    } else {
-      await sendTelegram(campaignOutput(campaign,localDate(now))+(campaign?"\n\nℹ️ No duplicate campaign post was published.":""));
-      console.log("SquareRadar CreatorPad:",campaign?"active campaign already handled":"no active public campaign found");
-    }
-  } catch(error) {
-    await sendTelegram("🟠 SQUARERADAR CREATORPAD ERROR\n"+error.message);
-    console.error("CreatorPad discovery failed:",error);
-  }
-}
-const day=dayName(now);
+    const campaignconst day=dayName(now);
 const hour=Number(new Intl.DateTimeFormat("en-US",{timeZone:"Africa/Lagos",hour:"2-digit",hour12:false}).format(now));
 const slot=hour<10?"morning":hour<17?"afternoon":"evening";
 const config=schedule[day]?.[slot] ? {...schedule[day][slot], slot} : null;
