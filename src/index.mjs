@@ -46,17 +46,38 @@ function clean(s) {
 // Retrieve full publisher text where accessible; fall back to the RSS description
 // when a site blocks automated access or only exposes a short excerpt.
 function htmlToStory(html) {
+  // Prefer structured article text when publishers expose it in JSON-LD.
+  const structured = [];
+  for (const match of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      const parsed = JSON.parse(match[1]);
+      const visit = value => {
+        if (!value || typeof value !== "object") return;
+        if (Array.isArray(value)) { value.forEach(visit); return; }
+        if (typeof value.articleBody === "string") structured.push(clean(value.articleBody));
+        if (value["@graph"]) visit(value["@graph"]);
+        if (value.mainEntity) visit(value.mainEntity);
+        if (value.mainEntityOfPage) visit(value.mainEntityOfPage);
+      };
+      visit(parsed);
+    } catch { /* Ignore malformed structured data and continue with HTML extraction. */ }
+  }
+  const usefulStructured = structured.sort((a,b) => b.length-a.length)[0] || "";
+  if (usefulStructured.split(/\s+/).filter(Boolean).length >= 70) return usefulStructured;
+
   const source = html
     .replace(/<(script|style|noscript|svg|nav|header|footer|aside|form|button|iframe|figure)[^>]*>[\s\S]*?<\/\1>/gi, " ")
     .replace(/<!--([\s\S]*?)-->/g, " ");
   const containers = [...source.matchAll(/<(?:article|main)[^>]*>([\s\S]*?)<\/(?:article|main)>/gi)].map(m => m[1]);
-  const blocks = containers.length ? containers : [source];
-  return blocks.map(block => {
+  // Some publishers omit semantic article tags; always inspect the full document too.
+  const blocks = [...containers, source];
+  const candidates = blocks.map(block => {
     const parts = [...block.matchAll(/<(?:p|h[1-6]|li|blockquote)[^>]*>([\s\S]*?)<\/(?:p|h[1-6]|li|blockquote)>/gi)]
       .map(m => clean(m[1]))
       .filter(t => t.length >= 35 && !/cookie policy|subscribe to our newsletter|sign up for|advertisement|all rights reserved|read more stories/i.test(t));
     return [...new Set(parts)].join("\n\n");
-  }).sort((a,b) => b.length-a.length)[0]?.trim() || "";
+  });
+  return candidates.sort((a,b) => b.length-a.length)[0]?.trim() || "";
 }
 
 async function getFullStory(item) {
@@ -73,7 +94,13 @@ async function getFullStory(item) {
     });
     if (!res.ok) return fallback;
     const article = htmlToStory(await res.text());
-    if (article.length >= Math.max(450, fallback.length * 1.35)) return article.slice(0, 12000);
+    const articleWords = article.split(/\s+/).filter(Boolean).length;
+    const articleSentences = article.split(/[.!?]+/).filter(s => s.trim().split(/\s+/).length >= 6).length;
+    // The downstream quality gate still requires 70 words and 3 substantive sentences.
+    // Accept a shorter extracted article when it genuinely meets that gate.
+    if (articleWords >= 70 && articleSentences >= 3 && article.length >= Math.min(450, fallback.length * 1.1)) {
+      return article.slice(0, 12000);
+    }
   } catch (error) {
     console.log("SquareRadar full-text extraction fallback:", item.source, error.message);
   }
