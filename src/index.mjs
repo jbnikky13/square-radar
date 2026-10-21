@@ -165,12 +165,12 @@ function storySimilarity(item, historyItem) {
   return Math.max(titleScore, descScore);
 }
 
-function chooseOne(items,series,history) {
+function chooseCandidates(items,series,history,limit=10) {
   const usable=items
     .filter(x=>x.title!=="FEED_ERROR" && x.title.length>12)
     .filter(x=>!history.some(h=>h.link && x.link && h.link===x.link));
 
-  if (!usable.length) return null;
+  if (!usable.length) return [];
 
   const ranked=usable
     .map(item => ({
@@ -182,7 +182,9 @@ function chooseOne(items,series,history) {
     .filter(x=>x.novelty>=0.32)
     .sort((a,b)=>(score(b.item,series) + b.novelty*18) - (score(a.item,series) + a.novelty*18));
 
-  return ranked[0]?.item || null;
+  // Do not let a single short or inaccessible article block the entire slot.
+  // Try a bounded shortlist in score order so every run remains predictable.
+  return ranked.slice(0,limit).map(x=>x.item);
 }
 
 function loadHistory(raw) {
@@ -400,9 +402,26 @@ const uniqueItems=allItems.filter((item,index,array)=>
   !array.slice(0,index).some(prev=>similarity(prev.title,item.title)>=0.82)
 );
 
-let selected=chooseOne(uniqueItems,config.series,history);
-let draft=selected ? await draftFor(selected,config.series) : "";
-if (selected && !draft) { selected=null; draft=""; }
+const candidates=chooseCandidates(uniqueItems,config.series,history);
+let selected=null;
+let draft="";
+
+for (const candidate of candidates) {
+  try {
+    const candidateDraft=await draftFor(candidate,config.series);
+    if (!candidateDraft) continue;
+    selected=candidate;
+    draft=candidateDraft;
+    break;
+  } catch (error) {
+    // One publisher timeout or extraction error must not suppress other candidates.
+    console.log("SquareRadar candidate failed; trying next story:", candidate.title, error.message);
+  }
+}
+
+if (!selected) {
+  console.log("SquareRadar: all", candidates.length, "ranked candidates failed story-detail checks");
+}
 const output=pack(config.series,config.emoji,config.brief,selected,localDate(now),draft);
 await fs.mkdir(path.join(root,"output"),{recursive:true});
 await fs.writeFile(path.join(root,"output",localDate(now)+"-"+day+".txt"),output+"\n","utf8");
