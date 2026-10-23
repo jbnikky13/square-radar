@@ -113,18 +113,24 @@ function extractMedia(block) {
 }
 function parseItems(xml, source) {
   const items=[];
-  for (const match of xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)) {
+  for (const match of xml.matchAll(/<item>([\\s\\S]*?)<\\/item>/gi)) {
     const block=match[1];
     const get=(tag)=>{
-      const m=block.match(new RegExp("<"+tag+"[^>]*>([\\s\\S]*?)<\\/"+tag+">","i"));
-      return m ? clean(m[1]) : "";
+      const escaped=tag.replace(/[.*+?^$()|[\\]\\\\]/g,"\\\\$&");
+      const m=block.match(new RegExp("<"+escaped+"(?:\\\\s[^>]*)?>([\\\\s\\\\S]*?)<\\\\/"+escaped+"\\\\s*>","i"));
+      if (!m) return "";
+      return clean(m[1].replace(/^\\s*<!\\[CDATA\\[/i,"").replace(/\\]\\]\\s*$/i,""));
     };
     const link=get("link") || ((block.match(/<link>([^<]+)/i)||[])[1]||"");
     const title=get("title");
-    if (title && link) items.push({source,title,description:get("description"),link,pubDate:get("pubDate")||get("published")||get("updated"),imageUrl:extractMedia(block)});
+    // Some feeds expose the article body in content:encoded, not description.
+    const description=[get("content:encoded"),get("content"),get("description"),get("summary")]
+      .sort((a,b)=>b.length-a.length)[0] || "";
+    if (title && link) items.push({source,title,description,link,pubDate:get("pubDate")||get("published")||get("updated"),imageUrl:extractMedia(block)});
   }
   return items;
 }
+
 async function enrichImage(item) {
   if (item.imageUrl) return item;
   try {
