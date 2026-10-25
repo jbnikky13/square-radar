@@ -1,0 +1,26 @@
+name: SquareRadar Tests
+
+on:
+  push:
+    branches: [main, "fix/**", "test/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Validate JavaScript syntax
+        run: |
+          for file in src/*.mjs binance-square/*.mjs; do
+            node --check "$file"
+          done
+      - name: Run parser regression tests
+        run: node --test
