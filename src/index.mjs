@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { parseItems } from "./rss.mjs";
 
 const root = process.cwd();
 const schedule = JSON.parse(await fs.readFile(path.join(root, "data", "schedule.json"), "utf8"));
@@ -105,30 +106,6 @@ async function getFullStory(item) {
     console.log("SquareRadar full-text extraction fallback:", item.source, error.message);
   }
   return fallback;
-}
-
-function extractMedia(block) {
-  const m = block.match(/<(?:media:content|media:thumbnail|enclosure)[^>]*(?:url|href)=["']([^"']+)["']/i);
-  return m ? m[1] : "";
-}
-function parseItems(xml, source) {
-  const items=[];
-  for (const match of xml.matchAll(/<item>([\\s\\S]*?)<\\/item>/gi)) {
-    const block=match[1];
-    const get=(tag)=>{
-      const escaped=tag.replace(/[.*+?^$()|[\\]\\\\]/g,"\\\\$&");
-      const m=block.match(new RegExp("<"+escaped+"(?:\\\\s[^>]*)?>([\\\\s\\\\S]*?)<\\\\/"+escaped+"\\\\s*>","i"));
-      if (!m) return "";
-      return clean(m[1].replace(/^\\s*<!\\[CDATA\\[/i,"").replace(/\\]\\]\\s*$/i,""));
-    };
-    const link=get("link") || ((block.match(/<link>([^<]+)/i)||[])[1]||"");
-    const title=get("title");
-    // Some feeds expose the article body in content:encoded, not description.
-    const description=[get("content:encoded"),get("content"),get("description"),get("summary")]
-      .sort((a,b)=>b.length-a.length)[0] || "";
-    if (title && link) items.push({source,title,description,link,pubDate:get("pubDate")||get("published")||get("updated"),imageUrl:extractMedia(block)});
-  }
-  return items;
 }
 
 async function enrichImage(item) {
