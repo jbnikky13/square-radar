@@ -83,7 +83,10 @@ function htmlToStory(html) {
 
 async function getFullStory(item) {
   const fallback = clean(item.description || "").replace(/\.{2,}/g, ".").trim();
-  if (!item.link || !/^https?:\/\//i.test(item.link)) return fallback;
+  if (!item.link || !/^https?:\/\//i.test(item.link)) {
+    console.log("[story-detail] fallback=no-valid-article-link source=" + item.source + " title=" + item.title);
+    return fallback;
+  }
   try {
     const res = await fetch(item.link, {
       headers: {
@@ -93,17 +96,24 @@ async function getFullStory(item) {
       signal: AbortSignal.timeout(9000),
       redirect: "follow"
     });
-    if (!res.ok) return fallback;
+    if (!res.ok) {
+      console.log("[story-detail] fallback=http-status-" + res.status + " source=" + item.source + " title=" + item.title);
+      return fallback;
+    }
     const article = htmlToStory(await res.text());
     const articleWords = article.split(/\s+/).filter(Boolean).length;
     const articleSentences = article.split(/[.!?]+/).filter(s => s.trim().split(/\s+/).length >= 6).length;
-    // The downstream quality gate still requires 70 words and 3 substantive sentences.
-    // Accept a shorter extracted article when it genuinely meets that gate.
-    if (articleWords >= 70 && articleSentences >= 3 && article.length >= Math.min(450, fallback.length * 1.1)) {
+    const minimumChars = Math.min(450, fallback.length * 1.1);
+    if (articleWords >= 70 && articleSentences >= 3 && article.length >= minimumChars) {
+      console.log("[story-detail] extracted source=" + item.source + " words=" + articleWords + " sentences=" + articleSentences);
       return article.slice(0, 12000);
     }
+    console.log("[story-detail] fallback=quality-gate source=" + item.source + " title=" + item.title +
+      " extracted_words=" + articleWords + " extracted_sentences=" + articleSentences +
+      " extracted_chars=" + article.length + " required_chars=" + Math.ceil(minimumChars) +
+      " rss_chars=" + fallback.length);
   } catch (error) {
-    console.log("SquareRadar full-text extraction fallback:", item.source, error.message);
+    console.log("[story-detail] fallback=fetch-error source=" + item.source + " title=" + item.title + " error=" + error.message);
   }
   return fallback;
 }
@@ -176,25 +186,29 @@ function storySimilarity(item, historyItem) {
 }
 
 function chooseCandidates(items,series,history,limit=10) {
-  const usable=items
-    .filter(x=>x.title!=="FEED_ERROR" && x.title.length>12)
-    .filter(x=>!history.some(h=>h.link && x.link && h.link===x.link));
-
-  if (!usable.length) return [];
-
-  const ranked=usable
-    .map(item => ({
-      item,
-      novelty: history.length
-        ? 1 - Math.max(...history.map(h=>storySimilarity(item,h)))
-        : 1
-    }))
-    .filter(x=>x.novelty>=0.32)
-    .sort((a,b)=>(score(b.item,series) + b.novelty*18) - (score(a.item,series) + a.novelty*18));
-
+  const valid = items.filter(x => x.title !== "FEED_ERROR" && x.title.length > 12);
+  const usable = valid.filter(x => !history.some(h => h.link && x.link && h.link === x.link));
+  const exactHistoryRejected = valid.length - usable.length;
+  const rankedAll = usable.map(item => ({
+    item,
+    novelty: history.length
+      ? 1 - Math.max(...history.map(h => storySimilarity(item, h)))
+      : 1
+  }));
+  const noveltyRejected = rankedAll.filter(x => x.novelty < 0.32).length;
+  const ranked = rankedAll
+    .filter(x => x.novelty >= 0.32)
+    .sort((a,b) => (score(b.item,series) + b.novelty*18) - (score(a.item,series) + a.novelty*18));
+  const candidates = ranked.slice(0, limit).map(x => x.item);
+  console.log("[candidate-pipeline] valid=" + valid.length +
+    " exact_history_rejected=" + exactHistoryRejected +
+    " novelty_rejected=" + noveltyRejected +
+    " novelty_eligible=" + ranked.length +
+    " shortlist=" + candidates.length +
+    " novelty_threshold=0.32");
   // Do not let a single short or inaccessible article block the entire slot.
   // Try a bounded shortlist in score order so every run remains predictable.
-  return ranked.slice(0,limit).map(x=>x.item);
+  return candidates;
 }
 
 function loadHistory(raw) {
@@ -297,10 +311,18 @@ function isDetailedStory(text, item) {
 
 async function draftFor(item, series) {
   const storyText = await getFullStory(item);
-  if (!isDetailedStory(storyText, item)) { console.log("SquareRadar skipped insufficiently detailed story:", item.title); return null; }
+  if (!isDetailedStory(storyText, item)) {
+    const words = clean(storyText).split(/\s+/).filter(Boolean).length;
+    const sentences = clean(storyText).split(/[.!?]+/).filter(s => s.trim().split(/\s+/).length >= 6).length;
+    console.log("[candidate-rejected] reason=insufficient-detail title=" + item.title + " words=" + words + " sentences=" + sentences + " minimum_words=70 minimum_sentences=3");
+    return null;
+  }
   const title = punchTitle(item.title);
   const facts = summarizeStory(storyText, title, 1320);
-  if (!facts || facts.split(/\s+/).length < 35) { console.log("SquareRadar skipped story without enough reliable detail:", item.title); return null; }
+  if (!facts || facts.split(/\s+/).length < 35) {
+    console.log("[candidate-rejected] reason=summary-too-thin title=" + item.title + " summary_words=" + (facts ? facts.split(/\s+/).length : 0) + " minimum_words=35");
+    return null;
+  }
   if (/Business & Markets|Stocks & Companies/.test(series)) return marketDraftFor(item, storyText);
   const token = tokenTag(item);
   const opener = token ? `${token} has a detail here worth noticing.`
@@ -398,6 +420,15 @@ const marketSeries = /Business & Markets|Stocks & Companies/.test(config.series)
 const feeds = marketSeries ? [...MARKET_FEEDS,...(day==="wednesday"?NIGERIA_FEEDS:[])] : [...FEEDS,...(day==="wednesday"?NIGERIA_FEEDS:[])];
 const batches=await Promise.all(feeds.map(fetchFeed));
 const allItems=batches.flat();
+const feedErrors = allItems.filter(item => item.title === "FEED_ERROR");
+console.log("[source-pipeline] feeds=" + feeds.length +
+  " items=" + (allItems.length - feedErrors.length) +
+  " feed_errors=" + feedErrors.length +
+  " per_feed=" + JSON.stringify(batches.map((batch, index) => ({
+    source: feeds[index][0],
+    items: batch.filter(item => item.title !== "FEED_ERROR").length,
+    error: batch.find(item => item.title === "FEED_ERROR")?.description || null
+  }))));
 const historyPath=path.join(root,"data","story-history.json");
 let history=[];
 try {
@@ -406,11 +437,14 @@ try {
   history=[];
 }
 
-const uniqueItems=allItems.filter((item,index,array)=>
-  item.title!=="FEED_ERROR" &&
-  item.title.length>12 &&
-  !array.slice(0,index).some(prev=>similarity(prev.title,item.title)>=0.82)
+const preDedupeItems = allItems.filter(item => item.title !== "FEED_ERROR" && item.title.length > 12);
+const uniqueItems = preDedupeItems.filter((item,index,array) =>
+  !array.slice(0,index).some(prev => similarity(prev.title,item.title) >= 0.82)
 );
+console.log("[dedupe-pipeline] eligible_feed_items=" + preDedupeItems.length +
+  " duplicate_titles_removed=" + (preDedupeItems.length - uniqueItems.length) +
+  " unique_items=" + uniqueItems.length +
+  " history_entries=" + history.length);
 
 const candidates=chooseCandidates(uniqueItems,config.series,history);
 let selected=null;
