@@ -48,5 +48,15 @@
     "slot": "evening",
     "date": "2026-10-29",
     "timestamp": "2026-10-29T18:35:11.810Z"
+  },
+  {
+    "title": "Polymarket Pauses Trading as Prediction Market Investigates Security Incident",
+    "description": "Polymarket restricted trading and paused relayer actions as users report funds leaving their accounts. A suspected attacker wallet holds about $2.65 million in POL, per Arkham data.",
+    "link": "https://decrypt.co/382185/polymarket-pauses-trading-prediction-market-security-incident",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-10-29",
+    "timestamp": "2026-10-29T22:52:38.235Z"
   }
 ]
