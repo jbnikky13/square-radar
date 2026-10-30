@@ -58,5 +58,15 @@
     "slot": "evening",
     "date": "2026-10-29",
     "timestamp": "2026-10-29T22:52:38.235Z"
+  },
+  {
+    "title": "EIP-7702 didn’t cause Binance hack, but may have amplified losses",
+    "description": "Security experts said attackers could have drained Binance’s wallets without EIP-7702, but the Ethereum upgrade may have helped bypass withdrawal safeguards. ]]>",
+    "link": "https://cointelegraph.com/news/binance-hack-security-ethereum-eip-7702-role?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-10-30",
+    "timestamp": "2026-10-30T18:07:47.829Z"
   }
 ]
