@@ -1,15 +1,5 @@
 [
   {
-    "title": "Injective launches onchain futures market tracking Nvidia GPU rental costs",
-    "description": "The new index tracks rental prices for five Nvidia GPUs, offering leveraged trading and potential hedging against fluctuations in AI computing costs. ]]>",
-    "link": "https://cointelegraph.com/news/injective-launches-onchain-futures-market-tracking-nvidia-gpu-rental-costs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-10-26",
-    "timestamp": "2026-10-26T22:46:57.346Z"
-  },
-  {
     "title": "AI Agents Are Creating a New Layer of Cybersecurity Spending",
     "description": "Akamai launched a locked box for AI agents on Tuesday. It joins Palo Alto, Cisco, CrowdStrike, Okta and Zscaler in selling protection for software that now acts on its own.",
     "link": "https://decrypt.co/381987/ai-agents-creating-new-layer-cybersecurity-spending",
@@ -78,5 +68,15 @@
     "slot": "evening",
     "date": "2026-10-30",
     "timestamp": "2026-10-30T22:30:28.946Z"
+  },
+  {
+    "title": "Binance $6.3B record hack sparks pre-election political clashes",
+    "description": "Some political and administration figures tried to make hay of the biggest-ever crypto heist. ]]>",
+    "link": "https://cointelegraph.com/news/binance-63b-record-hack-sparks-pre-election-political-chatter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-10-31",
+    "timestamp": "2026-10-31T17:19:16.610Z"
   }
 ]
