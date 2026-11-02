@@ -1,45 +1,5 @@
 [
   {
-    "title": "AI Agents Are Creating a New Layer of Cybersecurity Spending",
-    "description": "Akamai launched a locked box for AI agents on Tuesday. It joins Palo Alto, Cisco, CrowdStrike, Okta and Zscaler in selling protection for software that now acts on its own.",
-    "link": "https://decrypt.co/381987/ai-agents-creating-new-layer-cybersecurity-spending",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-10-27",
-    "timestamp": "2026-10-27T22:26:40.306Z"
-  },
-  {
-    "title": "Phantom launches Kalshi-powered prediction markets for US users",
-    "description": "The crypto wallet’s new integration offers CFTC-regulated event contracts through Kalshi, as prediction markets face growing legal challenges in the US. ]]>",
-    "link": "https://cointelegraph.com/news/phantom-launches-kalshi-powered-prediction-markets-for-us-users?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-10-28",
-    "timestamp": "2026-10-28T18:25:51.476Z"
-  },
-  {
-    "title": "Chip Maker SK Hynix Posts Record Quarter as AI Memory Demand Overwhelms Supply",
-    "description": "SK Hynix's quarterly revenue topped 100 trillion won for the first time, and the chipmaker says memory demand will outrun supply through 2030, with DRAM and HBM sold out through 2029.",
-    "link": "https://decrypt.co/382114/sk-hynix-record-quarter-ai-memory-demand",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-10-28",
-    "timestamp": "2026-10-28T22:43:25.514Z"
-  },
-  {
-    "title": "Polygon Extends Its Stablecoin Payments Infrastructure to Solana",
-    "description": "The expansion gives Solana businesses one integration to connect bank funding, embedded wallets, cross-chain transfers and global payouts, with cross-border firm Kira among the first adopters.",
-    "link": "https://decrypt.co/381850/polygon-stablecoin-payments-open-money-stack-solana",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-10-29",
-    "timestamp": "2026-10-29T18:35:11.810Z"
-  },
-  {
     "title": "Polymarket Pauses Trading as Prediction Market Investigates Security Incident",
     "description": "Polymarket restricted trading and paused relayer actions as users report funds leaving their accounts. A suspected attacker wallet holds about $2.65 million in POL, per Arkham data.",
     "link": "https://decrypt.co/382185/polymarket-pauses-trading-prediction-market-security-incident",
@@ -88,5 +48,15 @@
     "slot": "evening",
     "date": "2026-10-31",
     "timestamp": "2026-10-31T21:45:44.908Z"
+  },
+  {
+    "title": "Proton Users Revolt After CEO Calls Security Caution 'Loser Thinking' Amid AI Push",
+    "description": "Proton customers say they are canceling subscriptions after reports of pressure to adopt AI coding, as the privacy company scraps employee re-interviews but defends its broader shift toward automated development.",
+    "link": "https://decrypt.co/382353/proton-users-revolt-ceo-calls-security-caution-loser-thinking-ai",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-02",
+    "timestamp": "2026-11-02T21:51:37.317Z"
   }
 ]
