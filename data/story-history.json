@@ -1,15 +1,5 @@
 [
   {
-    "title": "Polymarket Pauses Trading as Prediction Market Investigates Security Incident",
-    "description": "Polymarket restricted trading and paused relayer actions as users report funds leaving their accounts. A suspected attacker wallet holds about $2.65 million in POL, per Arkham data.",
-    "link": "https://decrypt.co/382185/polymarket-pauses-trading-prediction-market-security-incident",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-10-29",
-    "timestamp": "2026-10-29T22:52:38.235Z"
-  },
-  {
     "title": "EIP-7702 didn’t cause Binance hack, but may have amplified losses",
     "description": "Security experts said attackers could have drained Binance’s wallets without EIP-7702, but the Ethereum upgrade may have helped bypass withdrawal safeguards. ]]>",
     "link": "https://cointelegraph.com/news/binance-hack-security-ethereum-eip-7702-role?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -58,5 +48,15 @@
     "slot": "evening",
     "date": "2026-11-02",
     "timestamp": "2026-11-02T21:51:37.317Z"
+  },
+  {
+    "title": "Bitmine Buys More Ethereum as Tom Lee Calls the Binance Hack Bullish",
+    "description": "The chairman laid out six reasons the market’s “muted” 4% ETH drop after the record Binance theft shows crypto is “increasingly resilient,” as the firm’s stash neared its 5% supply goal.",
+    "link": "https://decrypt.co/382340/bitmine-buys-more-ethereum-tom-lee-binance-hack-bullish",
+    "source": "Decrypt",
+    "series": "I Tested It",
+    "slot": "morning",
+    "date": "2026-11-03",
+    "timestamp": "2026-11-03T01:04:47.472Z"
   }
 ]
