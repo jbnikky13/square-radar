@@ -1,15 +1,5 @@
 [
   {
-    "title": "Worried About Crypto Hacks? Buy Bitcoin Proxies in Stock Market Instead, Say Wall Street Firms",
-    "description": "Analysts at Cantor Fitzgerald, TD Cowen and Compass Point say the record $6.4 billion theft is a Binance security failure, not a crypto-wide threat, pointing clients toward proxies like Coinbase, Robinhood, and Strategy.",
-    "link": "https://decrypt.co/382282/crypto-hacks-buy-bitcoin-proxies-stock-market-wall-street",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-10-30",
-    "timestamp": "2026-10-30T22:30:28.946Z"
-  },
-  {
     "title": "Binance $6.3B record hack sparks pre-election political clashes",
     "description": "Some political and administration figures tried to make hay of the biggest-ever crypto heist. ]]>",
     "link": "https://cointelegraph.com/news/binance-63b-record-hack-sparks-pre-election-political-chatter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -58,5 +48,15 @@
     "slot": "evening",
     "date": "2026-11-03",
     "timestamp": "2026-11-03T19:41:47.610Z"
+  },
+  {
+    "title": "CrowdStrike Launches AI Agent 'Kill Switch,' Plans to Acquire Fiddler AI",
+    "description": "CrowdStrike's new kill switch lets security teams cut off unauthorized AI agents through a gateway, while its planned Fiddler acquisition aims to make autonomous software easier to monitor and audit.",
+    "link": "https://decrypt.co/382467/crowdstrike-ai-agent-kill-switch-acquire-fiddler-ai",
+    "source": "Decrypt",
+    "series": "Africa Crypto Lens",
+    "slot": "morning",
+    "date": "2026-11-04",
+    "timestamp": "2026-11-03T23:31:47.952Z"
   }
 ]
