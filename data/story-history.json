@@ -1,15 +1,5 @@
 [
   {
-    "title": "EIP-7702 didn’t cause Binance hack, but may have amplified losses",
-    "description": "Security experts said attackers could have drained Binance’s wallets without EIP-7702, but the Ethereum upgrade may have helped bypass withdrawal safeguards. ]]>",
-    "link": "https://cointelegraph.com/news/binance-hack-security-ethereum-eip-7702-role?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-10-30",
-    "timestamp": "2026-10-30T18:07:47.829Z"
-  },
-  {
     "title": "Worried About Crypto Hacks? Buy Bitcoin Proxies in Stock Market Instead, Say Wall Street Firms",
     "description": "Analysts at Cantor Fitzgerald, TD Cowen and Compass Point say the record $6.4 billion theft is a Binance security failure, not a crypto-wide threat, pointing clients toward proxies like Coinbase, Robinhood, and Strategy.",
     "link": "https://decrypt.co/382282/crypto-hacks-buy-bitcoin-proxies-stock-market-wall-street",
@@ -58,5 +48,15 @@
     "slot": "morning",
     "date": "2026-11-03",
     "timestamp": "2026-11-03T01:04:47.472Z"
+  },
+  {
+    "title": "Binance Misses Monthly Luna Classic Burn for First Time Since 2023",
+    "description": "LUNC holders are waiting for Binance’s November burn, but it hasn’t arrived as the exchange recovers from a record $6.3 billion hack.",
+    "link": "https://decrypt.co/382401/binance-misses-monthly-luna-classic-burn-for-first-time-since-2023",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-03",
+    "timestamp": "2026-11-03T19:41:47.610Z"
   }
 ]
