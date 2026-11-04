@@ -4,5 +4,8 @@
   "private": true,
   "description": "Daily Binance Square research and content-prompt radar.",
   "type": "module",
-  "scripts": { "start": "node src/index.mjs" }
+  "scripts": {
+    "start": "node src/index.mjs",
+    "test": "node --test"
+  }
 }
