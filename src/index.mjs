@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { parseItems } from "./rss.mjs";
+import { decodeHtmlEntities } from "./html-entities.mjs";
 
 const root = process.cwd();
 const schedule = JSON.parse(await fs.readFile(path.join(root, "data", "schedule.json"), "utf8"));
@@ -33,16 +34,7 @@ function localDate(date) {
   return new Intl.DateTimeFormat("en-CA", {timeZone:"Africa/Lagos",year:"numeric",month:"2-digit",day:"2-digit"}).format(date);
 }
 function clean(s) {
-  return (s || "")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/&lt;/gi, "<")
-    .replace(/&gt;/gi, ">")
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/\s+/g, " ")
-    .trim();
+  return decodeHtmlEntities((s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim());
 }
 // Retrieve full publisher text where accessible; fall back to the RSS description
 // when a site blocks automated access or only exposes a short excerpt.
