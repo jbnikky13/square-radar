@@ -1,14 +1,7 @@
+import { decodeHtmlEntities } from "./html-entities.mjs";
+
 function clean(s) {
-  return (s || "")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/&lt;/gi, "<")
-    .replace(/&gt;/gi, ">")
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/\s+/g, " ")
-    .trim();
+  return decodeHtmlEntities((s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim());
 }
 
 function extractMedia(block) {
