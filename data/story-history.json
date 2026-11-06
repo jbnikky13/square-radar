@@ -1,15 +1,5 @@
 [
   {
-    "title": "Proton Users Revolt After CEO Calls Security Caution 'Loser Thinking' Amid AI Push",
-    "description": "Proton customers say they are canceling subscriptions after reports of pressure to adopt AI coding, as the privacy company scraps employee re-interviews but defends its broader shift toward automated development.",
-    "link": "https://decrypt.co/382353/proton-users-revolt-ceo-calls-security-caution-loser-thinking-ai",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-02",
-    "timestamp": "2026-11-02T21:51:37.317Z"
-  },
-  {
     "title": "Bitmine Buys More Ethereum as Tom Lee Calls the Binance Hack Bullish",
     "description": "The chairman laid out six reasons the market’s “muted” 4% ETH drop after the record Binance theft shows crypto is “increasingly resilient,” as the firm’s stash neared its 5% supply goal.",
     "link": "https://decrypt.co/382340/bitmine-buys-more-ethereum-tom-lee-binance-hack-bullish",
@@ -78,5 +68,15 @@
     "slot": "evening",
     "date": "2026-11-06",
     "timestamp": "2026-11-06T19:36:51.349Z"
+  },
+  {
+    "title": "Binance hack is ‘cyber war,’ TRM Labs executive says",
+    "description": "TRM Labs executive Ari Redbord called for governments to take offensive action against North Korean hackers following the record $6.3 billion Binance theft. ]]>",
+    "link": "https://cointelegraph.com/interview/trm-labs-binance-hack-interview?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "$10 Experiment",
+    "slot": "morning",
+    "date": "2026-11-07",
+    "timestamp": "2026-11-06T23:19:13.105Z"
   }
 ]
