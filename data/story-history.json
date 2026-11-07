@@ -1,15 +1,5 @@
 [
   {
-    "title": "Bitmine Buys More Ethereum as Tom Lee Calls the Binance Hack Bullish",
-    "description": "The chairman laid out six reasons the market’s “muted” 4% ETH drop after the record Binance theft shows crypto is “increasingly resilient,” as the firm’s stash neared its 5% supply goal.",
-    "link": "https://decrypt.co/382340/bitmine-buys-more-ethereum-tom-lee-binance-hack-bullish",
-    "source": "Decrypt",
-    "series": "I Tested It",
-    "slot": "morning",
-    "date": "2026-11-03",
-    "timestamp": "2026-11-03T01:04:47.472Z"
-  },
-  {
     "title": "Binance Misses Monthly Luna Classic Burn for First Time Since 2023",
     "description": "LUNC holders are waiting for Binance’s November burn, but it hasn’t arrived as the exchange recovers from a record $6.3 billion hack.",
     "link": "https://decrypt.co/382401/binance-misses-monthly-luna-classic-burn-for-first-time-since-2023",
@@ -78,5 +68,15 @@
     "slot": "morning",
     "date": "2026-11-07",
     "timestamp": "2026-11-06T23:19:13.105Z"
+  },
+  {
+    "title": "Zcash's NU7 Upgrade Goes Live, Recycling 60% of Fees to Fund Future Block Rewards",
+    "description": "The Network Sustainability Mechanism will reissue removed ZEC from 2031 within the 21 million cap, as the community debates its dev fund.",
+    "link": "https://decrypt.co/382692/zcashs-nu7-upgrade-goes-live-recycling-60-of-fees-to-fund-future-block-rewards",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-07",
+    "timestamp": "2026-11-07T17:48:33.655Z"
   }
 ]
