@@ -1,35 +1,5 @@
 [
   {
-    "title": "CrowdStrike Launches AI Agent 'Kill Switch,' Plans to Acquire Fiddler AI",
-    "description": "CrowdStrike's new kill switch lets security teams cut off unauthorized AI agents through a gateway, while its planned Fiddler acquisition aims to make autonomous software easier to monitor and audit.",
-    "link": "https://decrypt.co/382467/crowdstrike-ai-agent-kill-switch-acquire-fiddler-ai",
-    "source": "Decrypt",
-    "series": "Africa Crypto Lens",
-    "slot": "morning",
-    "date": "2026-11-04",
-    "timestamp": "2026-11-03T23:31:47.952Z"
-  },
-  {
-    "title": "Riot shares surge on $28B AI lease as Hut 8 sinks on revenue miss",
-    "description": "Bitcoin miner Riot sold BTC to finance its AI expansion, while Hut 8 reported falling revenue and rising costs before its major data center leases generate income. ]]>",
-    "link": "https://cointelegraph.com/news/riots-28b-ai-deal-lifts-shares-as-hut-8-faces-transition-costs?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Crypto Nobody Explained Properly",
-    "slot": "morning",
-    "date": "2026-11-05",
-    "timestamp": "2026-11-04T23:47:57.483Z"
-  },
-  {
-    "title": "Fed, OCC check US banks after Binance hack as experts flag security risks",
-    "description": "US regulators reportedly contacted banks following last week’s $6.3 billion Binance security hack, while experts raised concerns about transaction security and crypto risks. ]]>",
-    "link": "https://cointelegraph.com/news/fed-occ-check-us-banks-binance-hack-security-risks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-05",
-    "timestamp": "2026-11-05T20:11:39.550Z"
-  },
-  {
     "title": "Asian crypto exchanges batten down the hatches as hacks surge: Asia Express",
     "description": "Asian crypto exchanges are scrambling to tighten security on fears of a wave of potentially AI-assisted hacks, even as regional governments embrace tokenization and stablecoins. ]]>",
     "link": "https://cointelegraph.com/magazine/asian-crypto-exchanges-bunker-down-as-hacks-surge-asia-express?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -78,5 +48,15 @@
     "slot": "evening",
     "date": "2026-11-07",
     "timestamp": "2026-11-07T22:04:30.963Z"
+  },
+  {
+    "title": "Anthropic's Claude Fable 5.2 and Mythos 5.0 Are Impressive, But Be Prepared to Sell a Kidney to Afford Them",
+    "description": "Anthropic's latest AI can build complex software and even design physical objects. Users are producing impressive results, and estimated bills large enough to make developers wince.",
+    "link": "https://decrypt.co/382897/anthropic-claude-fable-5-2-and-mythos-5-2-impressive-and-expensive",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-09",
+    "timestamp": "2026-11-09T22:36:53.499Z"
   }
 ]
