@@ -1,15 +1,5 @@
 [
   {
-    "title": "Binance’s $6.3B hack leaves questions over hot wallet safeguards",
-    "description": "Experts say blockchain records show repeated wallet drains but cannot establish Binance’s internal signing controls or transaction limits. ]]>",
-    "link": "https://cointelegraph.com/news/binances-hack-questions-hot-wallet-risk-controls?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-06",
-    "timestamp": "2026-11-06T19:36:51.349Z"
-  },
-  {
     "title": "Binance hack is ‘cyber war,’ TRM Labs executive says",
     "description": "TRM Labs executive Ari Redbord called for governments to take offensive action against North Korean hackers following the record $6.3 billion Binance theft. ]]>",
     "link": "https://cointelegraph.com/interview/trm-labs-binance-hack-interview?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -58,5 +48,15 @@
     "slot": "morning",
     "date": "2026-11-10",
     "timestamp": "2026-11-10T01:41:24.419Z"
+  },
+  {
+    "title": "Goldman, Citi and Global Banks Commit $270 Million to Challenge Crypto’s Stablecoin Giants",
+    "description": "The funding, backing a U.S.-incorporated issuer codenamed “Project Faro,” covers five years of operations as traditional lenders move to challenge crypto-native giants Tether and Circle.",
+    "link": "https://decrypt.co/382953/goldman-citi-global-banks-270-million-challenge-crypto-stablecoin-giants",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-10",
+    "timestamp": "2026-11-10T19:54:14.309Z"
   }
 ]
