@@ -1,15 +1,5 @@
 [
   {
-    "title": "Zcash's NU7 Upgrade Goes Live, Recycling 60% of Fees to Fund Future Block Rewards",
-    "description": "The Network Sustainability Mechanism will reissue removed ZEC from 2031 within the 21 million cap, as the community debates its dev fund.",
-    "link": "https://decrypt.co/382692/zcashs-nu7-upgrade-goes-live-recycling-60-of-fees-to-fund-future-block-rewards",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-07",
-    "timestamp": "2026-11-07T17:48:33.655Z"
-  },
-  {
     "title": "US 401(k) proposal leaves door open to altcoins, but hurdles remain",
     "description": "While the proposal doesn’t exclude altcoins and smaller cryptocurrencies, experts say they could face challenges getting into retirement plans. ]]>",
     "link": "https://cointelegraph.com/news/us-401k-proposal-leaves-door-open-altcoins-hurdles?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -58,5 +48,15 @@
     "slot": "morning",
     "date": "2026-11-11",
     "timestamp": "2026-11-10T23:35:04.476Z"
+  },
+  {
+    "title": "OKXICE moves ahead with tokenized stocks as blue chips push back",
+    "description": "The Nov. 23 debut puts a new SEC exemption to the test as Nasdaq pursues its own tokenized stock plans after warning that trading across platforms could fragment liquidity. ]]>",
+    "link": "https://cointelegraph.com/news/okxice-tokenized-stocks-blue-chips-push-back?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-11",
+    "timestamp": "2026-11-11T19:46:42.084Z"
   }
 ]
