@@ -1,15 +1,5 @@
 [
   {
-    "title": "US 401(k) proposal leaves door open to altcoins, but hurdles remain",
-    "description": "While the proposal doesn’t exclude altcoins and smaller cryptocurrencies, experts say they could face challenges getting into retirement plans. ]]>",
-    "link": "https://cointelegraph.com/news/us-401k-proposal-leaves-door-open-altcoins-hurdles?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-07",
-    "timestamp": "2026-11-07T22:04:30.963Z"
-  },
-  {
     "title": "Anthropic's Claude Fable 5.2 and Mythos 5.0 Are Impressive, But Be Prepared to Sell a Kidney to Afford Them",
     "description": "Anthropic's latest AI can build complex software and even design physical objects. Users are producing impressive results, and estimated bills large enough to make developers wince.",
     "link": "https://decrypt.co/382897/anthropic-claude-fable-5-2-and-mythos-5-2-impressive-and-expensive",
@@ -58,5 +48,15 @@
     "slot": "evening",
     "date": "2026-11-11",
     "timestamp": "2026-11-11T19:46:42.084Z"
+  },
+  {
+    "title": "Decrypt Becomes First News Publisher to Offer Perps Trading, Powered by Solana's Phoenix",
+    "description": "The integration brings perpetual futures trading into Decrypt, so readers can trade crypto, stocks and commodities without leaving the news.",
+    "link": "https://decrypt.co/382992/decrypt-becomes-first-news-publisher-to-offer-perps-trading-powered-by-solanas-phoenix",
+    "source": "Decrypt",
+    "series": "Crypto Nobody Explained Properly",
+    "slot": "morning",
+    "date": "2026-11-12",
+    "timestamp": "2026-11-12T00:52:46.491Z"
   }
 ]
