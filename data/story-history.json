@@ -68,5 +68,15 @@
     "slot": "evening",
     "date": "2026-11-12",
     "timestamp": "2026-11-12T20:14:54.026Z"
+  },
+  {
+    "title": "North Korea Stole $400 Million in Crypto Using Deepfake Video Calls, DOJ Says",
+    "description": "The FBI says the “FaceStealer” scheme uses prerecorded footage and AI deepfakes of trusted contacts to trick crypto workers into installing malware on video calls—as the DOJ also moves to seize $1.2 billion from the Binance hack.",
+    "link": "https://decrypt.co/383208/north-korea-stole-400-million-crypto-deepfake-video-calls",
+    "source": "Decrypt",
+    "series": "What I'm Watching",
+    "slot": "morning",
+    "date": "2026-11-13",
+    "timestamp": "2026-11-12T23:43:39.253Z"
   }
 ]
