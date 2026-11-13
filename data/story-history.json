@@ -1,15 +1,5 @@
 [
   {
-    "title": "Anthropic's Claude Fable 5.2 and Mythos 5.0 Are Impressive, But Be Prepared to Sell a Kidney to Afford Them",
-    "description": "Anthropic's latest AI can build complex software and even design physical objects. Users are producing impressive results, and estimated bills large enough to make developers wince.",
-    "link": "https://decrypt.co/382897/anthropic-claude-fable-5-2-and-mythos-5-2-impressive-and-expensive",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-09",
-    "timestamp": "2026-11-09T22:36:53.499Z"
-  },
-  {
     "title": "North Korean hackers create memecoins to launder funds from Binance hack: Elliptic",
     "description": "The blockchain firm traced stolen funds through six new tokens on NEAR, where hackers used liquidity pools to obscure transfers between wallets. ]]>",
     "link": "https://cointelegraph.com/news/north-korean-hackers-memecoins-launder-binance-hack-elliptic?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -88,5 +78,15 @@
     "slot": "evening",
     "date": "2026-11-13",
     "timestamp": "2026-11-13T19:55:56.386Z"
+  },
+  {
+    "title": "Adam Back makes case for simpler security as Blockstream launches Bitcoin custody system",
+    "description": "Blockstream’s new custody system, developed with Thales, uses dedicated hardware for transaction signing as Adam Back advocates for offline security to reduce cyber risks. ]]>",
+    "link": "https://cointelegraph.com/news/adam-back-simpler-security-blockstream-bitcoin-custody-system?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "$10 Experiment",
+    "slot": "morning",
+    "date": "2026-11-14",
+    "timestamp": "2026-11-13T23:44:01.877Z"
   }
 ]
