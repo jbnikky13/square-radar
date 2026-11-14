@@ -1,15 +1,5 @@
 [
   {
-    "title": "Goldman, Citi and Global Banks Commit $270 Million to Challenge Crypto’s Stablecoin Giants",
-    "description": "The funding, backing a U.S.-incorporated issuer codenamed “Project Faro,” covers five years of operations as traditional lenders move to challenge crypto-native giants Tether and Circle.",
-    "link": "https://decrypt.co/382953/goldman-citi-global-banks-270-million-challenge-crypto-stablecoin-giants",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-10",
-    "timestamp": "2026-11-10T19:54:14.309Z"
-  },
-  {
     "title": "Solana's Jupiter Expands Beyond Trading With Token Baskets, Yield Vaults and New Portfolio",
     "description": "The trading platform, which says it has routed more than $1.3 trillion in trades, is launching four products ahead of Solana Breakpoint.",
     "link": "https://decrypt.co/382836/solanas-jupiter-expands-beyond-trading-with-token-baskets-yield-vaults-and-new-portfolio",
@@ -98,5 +88,15 @@
     "slot": "evening",
     "date": "2026-11-14",
     "timestamp": "2026-11-14T18:22:59.801Z"
+  },
+  {
+    "title": "Bitcoin ETFs shed $2.35B in 2 weeks, BlackRock’s losing streak hits 11",
+    "description": "US spot Bitcoin ETFs recorded $185.4 million in net outflows Friday, with BlackRock’s IBIT accounting for $143.5 million and Fidelity’s FBTC shedding $41.9 million. ]]>",
+    "link": "https://cointelegraph.com/markets/bitcoin-etf-outflows-2-35-billion-blackrock-11-session-streak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-14",
+    "timestamp": "2026-11-14T22:37:41.217Z"
   }
 ]
