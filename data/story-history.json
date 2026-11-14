@@ -1,15 +1,5 @@
 [
   {
-    "title": "North Korean hackers create memecoins to launder funds from Binance hack: Elliptic",
-    "description": "The blockchain firm traced stolen funds through six new tokens on NEAR, where hackers used liquidity pools to obscure transfers between wallets. ]]>",
-    "link": "https://cointelegraph.com/news/north-korean-hackers-memecoins-launder-binance-hack-elliptic?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "I Tested It",
-    "slot": "morning",
-    "date": "2026-11-10",
-    "timestamp": "2026-11-10T01:41:24.419Z"
-  },
-  {
     "title": "Goldman, Citi and Global Banks Commit $270 Million to Challenge Crypto’s Stablecoin Giants",
     "description": "The funding, backing a U.S.-incorporated issuer codenamed “Project Faro,” covers five years of operations as traditional lenders move to challenge crypto-native giants Tether and Circle.",
     "link": "https://decrypt.co/382953/goldman-citi-global-banks-270-million-challenge-crypto-stablecoin-giants",
@@ -88,5 +78,15 @@
     "slot": "morning",
     "date": "2026-11-14",
     "timestamp": "2026-11-13T23:44:01.877Z"
+  },
+  {
+    "title": "Qualcomm Is Cheap Enough to Hold Through 2030",
+    "description": "Qualcomm stock has fallen by 33% from its high, and now trades at just a single-digit multiple of management's fiscal 2029 earnings target.",
+    "link": "https://www.fool.com/investing/2026/11/14/qualcomm-is-cheap-enough-to-hold-through-2030/?.tsrc=rss",
+    "source": "Yahoo Finance Stocks",
+    "series": "Business & Markets",
+    "slot": "afternoon",
+    "date": "2026-11-14",
+    "timestamp": "2026-11-14T12:23:35.491Z"
   }
 ]
