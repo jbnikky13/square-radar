@@ -1,15 +1,5 @@
 [
   {
-    "title": "Bitcoin ETFs Bleed $1.4B in Five Days as Investors Cut Risk",
-    "description": "Spot Bitcoin ETFs have lost almost half their peak assets, but analysts say the outflows don't yet show a collapse in demand.",
-    "link": "https://decrypt.co/383122/bitcoin-etfs-bleed-1-4b-in-five-days-as-investors-cut-risk",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-13",
-    "timestamp": "2026-11-13T19:55:56.386Z"
-  },
-  {
     "title": "Adam Back makes case for simpler security as Blockstream launches Bitcoin custody system",
     "description": "Blockstream’s new custody system, developed with Thales, uses dedicated hardware for transaction signing as Adam Back advocates for offline security to reduce cyber risks. ]]>",
     "link": "https://cointelegraph.com/news/adam-back-simpler-security-blockstream-bitcoin-custody-system?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -68,5 +58,15 @@
     "slot": "morning",
     "date": "2026-11-17",
     "timestamp": "2026-11-17T01:54:58.957Z"
+  },
+  {
+    "title": "Binance Hack Wallets Move $137 Million in Ethereum After Two Weeks of Silence",
+    "description": "A wallet linked to October’s record Binance theft moved $63 million in ether, before analysts flagged a larger wave of transfers and reported Bitcoin swaps amid ongoing U.S. recovery efforts.",
+    "link": "https://decrypt.co/383446/binance-hack-wallets-move-ethereum-after-two-weeks",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-17",
+    "timestamp": "2026-11-17T21:11:56.342Z"
   }
 ]
