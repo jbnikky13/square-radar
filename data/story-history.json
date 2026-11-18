@@ -1,15 +1,5 @@
 [
   {
-    "title": "Adam Back makes case for simpler security as Blockstream launches Bitcoin custody system",
-    "description": "Blockstream’s new custody system, developed with Thales, uses dedicated hardware for transaction signing as Adam Back advocates for offline security to reduce cyber risks. ]]>",
-    "link": "https://cointelegraph.com/news/adam-back-simpler-security-blockstream-bitcoin-custody-system?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "$10 Experiment",
-    "slot": "morning",
-    "date": "2026-11-14",
-    "timestamp": "2026-11-13T23:44:01.877Z"
-  },
-  {
     "title": "Qualcomm Is Cheap Enough to Hold Through 2030",
     "description": "Qualcomm stock has fallen by 33% from its high, and now trades at just a single-digit multiple of management's fiscal 2029 earnings target.",
     "link": "https://www.fool.com/investing/2026/11/14/qualcomm-is-cheap-enough-to-hold-through-2030/?.tsrc=rss",
@@ -68,5 +58,15 @@
     "slot": "evening",
     "date": "2026-11-17",
     "timestamp": "2026-11-17T21:11:56.342Z"
+  },
+  {
+    "title": "Nvidia Board Shuts Down Jensen Huang Comeback, Launches Search for New CEO",
+    "description": "Nvidia's board rejected a comeback for its ousted co-founder as it hired a search firm, backed interim CEO Colette Kress, and tightened oversight of chip exports to China.",
+    "link": "https://decrypt.co/383513/nvidia-board-shuts-down-jensen-huang-comeback",
+    "source": "Decrypt",
+    "series": "Africa Crypto Lens",
+    "slot": "morning",
+    "date": "2026-11-18",
+    "timestamp": "2026-11-18T01:04:00.575Z"
   }
 ]
