@@ -1,35 +1,5 @@
 [
   {
-    "title": "Qualcomm Is Cheap Enough to Hold Through 2030",
-    "description": "Qualcomm stock has fallen by 33% from its high, and now trades at just a single-digit multiple of management's fiscal 2029 earnings target.",
-    "link": "https://www.fool.com/investing/2026/11/14/qualcomm-is-cheap-enough-to-hold-through-2030/?.tsrc=rss",
-    "source": "Yahoo Finance Stocks",
-    "series": "Business & Markets",
-    "slot": "afternoon",
-    "date": "2026-11-14",
-    "timestamp": "2026-11-14T12:23:35.491Z"
-  },
-  {
-    "title": "OpenAI Launches ChatGPT Wallet to Let AI Agents Shop—Without Crypto",
-    "description": "OpenAI’s new wallet lets AI agents buy products using ordinary cards, challenging crypto payment tools from Coinbase and Circle as companies compete to control everyday online shopping by autonomous software.",
-    "link": "https://decrypt.co/383278/openai-chatgpt-wallet-ai-agents-shop-without-crypto",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-14",
-    "timestamp": "2026-11-14T18:22:59.801Z"
-  },
-  {
-    "title": "Bitcoin ETFs shed $2.35B in 2 weeks, BlackRock’s losing streak hits 11",
-    "description": "US spot Bitcoin ETFs recorded $185.4 million in net outflows Friday, with BlackRock’s IBIT accounting for $143.5 million and Fidelity’s FBTC shedding $41.9 million. ]]>",
-    "link": "https://cointelegraph.com/markets/bitcoin-etf-outflows-2-35-billion-blackrock-11-session-streak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-14",
-    "timestamp": "2026-11-14T22:37:41.217Z"
-  },
-  {
     "title": "DTCC, Barclays Say Tokenization's Real Prize Is Unlocking Idle Collateral",
     "description": "Executives from the U.S. settlement giant and Barclays told Solana's Breakpoint that adoption is early, but accelerating.",
     "link": "https://decrypt.co/383316/dtcc-barclays-say-tokenizations-real-prize-is-unlocking-idle-collateral",
@@ -68,5 +38,15 @@
     "slot": "morning",
     "date": "2026-11-18",
     "timestamp": "2026-11-18T01:04:00.575Z"
+  },
+  {
+    "title": "Tokenized Nvidia market cap surges 159% amid Jensen Huang’s exit",
+    "description": "Nvidia stock tokens reached $401.9 million in combined value as Jensen Huang stepped down and the chipmaker posted record quarterly revenue. ]]>",
+    "link": "https://cointelegraph.com/news/tokenized-nvidia-cap-rises-158-stock-loses-750b?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "Crypto Nobody Explained Properly",
+    "slot": "morning",
+    "date": "2026-11-19",
+    "timestamp": "2026-11-19T00:33:42.697Z"
   }
 ]
