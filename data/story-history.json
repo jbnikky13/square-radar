@@ -68,5 +68,15 @@
     "slot": "morning",
     "date": "2026-11-20",
     "timestamp": "2026-11-20T00:43:51.533Z"
+  },
+  {
+    "title": "Wrapped Monero Token Collapses 99% After $13 Million Hack Blamed on Web Host",
+    "description": "Wagyu’s XMR1 token fell more than 99% after an attacker moved 5.2 million tokens out of its deployer account and sold a fraction of them for $13.5 million.",
+    "link": "https://decrypt.co/383732/wrapped-monero-token-collapses-99-after-13-million-hack-blamed-on-web-host",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-20",
+    "timestamp": "2026-11-20T20:38:06.119Z"
   }
 ]
