@@ -1,15 +1,5 @@
 [
   {
-    "title": "DBS, JPMorgan’s Kinexys launch 24/7 transfers of tokenized deposits",
-    "description": "Ant International is the first customer to use the service, which lets clients transfer US dollar deposits between Singapore and the US. ]]>",
-    "link": "https://cointelegraph.com/news/dbs-jpmorgans-kinexys-launch-tokenized-transfers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "I Tested It",
-    "slot": "morning",
-    "date": "2026-11-17",
-    "timestamp": "2026-11-17T01:54:58.957Z"
-  },
-  {
     "title": "Binance Hack Wallets Move $137 Million in Ethereum After Two Weeks of Silence",
     "description": "A wallet linked to October’s record Binance theft moved $63 million in ether, before analysts flagged a larger wave of transfers and reported Bitcoin swaps amid ongoing U.S. recovery efforts.",
     "link": "https://decrypt.co/383446/binance-hack-wallets-move-ethereum-after-two-weeks",
@@ -78,5 +68,15 @@
     "slot": "morning",
     "date": "2026-11-21",
     "timestamp": "2026-11-21T00:03:42.239Z"
+  },
+  {
+    "title": "GTA 6 Leaker Dangles a PC Port Behind a $15 Million Crypto Pump",
+    "description": "The anonymous leaker, Cyberleek, released a 209 GB Xbox build but is withholding the executable that could enable a PC port until its CYBERLEEK token hits $15 million.",
+    "link": "https://decrypt.co/383756/gta-6-leaker-dangles-pc-port-15-million-crypto-pump",
+    "source": "Decrypt",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-21",
+    "timestamp": "2026-11-21T19:37:10.189Z"
   }
 ]
