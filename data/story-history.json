@@ -1,15 +1,5 @@
 [
   {
-    "title": "DTCC, Barclays Say Tokenization's Real Prize Is Unlocking Idle Collateral",
-    "description": "Executives from the U.S. settlement giant and Barclays told Solana's Breakpoint that adoption is early, but accelerating.",
-    "link": "https://decrypt.co/383316/dtcc-barclays-say-tokenizations-real-prize-is-unlocking-idle-collateral",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-16",
-    "timestamp": "2026-11-16T22:25:05.846Z"
-  },
-  {
     "title": "DBS, JPMorgan’s Kinexys launch 24/7 transfers of tokenized deposits",
     "description": "Ant International is the first customer to use the service, which lets clients transfer US dollar deposits between Singapore and the US. ]]>",
     "link": "https://cointelegraph.com/news/dbs-jpmorgans-kinexys-launch-tokenized-transfers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -78,5 +68,15 @@
     "slot": "evening",
     "date": "2026-11-20",
     "timestamp": "2026-11-20T20:38:06.119Z"
+  },
+  {
+    "title": "DBS bets it can lose the deposit and keep the client",
+    "description": "The Singapore bank earned a record $208 million in transaction services fees in the third quarter — now it’s helping companies turn deposits into stablecoins they can spend without it. ]]>",
+    "link": "https://cointelegraph.com/news/dbs-bets-it-can-lose-the-deposit-and-keep-the-client?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "$10 Experiment",
+    "slot": "morning",
+    "date": "2026-11-21",
+    "timestamp": "2026-11-21T00:03:42.239Z"
   }
 ]
