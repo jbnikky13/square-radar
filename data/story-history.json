@@ -1,35 +1,5 @@
 [
   {
-    "title": "Binance Hack Wallets Move $137 Million in Ethereum After Two Weeks of Silence",
-    "description": "A wallet linked to October’s record Binance theft moved $63 million in ether, before analysts flagged a larger wave of transfers and reported Bitcoin swaps amid ongoing U.S. recovery efforts.",
-    "link": "https://decrypt.co/383446/binance-hack-wallets-move-ethereum-after-two-weeks",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-17",
-    "timestamp": "2026-11-17T21:11:56.342Z"
-  },
-  {
-    "title": "Nvidia Board Shuts Down Jensen Huang Comeback, Launches Search for New CEO",
-    "description": "Nvidia's board rejected a comeback for its ousted co-founder as it hired a search firm, backed interim CEO Colette Kress, and tightened oversight of chip exports to China.",
-    "link": "https://decrypt.co/383513/nvidia-board-shuts-down-jensen-huang-comeback",
-    "source": "Decrypt",
-    "series": "Africa Crypto Lens",
-    "slot": "morning",
-    "date": "2026-11-18",
-    "timestamp": "2026-11-18T01:04:00.575Z"
-  },
-  {
-    "title": "Tokenized Nvidia market cap surges 159% amid Jensen Huang’s exit",
-    "description": "Nvidia stock tokens reached $401.9 million in combined value as Jensen Huang stepped down and the chipmaker posted record quarterly revenue. ]]>",
-    "link": "https://cointelegraph.com/news/tokenized-nvidia-cap-rises-158-stock-loses-750b?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Crypto Nobody Explained Properly",
-    "slot": "morning",
-    "date": "2026-11-19",
-    "timestamp": "2026-11-19T00:33:42.697Z"
-  },
-  {
     "title": "IOSCO warns quantum upgrades could slow blockchains, leave security gaps",
     "description": "A Solana test network ran about 90% slower with quantum-resistant signatures, and wallets that keep using older keys could remain vulnerable. ]]>",
     "link": "https://cointelegraph.com/news/iosco-quantum-blockchain-upgrades-security-risks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -78,5 +48,15 @@
     "slot": "evening",
     "date": "2026-11-21",
     "timestamp": "2026-11-21T19:37:10.189Z"
+  },
+  {
+    "title": "OKX, ICE launch 113 tokenized assets despite issuer objections",
+    "description": "The venture named Coinbase and Fidelity among the issuers and asset managers in the rollout after 67 companies objected to having their shares traded on the venue. ]]>",
+    "link": "https://cointelegraph.com/news/okxice-launch-113-tokenized-assets-objections?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-23",
+    "timestamp": "2026-11-23T16:24:55.003Z"
   }
 ]
