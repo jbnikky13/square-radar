@@ -1,15 +1,5 @@
 [
   {
-    "title": "Ethereum’s new DeFi security tool raises questions over censorship",
-    "description": "Phylax’s system lets decentralized protocols block potentially harmful transactions, but raises questions about potential censorship and Ethereum’s concentrated builder market. ]]>",
-    "link": "https://cointelegraph.com/magazine/ethereums-new-defi-security-tool-raises-questions-over-censorship?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "What I'm Watching",
-    "slot": "morning",
-    "date": "2026-11-20",
-    "timestamp": "2026-11-20T00:43:51.533Z"
-  },
-  {
     "title": "Wrapped Monero Token Collapses 99% After $13 Million Hack Blamed on Web Host",
     "description": "Wagyu’s XMR1 token fell more than 99% after an attacker moved 5.2 million tokens out of its deployer account and sold a fraction of them for $13.5 million.",
     "link": "https://decrypt.co/383732/wrapped-monero-token-collapses-99-after-13-million-hack-blamed-on-web-host",
@@ -58,5 +48,15 @@
     "slot": "morning",
     "date": "2026-11-24",
     "timestamp": "2026-11-24T00:10:02.378Z"
+  },
+  {
+    "title": "Why One Math Proof Has AI Experts Warning Humans Might Soon Lose Control",
+    "description": "Alexandr Wang says Claude’s role in a verified Riemann Hypothesis proof signals a turning point, warning that powerful self-improving AI systems could advance faster than people can supervise them.",
+    "link": "https://decrypt.co/383846/why-one-math-proof-ai-experts-warning-humans-lose-control",
+    "source": "Decrypt",
+    "series": "I Tested It",
+    "slot": "morning",
+    "date": "2026-11-24",
+    "timestamp": "2026-11-24T03:59:41.528Z"
   }
 ]
