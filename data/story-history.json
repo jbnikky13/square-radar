@@ -1,15 +1,5 @@
 [
   {
-    "title": "IOSCO warns quantum upgrades could slow blockchains, leave security gaps",
-    "description": "A Solana test network ran about 90% slower with quantum-resistant signatures, and wallets that keep using older keys could remain vulnerable. ]]>",
-    "link": "https://cointelegraph.com/news/iosco-quantum-blockchain-upgrades-security-risks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-19",
-    "timestamp": "2026-11-19T20:52:53.302Z"
-  },
-  {
     "title": "Ethereum’s new DeFi security tool raises questions over censorship",
     "description": "Phylax’s system lets decentralized protocols block potentially harmful transactions, but raises questions about potential censorship and Ethereum’s concentrated builder market. ]]>",
     "link": "https://cointelegraph.com/magazine/ethereums-new-defi-security-tool-raises-questions-over-censorship?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -58,5 +48,15 @@
     "slot": "evening",
     "date": "2026-11-23",
     "timestamp": "2026-11-23T16:24:55.003Z"
+  },
+  {
+    "title": "Bitcoin Rallies, Anthropic Sinks as Nvidia Surges 35% on Jensen Huang’s Return",
+    "description": "Nvidia’s comeback sent chip shares soaring and gave Bitcoin a lift after a punishing selloff. Anthropic, fresh from its record IPO, missed the party.",
+    "link": "https://decrypt.co/383801/bitcoin-rallies-anthropic-sinks-as-nvidia-surges-35-on-jensen-huangs-return",
+    "source": "Decrypt",
+    "series": "I Tested It",
+    "slot": "morning",
+    "date": "2026-11-24",
+    "timestamp": "2026-11-24T00:10:02.378Z"
   }
 ]
