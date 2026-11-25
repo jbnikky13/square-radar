@@ -1,15 +1,5 @@
 [
   {
-    "title": "DBS bets it can lose the deposit and keep the client",
-    "description": "The Singapore bank earned a record $208 million in transaction services fees in the third quarter — now it’s helping companies turn deposits into stablecoins they can spend without it. ]]>",
-    "link": "https://cointelegraph.com/news/dbs-bets-it-can-lose-the-deposit-and-keep-the-client?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "$10 Experiment",
-    "slot": "morning",
-    "date": "2026-11-21",
-    "timestamp": "2026-11-21T00:03:42.239Z"
-  },
-  {
     "title": "GTA 6 Leaker Dangles a PC Port Behind a $15 Million Crypto Pump",
     "description": "The anonymous leaker, Cyberleek, released a 209 GB Xbox build but is withholding the executable that could enable a PC port until its CYBERLEEK token hits $15 million.",
     "link": "https://decrypt.co/383756/gta-6-leaker-dangles-pc-port-15-million-crypto-pump",
@@ -68,5 +58,15 @@
     "slot": "evening",
     "date": "2026-11-24",
     "timestamp": "2026-11-24T22:39:52.054Z"
+  },
+  {
+    "title": "BlackRock launches tokenized money market fund accepting stablecoins in Hong Kong",
+    "description": "The tokenized fund launched with approximately $100 million in assets, with Standard Chartered and Ant International participating as seed investors. ]]>",
+    "link": "https://cointelegraph.com/news/blackrock-launches-tokenized-money-market-fund-stablecoins-hong-kong?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "Africa Crypto Lens",
+    "slot": "morning",
+    "date": "2026-11-25",
+    "timestamp": "2026-11-25T02:38:10.443Z"
   }
 ]
