@@ -1,15 +1,5 @@
 [
   {
-    "title": "GTA 6 Leaker Dangles a PC Port Behind a $15 Million Crypto Pump",
-    "description": "The anonymous leaker, Cyberleek, released a 209 GB Xbox build but is withholding the executable that could enable a PC port until its CYBERLEEK token hits $15 million.",
-    "link": "https://decrypt.co/383756/gta-6-leaker-dangles-pc-port-15-million-crypto-pump",
-    "source": "Decrypt",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-21",
-    "timestamp": "2026-11-21T19:37:10.189Z"
-  },
-  {
     "title": "OKX, ICE launch 113 tokenized assets despite issuer objections",
     "description": "The venture named Coinbase and Fidelity among the issuers and asset managers in the rollout after 67 companies objected to having their shares traded on the venue. ]]>",
     "link": "https://cointelegraph.com/news/okxice-launch-113-tokenized-assets-objections?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
@@ -68,5 +58,15 @@
     "slot": "morning",
     "date": "2026-11-25",
     "timestamp": "2026-11-25T02:38:10.443Z"
+  },
+  {
+    "title": "Bitcoin ETFs near $5B in record monthly outflows amid AI stock rout",
+    "description": "US spot Bitcoin ETFs have recorded $4.94 billion in November net outflows, exceeding the previous monthly record of $4.51 billion set in June. ]]>",
+    "link": "https://cointelegraph.com/markets/bitcoin-etfs-near-record-5-billion-monthly-outflows?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-25",
+    "timestamp": "2026-11-25T21:53:50.365Z"
   }
 ]
