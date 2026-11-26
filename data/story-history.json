@@ -68,5 +68,15 @@
     "slot": "evening",
     "date": "2026-11-25",
     "timestamp": "2026-11-25T21:53:50.365Z"
+  },
+  {
+    "title": "China's Google Just Released Its Fast New AI Model for Free",
+    "description": "Baidu has released the weights of its new high-speed reasoning model, giving developers a commercially usable alternative to proprietary AI services from OpenAI, Google, and Anthropic",
+    "link": "https://decrypt.co/384015/china-google-released-fast-new-ai-model-free-baidu-ernie",
+    "source": "Decrypt",
+    "series": "Crypto Nobody Explained Properly",
+    "slot": "morning",
+    "date": "2026-11-26",
+    "timestamp": "2026-11-26T01:52:16.420Z"
   }
 ]
