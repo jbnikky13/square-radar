@@ -1,15 +1,5 @@
 [
   {
-    "title": "OKX, ICE launch 113 tokenized assets despite issuer objections",
-    "description": "The venture named Coinbase and Fidelity among the issuers and asset managers in the rollout after 67 companies objected to having their shares traded on the venue. ]]>",
-    "link": "https://cointelegraph.com/news/okxice-launch-113-tokenized-assets-objections?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
-    "source": "Cointelegraph",
-    "series": "Open Question",
-    "slot": "evening",
-    "date": "2026-11-23",
-    "timestamp": "2026-11-23T16:24:55.003Z"
-  },
-  {
     "title": "Bitcoin Rallies, Anthropic Sinks as Nvidia Surges 35% on Jensen Huang’s Return",
     "description": "Nvidia’s comeback sent chip shares soaring and gave Bitcoin a lift after a punishing selloff. Anthropic, fresh from its record IPO, missed the party.",
     "link": "https://decrypt.co/383801/bitcoin-rallies-anthropic-sinks-as-nvidia-surges-35-on-jensen-huangs-return",
@@ -98,5 +88,15 @@
     "slot": "morning",
     "date": "2026-11-27",
     "timestamp": "2026-11-27T01:50:20.556Z"
+  },
+  {
+    "title": "AI is driving a flood of crypto bug reports. Now it’s helping sort them",
+    "description": "Bug bounty platform HackerOne said it’s increasing its triage throughput with AI agents after a record quarter of reports in the third quarter. ]]>",
+    "link": "https://cointelegraph.com/news/ai-driving-flood-of-crypto-bug-reports-now-helping-sort-them?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound]]>",
+    "source": "Cointelegraph",
+    "series": "Open Question",
+    "slot": "evening",
+    "date": "2026-11-27",
+    "timestamp": "2026-11-27T21:30:44.016Z"
   }
 ]
