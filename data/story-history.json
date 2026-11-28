@@ -1,15 +1,5 @@
 [
   {
-    "title": "Bitcoin Rallies, Anthropic Sinks as Nvidia Surges 35% on Jensen Huang’s Return",
-    "description": "Nvidia’s comeback sent chip shares soaring and gave Bitcoin a lift after a punishing selloff. Anthropic, fresh from its record IPO, missed the party.",
-    "link": "https://decrypt.co/383801/bitcoin-rallies-anthropic-sinks-as-nvidia-surges-35-on-jensen-huangs-return",
-    "source": "Decrypt",
-    "series": "I Tested It",
-    "slot": "morning",
-    "date": "2026-11-24",
-    "timestamp": "2026-11-24T00:10:02.378Z"
-  },
-  {
     "title": "Why One Math Proof Has AI Experts Warning Humans Might Soon Lose Control",
     "description": "Alexandr Wang says Claude’s role in a verified Riemann Hypothesis proof signals a turning point, warning that powerful self-improving AI systems could advance faster than people can supervise them.",
     "link": "https://decrypt.co/383846/why-one-math-proof-ai-experts-warning-humans-lose-control",
@@ -98,5 +88,15 @@
     "slot": "evening",
     "date": "2026-11-27",
     "timestamp": "2026-11-27T21:30:44.016Z"
+  },
+  {
+    "title": "Hackers Hit US Air Force Cloud System Running Air-Defense and Munitions Data",
+    "description": "The intrusion at Cloud One, discovered during a system upgrade, has prompted a Cyber Command damage assessment and disrupted the platform that runs air-defense radar feeds, munitions tracking and personnel data.",
+    "link": "https://decrypt.co/384174/us-air-force-hack-cloud-system-air-defense-munitions-data",
+    "source": "Decrypt",
+    "series": "$10 Experiment",
+    "slot": "morning",
+    "date": "2026-11-28",
+    "timestamp": "2026-11-28T01:32:07.785Z"
   }
 ]
